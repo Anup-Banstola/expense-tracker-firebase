@@ -1,0 +1,41 @@
+/*.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  font-size: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}*/
+
+/*.btns {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 70px;
+}*/
+.totalbal {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.totalinc {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.totalexp {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 40px;
+}

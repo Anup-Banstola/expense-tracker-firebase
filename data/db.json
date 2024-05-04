@@ -1,0 +1,252 @@
+{
+  "expenses": [
+    {
+      "id": "8b50",
+      "transactionAmount": "13884",
+      "categoryName": "food",
+      "date": "2024-01-09",
+      "description": "Expense"
+    },
+    {
+      "id": "4146",
+      "transactionAmount": "5385",
+      "categoryName": "education",
+      "date": "2024-01-10",
+      "description": "Expense"
+    },
+    {
+      "id": "76a0",
+      "transactionAmount": "2375",
+      "categoryName": "grocery",
+      "date": "2024-01-21",
+      "description": "Expense"
+    },
+    {
+      "id": "43c3",
+      "transactionAmount": "1500",
+      "categoryName": "entertainment",
+      "date": "2024-01-28",
+      "description": "Expense"
+    },
+    {
+      "id": "90c0",
+      "transactionAmount": "9569",
+      "categoryName": "clothing",
+      "date": "2024-01-29",
+      "description": "Expense"
+    },
+    {
+      "id": "5b0b",
+      "transactionAmount": "16743",
+      "categoryName": "food",
+      "date": "2024-02-06",
+      "description": "Expense"
+    },
+    {
+      "id": "d525",
+      "transactionAmount": "6500",
+      "categoryName": "rent",
+      "date": "2024-02-10",
+      "description": "Expense"
+    },
+    {
+      "id": "a809",
+      "transactionAmount": "5432",
+      "categoryName": "education",
+      "date": "2024-02-13",
+      "description": "Expense"
+    },
+    {
+      "id": "6af3",
+      "transactionAmount": "5324",
+      "categoryName": "clothing",
+      "date": "2024-02-20",
+      "description": "Expense"
+    },
+    {
+      "id": "9ae1",
+      "transactionAmount": "25324",
+      "categoryName": "medicine",
+      "date": "2024-02-29",
+      "description": "Expense"
+    },
+    {
+      "id": "c529",
+      "transactionAmount": "6500",
+      "categoryName": "rent",
+      "date": "2024-03-11",
+      "description": "Expense"
+    },
+    {
+      "id": "0593",
+      "transactionAmount": "9500",
+      "categoryName": "education",
+      "date": "2024-03-21",
+      "description": "Expense"
+    },
+    {
+      "id": "4e1f",
+      "transactionAmount": "7324",
+      "categoryName": "food",
+      "date": "2024-03-06",
+      "description": "Expense"
+    },
+    {
+      "id": "57dc",
+      "transactionAmount": "8453",
+      "categoryName": "grocery",
+      "date": "2024-03-13",
+      "description": "Expense"
+    },
+    {
+      "id": "a5f0",
+      "transactionAmount": "6843",
+      "categoryName": "food",
+      "date": "2024-04-10",
+      "description": "Expense"
+    },
+    {
+      "id": "124d",
+      "transactionAmount": "8954",
+      "categoryName": "education",
+      "date": "2024-04-19",
+      "description": "Expense"
+    },
+    {
+      "id": "0243",
+      "transactionAmount": "6353.35",
+      "categoryName": "grocery",
+      "date": "2024-04-21",
+      "description": "Expense"
+    },
+    {
+      "id": "3cfe",
+      "transactionAmount": "14765",
+      "categoryName": "clothing",
+      "date": "2024-04-29",
+      "description": "Expense"
+    }
+  ],
+  "incomes": [
+    {
+      "id": "ecf3",
+      "transactionAmount": "45000",
+      "categoryName": "salary",
+      "date": "2024-01-16",
+      "description": "Income"
+    },
+    {
+      "id": "ad26",
+      "transactionAmount": "5000",
+      "categoryName": "bankaccount",
+      "date": "2024-01-21",
+      "description": "Income"
+    },
+    {
+      "id": "c49b",
+      "transactionAmount": "2000",
+      "categoryName": "gift",
+      "date": "2024-05-23",
+      "description": "Income"
+    },
+    {
+      "id": "1fb4",
+      "transactionAmount": "3000",
+      "categoryName": "others",
+      "date": "2024-01-28",
+      "description": "Income"
+    },
+    {
+      "id": "cea0",
+      "transactionAmount": "43892.24",
+      "categoryName": "salary",
+      "date": "2024-02-19",
+      "description": "Income"
+    },
+    {
+      "id": "7f49",
+      "transactionAmount": "3493.54",
+      "categoryName": "bankaccount",
+      "date": "2024-05-21",
+      "description": "Income"
+    },
+    {
+      "id": "9315",
+      "transactionAmount": "1000",
+      "categoryName": "gift",
+      "date": "2024-02-23",
+      "description": "Income"
+    },
+    {
+      "id": "995f",
+      "transactionAmount": "48922.45",
+      "categoryName": "salary",
+      "date": "2024-03-16",
+      "description": "Income"
+    },
+    {
+      "id": "9f8b",
+      "transactionAmount": "73235.33",
+      "categoryName": "salary",
+      "date": "2024-04-23",
+      "description": "Income"
+    }
+  ],
+  "categories": [
+    {
+      "id": "027c",
+      "categoryTitle": "Salary",
+      "categoryImageName": "salary"
+    },
+    {
+      "id": "e62a",
+      "categoryTitle": "Education",
+      "categoryImageName": "education"
+    },
+    {
+      "id": "8596",
+      "categoryTitle": "Food",
+      "categoryImageName": "food"
+    },
+    {
+      "id": "1dfd",
+      "categoryTitle": "Gift",
+      "categoryImageName": "gift"
+    },
+    {
+      "id": "3886",
+      "categoryTitle": "Entertainment",
+      "categoryImageName": "entertainment"
+    },
+    {
+      "id": "111b",
+      "categoryTitle": "Grocery",
+      "categoryImageName": "grocery"
+    },
+    {
+      "id": "8b28",
+      "categoryTitle": "Medicine",
+      "categoryImageName": "medicine"
+    },
+    {
+      "id": "74b8",
+      "categoryTitle": "Rent",
+      "categoryImageName": "rent"
+    },
+    {
+      "id": "376d",
+      "categoryTitle": "Bank account",
+      "categoryImageName": "bank"
+    },
+    {
+      "id": "1daf",
+      "categoryTitle": "Transportation",
+      "categoryImageName": "transportation"
+    },
+    {
+      "id": "44a6",
+      "categoryTitle": "Clothing",
+      "categoryImageName": "clothing"
+    }
+  ]
+}

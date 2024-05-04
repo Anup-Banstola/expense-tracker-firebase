@@ -1,0 +1,74 @@
+.history {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f0eeee;
+  margin: 10px;
+  border-radius: 5px;
+  width: 90%;
+
+  padding: 10px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  align-items: center;
+}
+
+@media screen and (max-width: 430px) {
+  .history {
+    width: 85%;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .history {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .history {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .history {
+    width: 65%;
+  }
+}
+
+@media screen and (max-width: 325px) {
+  .history {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 300px) {
+  .history {
+    width: 50%;
+  }
+}
+
+/* @media screen and (max-width: 350px) {
+  .btns {
+    grid-template-columns: 1fr;
+  }
+} */
+
+.recenthistory {
+  width: 100%;
+}
+
+.income {
+  color: green;
+}
+
+.expense {
+  color: red;
+}
+
+.category {
+  text-transform: capitalize;
+}

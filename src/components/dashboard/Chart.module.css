@@ -1,0 +1,65 @@
+.chart {
+  margin-top: 10px;
+  margin-left: -40px;
+  padding-bottom: 5vh;
+  object-fit: contain;
+  padding-left: -40px;
+  overflow-x: scroll;
+}
+
+@media screen and (max-width: 390px) {
+  .chartContainer {
+    max-width: 250px;
+  }
+  .chart {
+    margin-left: -70px;
+  }
+}
+@media screen and (max-width: 350px) {
+  .chartContainer {
+    max-width: 225px;
+  }
+  .chart {
+    margin-left: -80px;
+  }
+}
+@media screen and (max-width: 330px) {
+  .chartContainer {
+    max-width: 180px;
+  }
+  .chart {
+    margin-left: -100px;
+  }
+}
+@media screen and (max-width: 300px) {
+  .chartContainer {
+    max-width: 150px;
+  }
+  .chart {
+    margin-left: -120px;
+  }
+}
+
+._chart_upofu_1 {
+  max-width: 10%;
+  height: 20px;
+}
+
+.chartContainer {
+  width: 100%;
+  max-width: auto; /* Adjust the maximum width as needed */
+  height: auto;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  ._chart_upofu_1 {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 576px) {
+  ._chart_upofu_1 {
+    max-width: 80%;
+  }
+}

@@ -1,0 +1,90 @@
+ {
+  /*.expenselist {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  margin: 25px 15px;
+}
+.transaction {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.addexpense {
+  width: 100%;
+}
+}*/
+}
+.btn {
+  position: absolute;
+  top: 0;
+}
+
+.expenselist {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(211, 141, 94);
+  margin: 25px 10px;
+
+  padding: 10px;
+  border-radius: 5px;
+
+  position: relative;
+}
+
+.transaction,
+.date {
+  padding-right: 15px;
+}
+.date {
+  display: flex;
+  flex-direction: column;
+}
+.transaction {
+  padding: 5px;
+}
+
+.deletebtn {
+  background-color: rgb(214, 32, 32);
+  padding: 5px 10px;
+  border-radius: 200%;
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  cursor: pointer;
+}
+
+.wraptext {
+  max-width: 90%;
+  max-height: 50px;
+  font-weight: 600;
+  overflow: scroll;
+}
+
+@media screen and (max-width: 430px) {
+  .expenselist {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .date {
+    padding-left: 5px;
+  }
+}
+
+.category {
+  text-transform: capitalize;
+}
+
+.amount {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgb(192, 8, 8);
+}
+.catagory {
+  font-weight: 600;
+}
+
+.dates {
+  font-weight: 600;
+}

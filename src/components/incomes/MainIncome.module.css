@@ -1,0 +1,30 @@
+.incomeheader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 20px;
+  width: 74vw;
+}
+.addincome {
+  background-color: #1825a0;
+  border-radius: 5px;
+  padding: 15px 30px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.container {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  width: 100vw;
+  background-color: rgb(59, 154, 167);
+}
+
+@media screen and (max-width: 415px) {
+  .incomeheader {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}

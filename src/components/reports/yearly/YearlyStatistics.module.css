@@ -1,0 +1,57 @@
+.yearly {
+  background-color: rgb(224, 143, 84);
+  margin: 15px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.expenses {
+  font-weight: 600;
+  color: rgb(212, 18, 18);
+}
+.incomes {
+  font-weight: 600;
+  color: rgb(10, 95, 28);
+}
+
+.date {
+  font-weight: 600;
+}
+
+.transactiondata {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 10px 5px;
+  background-color: rgb(224, 166, 79);
+  margin: 10px;
+  border-radius: 5px;
+  align-items: center;
+}
+.transaction {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(224, 166, 79);
+  padding: 10px;
+  border-radius: 5px;
+  gap: 10px;
+  align-items: center;
+}
+.tranamount,
+.date {
+  font-weight: 600;
+  padding-left: 5px;
+}
+.category {
+  text-transform: capitalize;
+  font-weight: 600;
+  padding-left: 5px;
+}
+
+.remarks {
+  background-color: rgb(224, 166, 79);
+  padding: 10px;
+  border-radius: 5px;
+}
+strong {
+  font-weight: bold;
+}

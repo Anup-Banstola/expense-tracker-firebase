@@ -1,0 +1,29 @@
+.daily {
+  background-color: rgb(158, 245, 245);
+  padding: 10px;
+  margin: 15px;
+
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart {
+  margin-bottom: -25px;
+  padding: 15px;
+}
+
+.dailyreport {
+  background-color: rgb(131, 103, 69);
+  border-radius: 5px;
+  padding: 10px;
+  margin: 15px;
+}
+.dailychart {
+  background-color: rgb(173, 152, 55);
+
+  padding-bottom: 10px;
+  border-radius: 5px;
+  margin: 25px 15px;
+}

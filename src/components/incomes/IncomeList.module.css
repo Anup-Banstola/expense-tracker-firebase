@@ -1,0 +1,53 @@
+.incomelist {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(211, 141, 94);
+  margin: 25px 15px;
+  padding: 10px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.income,
+.date {
+  padding-right: 15px;
+}
+
+.incamount {
+  font-weight: 600;
+  color: rgb(14, 141, 2);
+  font-size: 16px;
+}
+
+.date {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.income {
+  padding: 5px;
+}
+
+.deletebtn {
+  background-color: rgb(214, 32, 32);
+  width: fit-content;
+  padding: 2px 9px;
+  border-radius: 50%;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  cursor: pointer;
+}
+
+.wraptext {
+  max-width: 90%;
+  max-height: 50px;
+  font-weight: 600;
+  overflow: scroll;
+}
+
+.catagory {
+  text-transform: capitalize;
+  font-weight: 600;
+}
