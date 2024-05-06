@@ -61,7 +61,7 @@ function DailyStatistics() {
 
   return (
     <div className={styles.dailyreport}>
-      {expenses.length === 0 && incomes.length === 0 ? (
+      {loading ? (
         <Loader />
       ) : (
         <>

@@ -1,5 +1,6 @@
 import styles from "./ExpenseList.module.css";
 import useDeleteTransaction from "../../hooks/useDeleteTransaction";
+import { useGetTransactions } from "../../hooks/useGetTransactions";
 
 function formatAmount(amount) {
   return new Intl.NumberFormat("en-NP", {
@@ -9,6 +10,7 @@ function formatAmount(amount) {
 }
 
 function ExpenseList({ expenses }) {
+  const { loading } = useGetTransactions();
   const { deleteTransaction } = useDeleteTransaction();
   const handleDeleteExpense = async (transactionId) => {
     try {
@@ -17,12 +19,17 @@ function ExpenseList({ expenses }) {
       console.error("Error deleting expense:", error);
     }
   };
+
   return (
     <div className={styles.expenseitem}>
-      {expenses.length === 0 ? (
+      {loading ? (
         <div className={styles.loaderContainer}>
           <div className={styles.loader}></div>
           <p>Loading expenses...</p>
+        </div>
+      ) : expenses.length === 0 ? (
+        <div className={styles.noExpenses}>
+          <p>No expenses recorded yet.</p>
         </div>
       ) : (
         expenses.map((expense, index) => (

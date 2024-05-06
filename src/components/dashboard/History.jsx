@@ -31,9 +31,9 @@ function History() {
               <div
                 key={index}
                 className={`${styles.history} ${
-                  transaction.description.toLowerCase() === "income"
-                    ? styles.income
-                    : styles.expense
+                  expenses.includes(transaction)
+                    ? styles.expense
+                    : styles.income
                 }`}
               >
                 <span className={styles.category}>

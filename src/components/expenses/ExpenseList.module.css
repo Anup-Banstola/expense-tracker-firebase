@@ -1,20 +1,3 @@
- {
-  /*.expenselist {
-  display: grid;
-  grid-template-columns: 1fr;
-  align-items: center;
-  margin: 25px 15px;
-}
-.transaction {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
-.addexpense {
-  width: 100%;
-}
-}*/
-}
 .btn {
   position: absolute;
   top: 0;
@@ -115,4 +98,10 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.noExpenses {
+  padding-left: 20px;
+  font-size: 20px;
+  font-weight: 600;
 }

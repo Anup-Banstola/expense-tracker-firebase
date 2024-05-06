@@ -67,7 +67,7 @@ function MonthlyStatistics() {
 
   return (
     <div className={styles.monthly}>
-      {expenses.length === 0 && incomes.length === 0 ? (
+      {loading ? (
         <Loader />
       ) : (
         <>

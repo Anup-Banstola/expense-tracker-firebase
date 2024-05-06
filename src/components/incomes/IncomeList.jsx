@@ -1,4 +1,5 @@
 import useDeleteTransaction from "../../hooks/useDeleteTransaction";
+import { useGetTransactions } from "../../hooks/useGetTransactions";
 import styles from "./IncomeList.module.css";
 
 function formatAmount(amount) {
@@ -10,6 +11,8 @@ function formatAmount(amount) {
 
 function IncomeList({ incomes }) {
   const { deleteTransaction } = useDeleteTransaction();
+  const { loading } = useGetTransactions();
+  console.log(loading);
   const handleDeleteIncome = async (transactionId) => {
     try {
       await deleteTransaction("incomes", transactionId);
@@ -19,11 +22,13 @@ function IncomeList({ incomes }) {
   };
   return (
     <div className={styles.incomeitem}>
-      {incomes.length === 0 ? (
+      {loading ? (
         <div className={styles.loaderContainer}>
           <div className={styles.loader}></div>
           <p>Loading incomes...</p>
         </div>
+      ) : incomes.length === 0 ? (
+        <p className={styles.noIncomes}>No incomes recorded yet. </p>
       ) : (
         incomes.map((income, index) => (
           <div key={index} className={styles.incomelist}>

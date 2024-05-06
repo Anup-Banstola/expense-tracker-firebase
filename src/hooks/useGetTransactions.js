@@ -45,6 +45,7 @@ export const useGetTransactions = () => {
               id: doc.id,
             }));
             setIncomes(incomeDocs);
+            setLoading(false);
           },
           (error) => {
             console.error("Error fetching incomes:", error);
@@ -60,6 +61,7 @@ export const useGetTransactions = () => {
               id: doc.id,
             }));
             setExpenses(expenseDocs);
+            setLoading(false);
           },
           (error) => {
             console.error("Error fetching expenses:", error);
@@ -67,7 +69,6 @@ export const useGetTransactions = () => {
           }
         );
 
-        setLoading(false);
         return () => {
           unsubscribeIncomes();
           unsubscribeExpenses();

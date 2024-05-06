@@ -79,3 +79,9 @@
     transform: rotate(360deg);
   }
 }
+
+.noIncomes {
+  padding-left: 20px;
+  font-size: 20px;
+  font-weight: 600;
+}

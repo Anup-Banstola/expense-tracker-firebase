@@ -11,7 +11,7 @@ function formatAmount(amount) {
 }
 
 function YearlyStatistics() {
-  const { expenses, incomes } = useGetTransactions();
+  const { expenses, incomes, loading } = useGetTransactions();
   const [yearlyExpenses, setYearlyExpenses] = useState({});
   const [yearlyIncomes, setYearlyIncomes] = useState({});
 
@@ -63,7 +63,7 @@ function YearlyStatistics() {
 
   return (
     <div className={styles.yearly}>
-      {expenses.length === 0 && incomes.length === 0 ? (
+      {loading ? (
         <Loader />
       ) : (
         <>

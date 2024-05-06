@@ -32,9 +32,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin-left: 5px;
-  position: absolute;
-  top: -13px;
-  left: 62px;
+  position: sticky;
 }
 
 .deleteButton:hover {
