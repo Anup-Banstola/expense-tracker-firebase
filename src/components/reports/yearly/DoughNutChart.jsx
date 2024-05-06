@@ -139,7 +139,8 @@ function DoughNutChart() {
 
   const expenseYears = Object.keys(yearlyExpenses);
   const incomeYears = Object.keys(yearlyIncomes);
-  const years = [...expenseYears, ...incomeYears];
+  const years = [...new Set([...expenseYears, ...incomeYears])];
+  console.log(years);
   const hasYears = years.length > 0;
 
   return (

@@ -134,12 +134,12 @@ function DoughNutChart() {
 
   const expensesDates = Object.keys(dailyExpenses);
   const incomesDates = Object.keys(dailyIncomes);
-  const transactionDates = [...expensesDates, ...incomesDates];
+  const transactionDates = [...new Set([...expensesDates, ...incomesDates])];
+  console.log(transactionDates);
   const hasTransactions = transactionDates.length > 0;
 
   return (
     <>
-      {" "}
       {hasTransactions && (
         <div className={styles.dailyreport}>
           {transactionDates.map((date, index) => (

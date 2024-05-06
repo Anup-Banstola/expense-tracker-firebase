@@ -199,7 +199,7 @@ function MonthlyDoughNutChart() {
 
   const expensesDates = Object.keys(monthlyExpenses);
   const incomesDates = Object.keys(monthlyIncomes);
-  const transactionDates = [...expensesDates, ...incomesDates];
+  const transactionDates = [...new Set([...expensesDates, ...incomesDates])];
   const hasTransactions = transactionDates.length > 0;
 
   return (

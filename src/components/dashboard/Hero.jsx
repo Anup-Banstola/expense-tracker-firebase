@@ -6,12 +6,16 @@ import { useGetTransactions } from "../../hooks/useGetTransactions.js";
 import { signOut } from "firebase/auth";
 import { auth } from "../../config/firebase-config.jsx";
 import { useNavigate } from "react-router-dom";
+import { useGetUserInfo } from "../../hooks/useGetUserInfo.js";
+import Modal from "./Modal.jsx";
 
 function Hero() {
   const { incomes, expenses } = useGetTransactions();
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [totalIncomes, setTotalIncomes] = useState(0);
   const navigate = useNavigate();
+  const { name, profilePhoto, email, userID } = useGetUserInfo();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const totalExpensesAmount = expenses.reduce((acc, expense) => {
@@ -57,15 +61,43 @@ function Hero() {
     }
   };
 
+  const handleProfileClick = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <main className={styles.hero}>
         <div className={styles.header}>
           <h2>Dashboard</h2>
-          <button className={styles.signout} onClick={signUserOut}>
-            Sign Out
-          </button>
+          <div className={styles.profile}>
+            <img
+              src={profilePhoto || "profile.png"}
+              alt="Profile"
+              className={styles.photo}
+              onClick={handleProfileClick}
+            />
+
+            <button className={styles.signout} onClick={signUserOut}>
+              Sign Out
+            </button>
+          </div>
         </div>
+
+        {isModalOpen && (
+          <Modal onClose={handleCloseModal}>
+            <h3>User Information</h3>
+            <p>UserID: {userID}</p>
+            <p>Name: {name}</p>
+            <p>Email: {email}</p>
+            <button onClick={handleCloseModal} className={styles.close}>
+              Close
+            </button>
+          </Modal>
+        )}
         <div className={styles.amounts}>
           <div className={styles.balance}>
             <h2>Total Balance</h2>
