@@ -19,7 +19,12 @@ function ExpenseList({ expenses }) {
   };
   return (
     <div className={styles.expenseitem}>
-      {expenses &&
+      {expenses.length === 0 ? (
+        <div className={styles.loaderContainer}>
+          <div className={styles.loader}></div>
+          <p>Loading expenses...</p>
+        </div>
+      ) : (
         expenses.map((expense, index) => (
           <div key={index} className={styles.expenselist}>
             <div className={styles.transaction}>
@@ -50,7 +55,8 @@ function ExpenseList({ expenses }) {
               </div>
             </div>
           </div>
-        ))}
+        ))
+      )}
     </div>
   );
 }

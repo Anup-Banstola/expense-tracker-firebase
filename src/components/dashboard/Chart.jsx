@@ -1,8 +1,6 @@
 import { Line } from "react-chartjs-2";
 import styles from "./Chart.module.css";
 
-const BASE_URL = "http://localhost:9000";
-
 import {
   Chart as ChartJs,
   CategoryScale,
@@ -13,7 +11,8 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useGetTransactions } from "../../hooks/useGetTransactions";
 
 ChartJs.register(
   CategoryScale,
@@ -27,69 +26,57 @@ ChartJs.register(
 );
 
 function Chart() {
+  const { incomes, expenses } = useGetTransactions();
   const [expenseData, setExpenseData] = useState([]);
   const [incomeData, setIncomeData] = useState([]);
   const [sortedMonths, setSortedMonths] = useState([]);
 
-  useState(() => {
-    const fetchData = async () => {
-      try {
-        const expensesResponse = await fetch(`${BASE_URL}/expenses`);
-        const expensesData = await expensesResponse.json();
+  useEffect(() => {
+    const expenseMonths = expenses.map((transaction) =>
+      new Date(transaction.date).toLocaleDateString("en-US", {
+        month: "short",
+        year: "numeric",
+      })
+    );
 
-        const incomesResponse = await fetch(`${BASE_URL}/incomes`);
-        const incomesData = await incomesResponse.json();
+    const incomeMonths = incomes.map((transaction) =>
+      new Date(transaction.date).toLocaleDateString("en-US", {
+        month: "short",
+        year: "numeric",
+      })
+    );
+    const allMonthsSet = new Set([...expenseMonths, ...incomeMonths]);
 
-        const expenseMonths = expensesData.map((transaction) =>
-          new Date(transaction.date).toLocaleDateString("en-US", {
-            month: "short",
-            year: "numeric",
-          })
-        );
+    const sortedMonths = Array.from(allMonthsSet).sort((a, b) => {
+      const [monthA, yearA] = a.split(" ");
+      const [monthB, yearB] = b.split(" ");
 
-        const incomeMonths = incomesData.map((transaction) =>
-          new Date(transaction.date).toLocaleDateString("en-US", {
-            month: "short",
-            year: "numeric",
-          })
-        );
-        const allMonthsSet = new Set([...expenseMonths, ...incomeMonths]);
-
-        const sortedMonths = Array.from(allMonthsSet).sort((a, b) => {
-          const [monthA, yearA] = a.split(" ");
-          const [monthB, yearB] = b.split(" ");
-
-          // Compare years first
-          if (yearA !== yearB) {
-            return yearA - yearB;
-          }
-
-          // If years are equal, compare months
-          const monthOrder = {
-            Jan: 1,
-            Feb: 2,
-            Mar: 3,
-            Apr: 4,
-            May: 5,
-            Jun: 6,
-            Jul: 7,
-            Aug: 8,
-            Sep: 9,
-            Oct: 10,
-            Nov: 11,
-            Dec: 12,
-          };
-          return monthOrder[monthA] - monthOrder[monthB];
-        });
-        setSortedMonths(sortedMonths);
-        setExpenseData(expensesData);
-        setIncomeData(incomesData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+      // Compare years first
+      if (yearA !== yearB) {
+        return yearA - yearB;
       }
-    };
-    fetchData();
-  }, []);
+
+      // If years are equal, compare months
+      const monthOrder = {
+        Jan: 1,
+        Feb: 2,
+        Mar: 3,
+        Apr: 4,
+        May: 5,
+        Jun: 6,
+        Jul: 7,
+        Aug: 8,
+        Sep: 9,
+        Oct: 10,
+        Nov: 11,
+        Dec: 12,
+      };
+      return monthOrder[monthA] - monthOrder[monthB];
+    });
+    setSortedMonths(sortedMonths);
+    setExpenseData(expenses);
+    setIncomeData(incomes);
+  }, [incomes, expenses]);
 
   // Initialize data objects for expenses and incomes
   const expensesByMonth = {};

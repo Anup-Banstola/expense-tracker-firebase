@@ -13,6 +13,12 @@
   border: none;
   color: #fff;
   cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.addexpense:hover {
+  background-color: #cc8708;
+  color: rgb(0, 0, 0);
 }
 
 .container {

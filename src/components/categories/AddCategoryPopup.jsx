@@ -1,33 +1,36 @@
 import { useState } from "react";
-
 import styles from "./AddCategoryPopup.module.css";
-function AddCategoryPopup({ onClose, onAddCategory }) {
+import { useAddCategory } from "../../hooks/useAddCategory";
+
+function AddCategoryPopup({ onClose, categories }) {
   const [categoryTitle, setCategoryTitle] = useState("");
   const [categoryImageName, setCategoryImageName] = useState("");
+  const { addCategory } = useAddCategory();
 
-  const BASE_URL = "http://localhost:9000";
-
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newCategory = { categoryTitle, categoryImageName };
+    const isExistingCategory = categories.some(
+      (category) => category.categoryTitle === categoryTitle
+    );
+    if (isExistingCategory) {
+      alert("Category already exists");
+      onClose();
+      return;
+    }
+
     try {
-      const response = await fetch(`${BASE_URL}/categories`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newCategory),
+      await addCategory({
+        categoryTitle,
+        categoryImageName: categoryImageName.toLowerCase(),
       });
-      if (!response.ok) {
-        throw new Error("Failed to add category.");
-      }
-      onAddCategory(newCategory);
       setCategoryTitle("");
       setCategoryImageName("");
       onClose();
     } catch (error) {
       console.error("Error adding category:", error);
     }
-  }
+  };
 
   return (
     <>

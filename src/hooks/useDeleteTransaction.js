@@ -9,7 +9,7 @@ const useDeleteTransaction = () => {
     try {
       await deleteDoc(doc(db, collectionName, transactionId));
     } catch (error) {
-      console.errror(`Error deleting ${collectionName} transaction:`, error);
+      console.error(`Error deleting ${collectionName} transaction:`, error);
       setError(error);
     }
   };

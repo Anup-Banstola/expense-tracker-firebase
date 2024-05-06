@@ -7,6 +7,7 @@ function AppLayout() {
     <>
       <div className={styles.container}>
         <Sidebar />
+
         <Hero />
       </div>
     </>

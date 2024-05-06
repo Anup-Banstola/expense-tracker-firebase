@@ -2,37 +2,28 @@ import { useState, useEffect } from "react";
 
 import styles from "./Hero.module.css";
 import History from "./History.jsx";
-
-const BASE_URL = "http://localhost:9000";
+import { useGetTransactions } from "../../hooks/useGetTransactions.js";
+import { signOut } from "firebase/auth";
+import { auth } from "../../config/firebase-config.jsx";
+import { useNavigate } from "react-router-dom";
 
 function Hero() {
+  const { incomes, expenses } = useGetTransactions();
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [totalIncomes, setTotalIncomes] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const expensesResponse = await fetch(`${BASE_URL}/expenses`);
-        const expensesData = await expensesResponse.json();
+    const totalExpensesAmount = expenses.reduce((acc, expense) => {
+      return acc + parseFloat(expense.transactionAmount);
+    }, 0);
+    setTotalExpenses(totalExpensesAmount);
 
-        const incomesResponse = await fetch(`${BASE_URL}/incomes`);
-        const incomesData = await incomesResponse.json();
-
-        const totalExpensesAmount = expensesData.reduce((acc, expense) => {
-          return acc + parseFloat(expense.transactionAmount);
-        }, 0);
-        setTotalExpenses(totalExpensesAmount);
-
-        const totalIncomesAmount = incomesData.reduce((acc, income) => {
-          return acc + parseFloat(income.transactionAmount);
-        }, 0);
-        setTotalIncomes(totalIncomesAmount);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, []);
+    const totalIncomesAmount = incomes.reduce((acc, income) => {
+      return acc + parseFloat(income.transactionAmount);
+    }, 0);
+    setTotalIncomes(totalIncomesAmount);
+  }, [incomes, expenses]);
 
   const formattedTotalBalance = parseFloat(
     totalIncomes - totalExpenses
@@ -56,12 +47,25 @@ function Hero() {
       minimumFractionDigits: 2,
     }
   );
+  const signUserOut = async () => {
+    try {
+      await signOut(auth);
+      localStorage.clear();
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>
       <main className={styles.hero}>
-        <h2 className={styles.dash}>Dashboard</h2>
-
+        <div className={styles.header}>
+          <h2>Dashboard</h2>
+          <button className={styles.signout} onClick={signUserOut}>
+            Sign Out
+          </button>
+        </div>
         <div className={styles.amounts}>
           <div className={styles.balance}>
             <h2>Total Balance</h2>

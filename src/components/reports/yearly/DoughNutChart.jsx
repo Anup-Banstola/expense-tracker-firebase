@@ -102,10 +102,10 @@
 import { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import styles from "./DoughNutChart.module.css";
-
-const BASE_URL = "http://localhost:9000";
+import { useGetTransactions } from "../../../hooks/useGetTransactions";
 
 function DoughNutChart() {
+  const { incomes, expenses } = useGetTransactions();
   const [yearlyExpenses, setYearlyExpenses] = useState({});
   const [yearlyIncomes, setYearlyIncomes] = useState({});
 
@@ -117,23 +117,9 @@ function DoughNutChart() {
   }
 
   useEffect(() => {
-    const fetchExpensesAndIncomes = async () => {
-      try {
-        const expensesResponse = await fetch(`${BASE_URL}/expenses`);
-        const expensesData = await expensesResponse.json();
-
-        const incomesResponse = await fetch(`${BASE_URL}/incomes`);
-        const incomesData = await incomesResponse.json();
-
-        setYearlyExpenses(aggregateTransactionsByYear(expensesData));
-        setYearlyIncomes(aggregateTransactionsByYear(incomesData));
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchExpensesAndIncomes();
-  }, []);
+    setYearlyExpenses(aggregateTransactionsByYear(expenses));
+    setYearlyIncomes(aggregateTransactionsByYear(incomes));
+  }, [incomes, expenses]);
 
   const aggregateTransactionsByYear = (transactions) => {
     const yearlyData = {};
@@ -151,137 +137,144 @@ function DoughNutChart() {
     return yearlyData;
   };
 
-  const years = Object.keys(yearlyExpenses);
+  const expenseYears = Object.keys(yearlyExpenses);
+  const incomeYears = Object.keys(yearlyIncomes);
+  const years = [...expenseYears, ...incomeYears];
+  const hasYears = years.length > 0;
 
   return (
-    <div className={styles.yearly}>
-      {years.map((year) => (
-        <div key={year} className={styles.yearlychart}>
-          <h3 className={styles.chart}>Expenses - {year}</h3>
-          <div className={styles.daily}>
-            {yearlyExpenses[year] &&
-            Object.keys(yearlyExpenses[year]).length > 0 ? (
-              <Chart
-                type="donut"
-                width={450}
-                height={350}
-                series={Object.values(yearlyExpenses[year])}
-                options={{
-                  labels: Object.keys(yearlyExpenses[year]),
-                  title: {
-                    text: "Yearly Expenses Report",
-                  },
-                  subtitle: {
-                    text: `Year: ${year}`,
-                  },
-                  plotOptions: {
-                    pie: {
-                      donut: {
-                        labels: {
-                          show: true,
-                          total: {
-                            show: true,
-                            fontSize: 16,
-                            color: "#438024",
-                            formatter: function (w) {
-                              return formatAmount(
-                                w.globals.seriesTotals
-                                  .reduce((a, b) => a + b, 0)
-                                  .toFixed(2)
-                              );
+    <>
+      {hasYears && (
+        <div className={styles.yearly}>
+          {years.map((year, index) => (
+            <div key={index} className={styles.yearlychart}>
+              <h3 className={styles.chart}>Expenses - {year}</h3>
+              <div className={styles.daily}>
+                {yearlyExpenses[year] &&
+                Object.keys(yearlyExpenses[year]).length > 0 ? (
+                  <Chart
+                    type="donut"
+                    width={450}
+                    height={350}
+                    series={Object.values(yearlyExpenses[year])}
+                    options={{
+                      labels: Object.keys(yearlyExpenses[year]),
+                      title: {
+                        text: "Yearly Expenses Report",
+                      },
+                      subtitle: {
+                        text: `Year: ${year}`,
+                      },
+                      plotOptions: {
+                        pie: {
+                          donut: {
+                            labels: {
+                              show: true,
+                              total: {
+                                show: true,
+                                fontSize: 16,
+                                color: "#438024",
+                                formatter: function (w) {
+                                  return formatAmount(
+                                    w.globals.seriesTotals
+                                      .reduce((a, b) => a + b, 0)
+                                      .toFixed(2)
+                                  );
+                                },
+                              },
                             },
                           },
                         },
                       },
-                    },
-                  },
-                  dataLabels: {
-                    enabled: true,
-                  },
-                  responsive: [
-                    {
-                      breakpoint: 700,
-                      options: {
-                        chart: {
-                          width: "100%",
-                          height: "250",
-                        },
-                        legend: {
-                          position: "bottom",
-                        },
+                      dataLabels: {
+                        enabled: true,
                       },
-                    },
-                  ],
-                }}
-              />
-            ) : (
-              <p>No data available for expenses in {year}</p>
-            )}
-          </div>
-          <h3 className={styles.chart}>Incomes - {year}</h3>
-          <div className={styles.daily}>
-            {yearlyIncomes[year] &&
-            Object.keys(yearlyIncomes[year]).length > 0 ? (
-              <Chart
-                type="donut"
-                width={450}
-                height={350}
-                series={Object.values(yearlyIncomes[year])}
-                options={{
-                  labels: Object.keys(yearlyIncomes[year]),
-                  title: {
-                    text: "Yearly Incomes Report",
-                  },
-                  subtitle: {
-                    text: `Year: ${year}`,
-                  },
-                  plotOptions: {
-                    pie: {
-                      donut: {
-                        labels: {
-                          show: true,
-                          total: {
-                            show: true,
-                            fontSize: 16,
-                            color: "#438024",
-                            formatter: function (w) {
-                              return formatAmount(
-                                w.globals.seriesTotals
-                                  .reduce((a, b) => a + b, 0)
-                                  .toFixed(2)
-                              );
+                      responsive: [
+                        {
+                          breakpoint: 700,
+                          options: {
+                            chart: {
+                              width: "100%",
+                              height: "250",
+                            },
+                            legend: {
+                              position: "bottom",
+                            },
+                          },
+                        },
+                      ],
+                    }}
+                  />
+                ) : (
+                  <p>No data available for expenses in {year}</p>
+                )}
+              </div>
+              <h3 className={styles.chart}>Incomes - {year}</h3>
+              <div className={styles.daily}>
+                {yearlyIncomes[year] &&
+                Object.keys(yearlyIncomes[year]).length > 0 ? (
+                  <Chart
+                    type="donut"
+                    width={450}
+                    height={350}
+                    series={Object.values(yearlyIncomes[year])}
+                    options={{
+                      labels: Object.keys(yearlyIncomes[year]),
+                      title: {
+                        text: "Yearly Incomes Report",
+                      },
+                      subtitle: {
+                        text: `Year: ${year}`,
+                      },
+                      plotOptions: {
+                        pie: {
+                          donut: {
+                            labels: {
+                              show: true,
+                              total: {
+                                show: true,
+                                fontSize: 16,
+                                color: "#438024",
+                                formatter: function (w) {
+                                  return formatAmount(
+                                    w.globals.seriesTotals
+                                      .reduce((a, b) => a + b, 0)
+                                      .toFixed(2)
+                                  );
+                                },
+                              },
                             },
                           },
                         },
                       },
-                    },
-                  },
-                  dataLabels: {
-                    enabled: true,
-                  },
-                  responsive: [
-                    {
-                      breakpoint: 700,
-                      options: {
-                        chart: {
-                          width: "100%",
-                          height: "250",
-                        },
-                        legend: {
-                          position: "bottom",
-                        },
+                      dataLabels: {
+                        enabled: true,
                       },
-                    },
-                  ],
-                }}
-              />
-            ) : (
-              <p>No data available for incomes in {year}</p>
-            )}
-          </div>
+                      responsive: [
+                        {
+                          breakpoint: 700,
+                          options: {
+                            chart: {
+                              width: "100%",
+                              height: "250",
+                            },
+                            legend: {
+                              position: "bottom",
+                            },
+                          },
+                        },
+                      ],
+                    }}
+                  />
+                ) : (
+                  <p>No data available for incomes in {year}</p>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      )}
+    </>
   );
 }
 

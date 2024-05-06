@@ -4,15 +4,31 @@
   flex: 1;
   background-color: rgb(240, 192, 137);
   width: 100vw;
-}
-
-.hero {
   padding: 20px;
 }
 
 .dash {
   padding-left: 10px;
   padding-top: 33px;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.signout {
+  background-color: #dd2007;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.signout:hover {
+  background-color: #dd5d4c;
+  color: #000;
 }
 
 .amounts {
@@ -22,14 +38,6 @@
   margin: 50px auto;
   padding-left: 10px;
 }
-
-/* .btns {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  margin-top: 40px;
-  margin-bottom: 70px;
-} */
 
 .btns {
   display: grid;

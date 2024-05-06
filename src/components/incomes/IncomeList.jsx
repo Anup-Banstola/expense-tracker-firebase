@@ -19,7 +19,12 @@ function IncomeList({ incomes }) {
   };
   return (
     <div className={styles.incomeitem}>
-      {incomes &&
+      {incomes.length === 0 ? (
+        <div className={styles.loaderContainer}>
+          <div className={styles.loader}></div>
+          <p>Loading incomes...</p>
+        </div>
+      ) : (
         incomes.map((income, index) => (
           <div key={index} className={styles.incomelist}>
             <div className={styles.income}>
@@ -48,7 +53,8 @@ function IncomeList({ incomes }) {
               <div className={styles.date}>Date: {income.date}</div>
             </div>
           </div>
-        ))}
+        ))
+      )}
     </div>
   );
 }

@@ -3,7 +3,7 @@ import styles from "./AddIncomePopup.module.css";
 import { useAddTransaction } from "../../hooks/useAddTransaction";
 
 function AddIncomePopup({ onClose }) {
-  const { addTransaction } = useAddTransaction();
+  const { addTransaction, loading, error } = useAddTransaction();
   const [transactionAmount, setTransactionAmount] = useState("");
   const [categoryName, setCategoryName] = useState("");
   const [date, setDate] = useState("");
@@ -88,8 +88,9 @@ function AddIncomePopup({ onClose }) {
           </div>
 
           <button type="submit" className={styles.save}>
-            Save
+            {loading ? "Saving..." : "Save"}
           </button>
+          {error && <p>Error: {error.message}</p>}
         </form>
       </div>
     </>

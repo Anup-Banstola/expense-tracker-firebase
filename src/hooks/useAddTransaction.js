@@ -1,9 +1,12 @@
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../config/firebase-config";
 import { useGetUserInfo } from "./useGetUserInfo";
+import { useState } from "react";
 
 export const useAddTransaction = () => {
   const { userID } = useGetUserInfo();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const addTransaction = async ({
     type,
@@ -12,6 +15,8 @@ export const useAddTransaction = () => {
     date,
     description,
   }) => {
+    setLoading(true);
+    setError(null);
     try {
       let transactionCollectionRef;
       if (type === "income") {
@@ -30,11 +35,14 @@ export const useAddTransaction = () => {
         description,
         createdAt: serverTimestamp(),
       });
+      setLoading(false);
     } catch (error) {
       console.error("Error adding transaction:", error);
+      setError(error);
+      setLoading(false);
       throw error;
     }
   };
 
-  return { addTransaction };
+  return { addTransaction, loading, error };
 };

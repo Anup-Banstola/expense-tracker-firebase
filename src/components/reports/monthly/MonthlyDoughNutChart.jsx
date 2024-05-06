@@ -159,10 +159,10 @@
 import Chart from "react-apexcharts";
 import styles from "./MonthlyDoughNutChart.module.css";
 import { useEffect, useState } from "react";
-
-const BASE_URL = "http://localhost:9000";
+import { useGetTransactions } from "../../../hooks/useGetTransactions";
 
 function MonthlyDoughNutChart() {
+  const { incomes, expenses } = useGetTransactions();
   const [monthlyExpenses, setMonthlyExpenses] = useState({});
   const [monthlyIncomes, setMonthlyIncomes] = useState({});
 
@@ -174,23 +174,9 @@ function MonthlyDoughNutChart() {
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const expensesResponse = await fetch(`${BASE_URL}/expenses`);
-        const expensesData = await expensesResponse.json();
-
-        const incomesResponse = await fetch(`${BASE_URL}/incomes`);
-        const incomesData = await incomesResponse.json();
-
-        setMonthlyExpenses(aggregateTransactionsByMonth(expensesData));
-        setMonthlyIncomes(aggregateTransactionsByMonth(incomesData));
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+    setMonthlyExpenses(aggregateTransactionsByMonth(expenses));
+    setMonthlyIncomes(aggregateTransactionsByMonth(incomes));
+  }, [expenses, incomes]);
 
   const aggregateTransactionsByMonth = (transactions) => {
     const monthlyData = {};
@@ -214,137 +200,142 @@ function MonthlyDoughNutChart() {
   const expensesDates = Object.keys(monthlyExpenses);
   const incomesDates = Object.keys(monthlyIncomes);
   const transactionDates = [...expensesDates, ...incomesDates];
+  const hasTransactions = transactionDates.length > 0;
 
   return (
-    <div className={styles.monthlyreport}>
-      {transactionDates.map((month) => (
-        <div key={month} className={styles.monthlychart}>
-          <h3 className={styles.chart}>Expenses - {month}</h3>
-          <div className={styles.monthly}>
-            {monthlyExpenses[month] &&
-            Object.keys(monthlyExpenses[month]).length > 0 ? (
-              <Chart
-                type="donut"
-                width={450}
-                height={350}
-                series={Object.values(monthlyExpenses[month])}
-                options={{
-                  labels: Object.keys(monthlyExpenses[month]),
-                  title: {
-                    text: "Monthly Expenses Report",
-                  },
-                  subtitle: {
-                    text: `Month: ${month}`,
-                  },
-                  plotOptions: {
-                    pie: {
-                      donut: {
-                        labels: {
-                          show: true,
-                          total: {
-                            show: true,
+    <>
+      {hasTransactions && (
+        <div className={styles.monthlyreport}>
+          {transactionDates.map((month, index) => (
+            <div key={`${month}-${index}`} className={styles.monthlychart}>
+              <h3 className={styles.chart}>Expenses - {month}</h3>
+              <div className={styles.monthly}>
+                {monthlyExpenses[month] &&
+                Object.keys(monthlyExpenses[month]).length > 0 ? (
+                  <Chart
+                    type="donut"
+                    width={450}
+                    height={350}
+                    series={Object.values(monthlyExpenses[month])}
+                    options={{
+                      labels: Object.keys(monthlyExpenses[month]),
+                      title: {
+                        text: "Monthly Expenses Report",
+                      },
+                      subtitle: {
+                        text: `Month: ${month}`,
+                      },
+                      plotOptions: {
+                        pie: {
+                          donut: {
+                            labels: {
+                              show: true,
+                              total: {
+                                show: true,
 
-                            fontSize: 16,
-                            color: "#432454",
-                            formatter: function (w) {
-                              return formatAmount(
-                                w.globals.seriesTotals
-                                  .reduce((a, b) => a + b, 0)
-                                  .toFixed(2)
-                              );
+                                fontSize: 16,
+                                color: "#432454",
+                                formatter: function (w) {
+                                  return formatAmount(
+                                    w.globals.seriesTotals
+                                      .reduce((a, b) => a + b, 0)
+                                      .toFixed(2)
+                                  );
+                                },
+                              },
                             },
                           },
                         },
                       },
-                    },
-                  },
-                  dataLabels: {
-                    enabled: true,
-                  },
-                  responsive: [
-                    {
-                      breakpoint: 700,
-                      options: {
-                        chart: {
-                          width: "100%",
-                          height: "250",
-                        },
-                        legend: {
-                          position: "bottom",
-                        },
+                      dataLabels: {
+                        enabled: true,
                       },
-                    },
-                  ],
-                }}
-              />
-            ) : (
-              <p>No data available for expenses in {month}</p>
-            )}
-          </div>
-          <h3 className={styles.chart}>Incomes - {month}</h3>
-          <div className={styles.monthly}>
-            {monthlyIncomes[month] &&
-            Object.keys(monthlyIncomes[month]).length > 0 ? (
-              <Chart
-                type="donut"
-                width={450}
-                height={350}
-                series={Object.values(monthlyIncomes[month])}
-                options={{
-                  labels: Object.keys(monthlyIncomes[month]),
-                  title: {
-                    text: "Monthly Incomes Report",
-                  },
-                  subtitle: {
-                    text: `Month: ${month}`,
-                  },
-                  plotOptions: {
-                    pie: {
-                      donut: {
-                        labels: {
-                          show: true,
-                          total: {
-                            show: true,
-                            fontSize: 16,
-                            color: "#438024",
-                            formatter: function (w) {
-                              return formatAmount(
-                                w.globals.seriesTotals
-                                  .reduce((a, b) => a + b, 0)
-                                  .toFixed(2)
-                              );
+                      responsive: [
+                        {
+                          breakpoint: 700,
+                          options: {
+                            chart: {
+                              width: "100%",
+                              height: "250",
+                            },
+                            legend: {
+                              position: "bottom",
+                            },
+                          },
+                        },
+                      ],
+                    }}
+                  />
+                ) : (
+                  <p>No data available for expenses in {month}</p>
+                )}
+              </div>
+              <h3 className={styles.chart}>Incomes - {month}</h3>
+              <div className={styles.monthly}>
+                {monthlyIncomes[month] &&
+                Object.keys(monthlyIncomes[month]).length > 0 ? (
+                  <Chart
+                    type="donut"
+                    width={450}
+                    height={350}
+                    series={Object.values(monthlyIncomes[month])}
+                    options={{
+                      labels: Object.keys(monthlyIncomes[month]),
+                      title: {
+                        text: "Monthly Incomes Report",
+                      },
+                      subtitle: {
+                        text: `Month: ${month}`,
+                      },
+                      plotOptions: {
+                        pie: {
+                          donut: {
+                            labels: {
+                              show: true,
+                              total: {
+                                show: true,
+                                fontSize: 16,
+                                color: "#438024",
+                                formatter: function (w) {
+                                  return formatAmount(
+                                    w.globals.seriesTotals
+                                      .reduce((a, b) => a + b, 0)
+                                      .toFixed(2)
+                                  );
+                                },
+                              },
                             },
                           },
                         },
                       },
-                    },
-                  },
-                  dataLabels: {
-                    enabled: true,
-                  },
-                  responsive: [
-                    {
-                      breakpoint: 700,
-                      options: {
-                        chart: {
-                          width: "100%",
-                          height: "250",
-                        },
-                        legend: {
-                          position: "bottom",
-                        },
+                      dataLabels: {
+                        enabled: true,
                       },
-                    },
-                  ],
-                }}
-              />
-            ) : (
-              <p>No data available for incomes in {month}</p>
-            )}
-          </div>
+                      responsive: [
+                        {
+                          breakpoint: 700,
+                          options: {
+                            chart: {
+                              width: "100%",
+                              height: "250",
+                            },
+                            legend: {
+                              position: "bottom",
+                            },
+                          },
+                        },
+                      ],
+                    }}
+                  />
+                ) : (
+                  <p>No data available for incomes in {month}</p>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      )}
+    </>
   );
 }
 

@@ -97,10 +97,10 @@
 import { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import styles from "./DoughNutChart.module.css";
-
-const BASE_URL = "http://localhost:9000";
+import { useGetTransactions } from "../../../hooks/useGetTransactions";
 
 function DoughNutChart() {
+  const { incomes, expenses } = useGetTransactions();
   const [dailyExpenses, setDailyExpenses] = useState({});
   const [dailyIncomes, setDailyIncomes] = useState({});
 
@@ -112,22 +112,9 @@ function DoughNutChart() {
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const expensesResponse = await fetch(`${BASE_URL}/expenses`);
-        const expensesData = await expensesResponse.json();
-
-        const incomesResponse = await fetch(`${BASE_URL}/incomes`);
-        const incomesData = await incomesResponse.json();
-
-        setDailyExpenses(aggregateTransactionsByDay(expensesData));
-        setDailyIncomes(aggregateTransactionsByDay(incomesData));
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, []);
+    setDailyExpenses(aggregateTransactionsByDay(expenses));
+    setDailyIncomes(aggregateTransactionsByDay(incomes));
+  }, [expenses, incomes]);
 
   const aggregateTransactionsByDay = (transactions) => {
     const dailyData = {};
@@ -148,138 +135,144 @@ function DoughNutChart() {
   const expensesDates = Object.keys(dailyExpenses);
   const incomesDates = Object.keys(dailyIncomes);
   const transactionDates = [...expensesDates, ...incomesDates];
+  const hasTransactions = transactionDates.length > 0;
 
   return (
-    <div className={styles.dailyreport}>
-      {transactionDates.map((date) => (
-        <div key={date} className={styles.dailychart}>
-          <h3 className={styles.chart}>Expenses - {date}</h3>
-          <div className={styles.daily}>
-            {dailyExpenses[date] &&
-            Object.keys(dailyExpenses[date]).length > 0 ? (
-              <Chart
-                type="donut"
-                width={450}
-                height={350}
-                series={Object.values(dailyExpenses[date])}
-                options={{
-                  labels: Object.keys(dailyExpenses[date]),
-                  title: {
-                    text: "Daily Expenses Report",
-                  },
-                  subtitle: {
-                    text: `Date: ${date}`,
-                  },
-                  plotOptions: {
-                    pie: {
-                      donut: {
-                        labels: {
-                          show: true,
-                          total: {
-                            show: true,
-                            fontSize: 25,
-                            color: "#438024",
-                            formatter: function (w) {
-                              return formatAmount(
-                                w.globals.seriesTotals
-                                  .reduce((a, b) => a + b, 0)
-                                  .toFixed(2)
-                              );
+    <>
+      {" "}
+      {hasTransactions && (
+        <div className={styles.dailyreport}>
+          {transactionDates.map((date, index) => (
+            <div key={index} className={styles.dailychart}>
+              <h3 className={styles.chart}>Expenses - {date}</h3>
+              <div className={styles.daily}>
+                {dailyExpenses[date] &&
+                Object.keys(dailyExpenses[date]).length > 0 ? (
+                  <Chart
+                    type="donut"
+                    width={450}
+                    height={350}
+                    series={Object.values(dailyExpenses[date])}
+                    options={{
+                      labels: Object.keys(dailyExpenses[date]),
+                      title: {
+                        text: "Daily Expenses Report",
+                      },
+                      subtitle: {
+                        text: `Date: ${date}`,
+                      },
+                      plotOptions: {
+                        pie: {
+                          donut: {
+                            labels: {
+                              show: true,
+                              total: {
+                                show: true,
+                                fontSize: 25,
+                                color: "#438024",
+                                formatter: function (w) {
+                                  return formatAmount(
+                                    w.globals.seriesTotals
+                                      .reduce((a, b) => a + b, 0)
+                                      .toFixed(2)
+                                  );
+                                },
+                              },
                             },
                           },
                         },
                       },
-                    },
-                  },
 
-                  dataLabels: {
-                    enabled: true,
-                  },
-                  responsive: [
-                    {
-                      breakpoint: 700,
-                      options: {
-                        chart: {
-                          width: "100%",
-                          height: "250",
-                        },
-                        legend: {
-                          position: "bottom",
-                        },
+                      dataLabels: {
+                        enabled: true,
                       },
-                    },
-                  ],
-                }}
-              />
-            ) : (
-              <p>No data available for expenses on {date}</p>
-            )}
-          </div>
-          <h3 className={styles.chart}>Incomes - {date}</h3>
-          <div className={styles.daily}>
-            {dailyIncomes[date] &&
-            Object.keys(dailyIncomes[date]).length > 0 ? (
-              <Chart
-                type="donut"
-                width={450}
-                height={350}
-                series={Object.values(dailyIncomes[date])}
-                options={{
-                  labels: Object.keys(dailyIncomes[date]),
-                  title: {
-                    text: "Daily Incomes Report",
-                  },
-                  subtitle: {
-                    text: `Date: ${date}`,
-                  },
-                  plotOptions: {
-                    pie: {
-                      donut: {
-                        labels: {
-                          show: true,
-                          total: {
-                            show: true,
-                            fontSize: 25,
-                            color: "#438024",
-                            formatter: function (w) {
-                              return formatAmount(
-                                w.globals.seriesTotals
-                                  .reduce((a, b) => a + b, 0)
-                                  .toFixed(2)
-                              );
+                      responsive: [
+                        {
+                          breakpoint: 700,
+                          options: {
+                            chart: {
+                              width: "100%",
+                              height: "250",
+                            },
+                            legend: {
+                              position: "bottom",
+                            },
+                          },
+                        },
+                      ],
+                    }}
+                  />
+                ) : (
+                  <p>No data available for expenses on {date}</p>
+                )}
+              </div>
+              <h3 className={styles.chart}>Incomes - {date}</h3>
+              <div className={styles.daily}>
+                {dailyIncomes[date] &&
+                Object.keys(dailyIncomes[date]).length > 0 ? (
+                  <Chart
+                    type="donut"
+                    width={450}
+                    height={350}
+                    series={Object.values(dailyIncomes[date])}
+                    options={{
+                      labels: Object.keys(dailyIncomes[date]),
+                      title: {
+                        text: "Daily Incomes Report",
+                      },
+                      subtitle: {
+                        text: `Date: ${date}`,
+                      },
+                      plotOptions: {
+                        pie: {
+                          donut: {
+                            labels: {
+                              show: true,
+                              total: {
+                                show: true,
+                                fontSize: 25,
+                                color: "#438024",
+                                formatter: function (w) {
+                                  return formatAmount(
+                                    w.globals.seriesTotals
+                                      .reduce((a, b) => a + b, 0)
+                                      .toFixed(2)
+                                  );
+                                },
+                              },
                             },
                           },
                         },
                       },
-                    },
-                  },
 
-                  dataLabels: {
-                    enabled: true,
-                  },
-                  responsive: [
-                    {
-                      breakpoint: 700,
-                      options: {
-                        chart: {
-                          width: "100%",
-                          height: "250",
-                        },
-                        legend: {
-                          position: "bottom",
-                        },
+                      dataLabels: {
+                        enabled: true,
                       },
-                    },
-                  ],
-                }}
-              />
-            ) : (
-              <p>No data available for incomes on {date}</p>
-            )}
-          </div>
+                      responsive: [
+                        {
+                          breakpoint: 700,
+                          options: {
+                            chart: {
+                              width: "100%",
+                              height: "250",
+                            },
+                            legend: {
+                              position: "bottom",
+                            },
+                          },
+                        },
+                      ],
+                    }}
+                  />
+                ) : (
+                  <p>No data available for incomes on {date}</p>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      )}
+    </>
   );
 }
 

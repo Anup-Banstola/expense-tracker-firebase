@@ -1,43 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styles from "./MainCategory.module.css";
-
 import AddCategoryPopup from "./AddCategoryPopup";
-
 import CategoryList from "./CategoryList";
-
-const BASE_URL = "http://localhost:9000";
+import useGetCategories from "../../hooks/useGetCategories";
 
 function MainCategory() {
   const [showPopup, setShowPopup] = useState(false);
-  const [categories, setCategories] = useState([]);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const categoriesResponse = await fetch(`${BASE_URL}/categories`);
-        const categoriesData = await categoriesResponse.json();
-        console.log(categoriesData);
-        setCategories(categoriesData);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
-    fetchCategories();
-  }, []);
+  const { categories, loading, error } = useGetCategories();
 
   const togglePopup = () => setShowPopup(!showPopup);
-
-  const handleAddCategory = (newCategory) => {
-    const isExistingCategory = categories.some(
-      (category) => category.categoryTitle === newCategory.categoryTitle
-    );
-    if (!isExistingCategory) {
-      setCategories([...categories, newCategory]);
-      setShowPopup(false);
-    } else {
-      alert("Category already exists");
-    }
-  };
 
   return (
     <>
@@ -50,12 +22,18 @@ function MainCategory() {
         </header>
         <main>
           {showPopup && (
-            <AddCategoryPopup
-              onClose={togglePopup}
-              onAddCategory={handleAddCategory}
-            />
+            <AddCategoryPopup categories={categories} onClose={togglePopup} />
           )}
-          <CategoryList categories={categories} />
+          {loading ? (
+            <div className={styles.loaderContainer}>
+              <div className={styles.loader}></div>
+              <p>Loading categories...</p>
+            </div>
+          ) : error ? (
+            <p>Error getting categoires:{error.message}</p>
+          ) : (
+            categories.length > 0 && <CategoryList categories={categories} />
+          )}
         </main>
       </div>
     </>

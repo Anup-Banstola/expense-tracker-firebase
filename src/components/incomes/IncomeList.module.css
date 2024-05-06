@@ -30,7 +30,7 @@
 }
 
 .deletebtn {
-  background-color: rgb(214, 32, 32);
+  background-color: rgb(231, 162, 57);
   width: fit-content;
   padding: 2px 9px;
   border-radius: 50%;
@@ -38,6 +38,9 @@
   top: -10px;
   right: -10px;
   cursor: pointer;
+}
+.deletebtn:hover {
+  background-color: rgb(214, 32, 32);
 }
 
 .wraptext {
@@ -50,4 +53,29 @@
 .catagory {
   text-transform: capitalize;
   font-weight: 600;
+}
+
+.loaderContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+  margin-right: 10px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
