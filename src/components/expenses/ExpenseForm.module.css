@@ -1,0 +1,42 @@
+.amount,
+.selectcategory,
+.date,
+.description {
+  margin-bottom: 20px;
+  padding-left: 5px;
+}
+
+.inputfield {
+  margin-left: 10px;
+  border: none;
+  background-color: rgb(255, 255, 255);
+  padding: 5px;
+}
+.expensefield {
+  border: none;
+  padding: 10px;
+  width: 90%;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.descriptionfield {
+  margin-top: 10px;
+  border: none;
+  padding: 10px;
+  width: 90%;
+}
+
+.save {
+  background-color: #97ffd3;
+  border: none;
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 50px;
+}

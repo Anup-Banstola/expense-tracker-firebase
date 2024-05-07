@@ -17,37 +17,78 @@
 .incamount {
   font-weight: 600;
   color: rgb(14, 141, 2);
-  font-size: 16px;
+  font-size: 14px;
+  font-size: clamp(0.7rem, 1.5vw, 1.9rem);
 }
 
 .date {
   display: flex;
   flex-direction: column;
-  position: relative;
+}
+.dates {
+  font-weight: 600;
 }
 .income {
   padding: 5px;
 }
 
-.deletebtn {
-  background-color: rgb(231, 162, 57);
-  width: fit-content;
-  padding: 2px 9px;
-  border-radius: 50%;
-  position: absolute;
-  top: -10px;
-  right: -10px;
+.editbtn,
+.delbtn {
   cursor: pointer;
+  width: 12px;
+  margin-bottom: 5px;
 }
-.deletebtn:hover {
-  background-color: rgb(214, 32, 32);
+.editbtn {
+  width: 14px;
+}
+
+.btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+@media screen and (max-width: 430px) {
+  .incomelist {
+    display: grid;
+    grid-template-columns: 1fr;
+    position: relative;
+  }
+  .btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .editbtn {
+    position: absolute;
+    top: 42%;
+    right: 28px;
+  }
+  .delbtn {
+    position: absolute;
+    top: 42%;
+    right: 10px;
+  }
+  .date {
+    display: inline-block;
+    padding-left: 5px;
+    margin-top: -5px;
+  }
 }
 
 .wraptext {
-  max-width: 90%;
-  max-height: 50px;
+  max-width: 200px;
+  min-height: auto;
   font-weight: 600;
-  overflow: scroll;
+}
+
+.description {
+  min-width: 120px;
+  width: 40vw;
+  word-wrap: break-word;
+  overflow: auto;
 }
 
 .catagory {
@@ -84,4 +125,18 @@
   padding-left: 20px;
   font-size: 20px;
   font-weight: 600;
+}
+
+/* @media screen and (max-width: 430px) {
+  .incomelist {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .date {
+    padding-left: 5px;
+  }
+} */
+
+.editbtn {
+  cursor: pointer;
 }

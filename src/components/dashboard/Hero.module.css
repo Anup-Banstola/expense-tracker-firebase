@@ -2,7 +2,7 @@
   overflow-x: hidden;
   overflow-y: scroll;
   flex: 1;
-  background-color: rgb(240, 192, 137);
+  background-color: rgb(245, 203, 125);
   width: 100vw;
   padding: 20px;
 }
@@ -11,9 +11,6 @@
   border: none;
   padding: 5px;
   border-radius: 5px;
-  cursor: pointer;
-}
-.photo {
   cursor: pointer;
 }
 
@@ -46,7 +43,6 @@
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   grid-gap: 20px;
   margin: 50px auto;
-  padding-left: 10px;
 }
 
 .btns {
@@ -98,12 +94,14 @@
 .profile {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 10px;
 }
 .photo {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 500px) {

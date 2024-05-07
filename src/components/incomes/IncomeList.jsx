@@ -1,6 +1,8 @@
+import { useState } from "react";
 import useDeleteTransaction from "../../hooks/useDeleteTransaction";
 import { useGetTransactions } from "../../hooks/useGetTransactions";
 import styles from "./IncomeList.module.css";
+import EditIncomePopup from "./EditIncomePopup";
 
 function formatAmount(amount) {
   return new Intl.NumberFormat("en-NP", {
@@ -12,7 +14,9 @@ function formatAmount(amount) {
 function IncomeList({ incomes }) {
   const { deleteTransaction } = useDeleteTransaction();
   const { loading } = useGetTransactions();
-  console.log(loading);
+  const [showEditPopup, setShowEditPopup] = useState(false);
+  const [transactionToEdit, setTransactionToEdit] = useState(null);
+
   const handleDeleteIncome = async (transactionId) => {
     try {
       await deleteTransaction("incomes", transactionId);
@@ -20,6 +24,16 @@ function IncomeList({ incomes }) {
       console.error("Error deleting income:", error);
     }
   };
+
+  const handleEditIncome = (transaction) => {
+    setTransactionToEdit(transaction);
+    setShowEditPopup(true);
+  };
+
+  const closeEditPopup = () => {
+    setShowEditPopup(false);
+  };
+
   return (
     <div className={styles.incomeitem}>
       {loading ? (
@@ -44,21 +58,40 @@ function IncomeList({ incomes }) {
                 <span className={styles.catagory}>{income.categoryName}</span>
               </div>
               <div className={styles.description}>
-                Description:
+                <span>Description:</span>
                 <div className={styles.wraptext}>{income.description}</div>
               </div>
             </div>
-            <div>
-              <span
-                className={styles.deletebtn}
-                onClick={() => handleDeleteIncome(income.id)}
-              >
-                X
-              </span>
-              <div className={styles.date}>Date: {income.date}</div>
+            <div className={styles.date}>
+              <div className={styles.edit}>
+                <div className={styles.btns}>
+                  <img
+                    src="assets/icons/edit.svg"
+                    className={styles.editbtn}
+                    onClick={() => handleEditIncome(income)}
+                    title="Edit"
+                  />
+
+                  <img
+                    src="assets/icons/delete.svg"
+                    className={styles.delbtn}
+                    onClick={() => handleDeleteIncome(income.id)}
+                    title="Delete"
+                  />
+                </div>
+              </div>
+              <div>
+                Date: <span className={styles.dates}>{income.date}</span>
+              </div>
             </div>
           </div>
         ))
+      )}
+      {showEditPopup && transactionToEdit && (
+        <EditIncomePopup
+          onClose={closeEditPopup}
+          transaction={transactionToEdit}
+        />
       )}
     </div>
   );

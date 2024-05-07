@@ -21,31 +21,35 @@ function History() {
   }, [incomes, expenses]);
 
   return (
-    <div className={styles.container}>
-      <Chart />
-      {transactionHistory.length > 0 && (
-        <div className={styles.recenthistory}>
-          <span>Recent History</span>
-          <div className={styles.tranhistory}>
-            {transactionHistory.slice(0, 3).map((transaction, index) => (
-              <div
-                key={index}
-                className={`${styles.history} ${
-                  expenses.includes(transaction)
-                    ? styles.expense
-                    : styles.income
-                }`}
-              >
-                <span className={styles.category}>
-                  {transaction.categoryName}
-                </span>
-                <span>{`${formatAmount(transaction.transactionAmount)}`}</span>
-              </div>
-            ))}
+    <>
+      <div className={styles.container}>
+        <Chart />
+        {transactionHistory.length > 0 && (
+          <div className={styles.recenthistory}>
+            <span>Recent History</span>
+            <div className={styles.tranhistory}>
+              {transactionHistory.slice(0, 3).map((transaction, index) => (
+                <div
+                  key={index}
+                  className={`${styles.history} ${
+                    expenses.includes(transaction)
+                      ? styles.expense
+                      : styles.income
+                  }`}
+                >
+                  <span className={styles.category}>
+                    {transaction.categoryName}
+                  </span>
+                  <span>{`${formatAmount(
+                    transaction.transactionAmount
+                  )}`}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 }
 

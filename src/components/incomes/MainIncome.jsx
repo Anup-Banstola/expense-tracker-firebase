@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styles from "./MainIncome.module.css";
 import AddIncomePopup from "./AddIncomePopup";
 import IncomeList from "./IncomeList";

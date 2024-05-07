@@ -75,7 +75,7 @@ function Hero() {
           <h2>Dashboard</h2>
           <div className={styles.profile}>
             <img
-              src={profilePhoto || "profile.png"}
+              src={profilePhoto || "assets/icons/profile.svg"}
               alt="Profile"
               className={styles.photo}
               onClick={handleProfileClick}
@@ -90,6 +90,7 @@ function Hero() {
         {isModalOpen && (
           <Modal onClose={handleCloseModal}>
             <h3>User Information</h3>
+
             <p>UserID: {userID}</p>
             <p>Name: {name}</p>
             <p>Email: {email}</p>
