@@ -23,7 +23,7 @@
 .container {
   overflow-x: hidden;
   overflow-y: scroll;
-  width: 100vw;
+  flex: 1;
   background-color: rgb(59, 154, 167);
 }
 
