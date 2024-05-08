@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useDeleteTransaction from "../../hooks/useDeleteTransaction";
 import { useGetTransactions } from "../../hooks/useGetTransactions";
-import EditExpensePopup from "../incomes/EditIncomePopup";
+import EditExpensePopup from "../expenses/EditExpensePopup";
 import styles from "./ExpenseList.module.css";
 function formatAmount(amount) {
   return new Intl.NumberFormat("en-NP", {
