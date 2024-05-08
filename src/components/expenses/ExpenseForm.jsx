@@ -30,7 +30,7 @@ function ExpenseForm({ onSubmit, initialData = {}, isEditing = false }) {
         <label htmlFor="amount">Transaction Amount:</label>
 
         <input
-          type="int"
+          type="number"
           placeholder="Transaction Amount"
           id="amount"
           value={transactionAmount}

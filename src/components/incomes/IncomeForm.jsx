@@ -28,7 +28,7 @@ function IncomeForm({ onSubmit, initialData = {}, isEditing = false }) {
       <div className={styles.amount}>
         <label htmlFor="amount">Income Amount: </label>
         <input
-          type="text"
+          type="number"
           placeholder="Income Amount"
           id="amount"
           value={transactionAmount}
