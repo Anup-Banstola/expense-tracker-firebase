@@ -15,6 +15,7 @@ function ExpenseForm({ onSubmit, initialData = {}, isEditing = false }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const transactionData = {
+      type: "expense",
       transactionAmount: parseFloat(transactionAmount),
       categoryName,
       date,
