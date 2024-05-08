@@ -33,6 +33,7 @@ export const db = getFirestore(app);
 setPersistence(auth, browserLocalPersistence)
   .then(() => {
     const user = auth.currentUser;
+    console.log(user);
     if (user) {
       console.log("User is already signed in:", user);
     } else {
