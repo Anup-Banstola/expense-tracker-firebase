@@ -3,7 +3,6 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import {
   browserLocalPersistence,
-  browserSessionPersistence,
   getAuth,
   GoogleAuthProvider,
   setPersistence,
@@ -31,11 +30,17 @@ const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 export const provider = new GoogleAuthProvider();
 export const db = getFirestore(app);
-setPersistence(auth, browserSessionPersistence)
+setPersistence(auth, browserLocalPersistence)
   .then(() => {
-    return signInWithPopup(auth, provider);
+    const user = auth.currentUser;
+    if (user) {
+      console.log("User is already signed in:", user);
+    } else {
+      signInWithPopup(auth, provider);
+    }
   })
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
+    console.log("Error setting persistence:", errorMessage);
   });
