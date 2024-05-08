@@ -54,7 +54,7 @@ function Sidebar() {
   return (
     <>
       <div className={styles.sidebar}>
-        <NavLink to="/" className={styles.headlink}>
+        <NavLink to="/dashboard" className={styles.headlink}>
           <div className={styles.logotitle}>
             <img
               src="../../assets/icons/logo.svg"
