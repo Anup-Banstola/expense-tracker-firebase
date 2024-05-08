@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import {
   browserLocalPersistence,
+  browserSessionPersistence,
   getAuth,
   GoogleAuthProvider,
   setPersistence,
@@ -30,6 +31,11 @@ const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 export const provider = new GoogleAuthProvider();
 export const db = getFirestore(app);
-setPersistence(auth, browserLocalPersistence).then(() => {
-  return signInWithPopup(auth, provider);
-});
+setPersistence(auth, browserSessionPersistence)
+  .then(() => {
+    return signInWithPopup(auth, provider);
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+  });
