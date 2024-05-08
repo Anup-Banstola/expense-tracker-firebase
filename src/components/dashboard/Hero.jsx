@@ -29,28 +29,13 @@ function Hero() {
     setTotalIncomes(totalIncomesAmount);
   }, [incomes, expenses]);
 
-  const formattedTotalBalance = parseFloat(
-    totalIncomes - totalExpenses
-  ).toLocaleString("en-IN", {
-    maximumFractionDigits: 2,
-    minimumFractionDigits: 2,
-  });
+  function formatAmount(amount) {
+    return new Intl.NumberFormat("en-NP", {
+      style: "currency",
+      currency: "NPR",
+    }).format(amount);
+  }
 
-  const formattedTotalIncomes = parseFloat(totalIncomes).toLocaleString(
-    "en-IN",
-    {
-      maximumFractionDigits: 2,
-      minimumFractionDigits: 2,
-    }
-  );
-
-  const formattedTotalExpenses = parseFloat(totalExpenses).toLocaleString(
-    "en-IN",
-    {
-      maximumFractionDigits: 2,
-      minimumFractionDigits: 2,
-    }
-  );
   const signUserOut = async () => {
     try {
       await signOut(auth);
@@ -102,15 +87,17 @@ function Hero() {
         <div className={styles.amounts}>
           <div className={styles.balance}>
             <h2>Total Balance</h2>
-            <p className={styles.bal}>Rs.{formattedTotalBalance}</p>
+            <p className={styles.bal}>
+              {formatAmount(totalIncomes - totalExpenses)}
+            </p>
           </div>
           <div className={styles.income}>
             <h2>Total Incomes</h2>
-            <p className={styles.inc}>Rs.{formattedTotalIncomes}</p>
+            <p className={styles.inc}>{formatAmount(totalIncomes)}</p>
           </div>
           <div className={styles.expense}>
             <h2>Total Expenses</h2>
-            <p className={styles.exp}>Rs.{formattedTotalExpenses}</p>
+            <p className={styles.exp}>{formatAmount(totalExpenses)}</p>
           </div>
         </div>
 
