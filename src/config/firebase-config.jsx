@@ -9,7 +9,8 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { createBrowserRouter, useNavigate } from "react-router-dom";
+import firebase from "firebase/compat/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -31,12 +32,14 @@ const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 export const provider = new GoogleAuthProvider();
 export const db = getFirestore(app);
+
 setPersistence(auth, browserLocalPersistence)
   .then(() => {
     const user = auth.currentUser;
     console.log(user);
-    const navigate = useNavigate();
+
     if (user) {
+      const navigate = useNavigate();
       console.log("User is already signed in:", user);
       navigate("/dashboard");
     } else {
@@ -48,3 +51,8 @@ setPersistence(auth, browserLocalPersistence)
     const errorMessage = error.message;
     console.log("Error setting persistence:", errorMessage);
   });
+
+const browserHistory = createBrowserRouter();
+firebase.auth().onAuthStateChanged((user) => {
+  browserHistory.replace(user ? "/dashboard" : "/");
+});
