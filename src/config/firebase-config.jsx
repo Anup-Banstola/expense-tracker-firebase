@@ -9,6 +9,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -34,8 +35,10 @@ setPersistence(auth, browserLocalPersistence)
   .then(() => {
     const user = auth.currentUser;
     console.log(user);
+    const navigate = useNavigate();
     if (user) {
       console.log("User is already signed in:", user);
+      navigate("/dashboard");
     } else {
       signInWithPopup(auth, provider);
     }
