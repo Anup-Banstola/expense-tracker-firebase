@@ -1,11 +1,11 @@
 import Sidebar from "../../components/dashboard/Sidebar";
-import MainReport from "../../components/reports/daily/MainReport";
+import MainReport from "../../components/reports/daily/DailyReport";
 import styles from "./DailyReport.module.css";
 
 function DailyReport() {
   return (
     <div className={styles.container}>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <MainReport />
     </div>
   );

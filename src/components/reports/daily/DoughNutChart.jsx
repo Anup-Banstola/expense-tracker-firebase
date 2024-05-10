@@ -230,7 +230,7 @@ function DoughNutChart() {
                               show: true,
                               total: {
                                 show: true,
-                                fontSize: 25,
+                                fontSize: 16,
                                 color: "#438024",
                                 formatter: function (w) {
                                   return formatAmount(

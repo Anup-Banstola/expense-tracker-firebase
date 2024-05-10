@@ -1,9 +1,10 @@
-import { Outlet } from "react-router-dom";
+import styles from "./Reports.module.css";
+import Tabs from "../../components/tab/Tabs";
 
 function Reports() {
   return (
-    <div>
-      <Outlet />
+    <div className={styles.reports}>
+      <Tabs />
     </div>
   );
 }

@@ -7,11 +7,9 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 81vw;
   padding-top: 5px;
   padding-bottom: 5px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin: 0 15px;
   border-radius: 4px;
   font-size: 20px;
   font-size: clamp(0.9rem, 1.5vw, 1.2rem);

@@ -1,9 +1,8 @@
 .hero {
+  flex: 1;
   overflow-x: hidden;
   overflow-y: scroll;
-  flex: 1;
   background-color: rgb(245, 203, 125);
-  width: 100vw;
   padding: 20px;
 }
 .close {

@@ -1,29 +1,15 @@
 import { NavLink } from "react-router-dom";
 import styles from "./Navbar.module.css";
 
-const NavLinks = [
-  {
-    title: "Daily",
-    link: "/reports/dailyreport",
-  },
-  {
-    title: "Monthly",
-    link: "/reports/monthlyreport",
-  },
-  {
-    title: "Yearly",
-    link: "/reports/yearlyreport",
-  },
-];
-
-function Navbar({ NavLinks }) {
+function Navbar({ tabs }) {
+  console.log(tabs);
   return (
     <div>
       <div className={styles.header}>
-        {NavLinks.map((item, index) => (
-          <NavLink key={index} to={item.link}>
-            <span className={styles.monthly}>{item.title}</span>
-          </NavLink>
+        {tabs.map((item, index) => (
+          <span className={styles.monthly} key={index}>
+            {item}
+          </span>
         ))}
       </div>
     </div>

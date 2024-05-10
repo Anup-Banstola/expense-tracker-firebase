@@ -1,12 +1,12 @@
 import Sidebar from "../../components/dashboard/Sidebar";
-import MainReport from "../../components/reports/monthly/MainReport";
+import MainReport from "../../components/reports/monthly/MonthlyReport";
 
 import styles from "./MonthlyReport.module.css";
 
 function Monthlyreport() {
   return (
     <div className={styles.container}>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <MainReport />
     </div>
   );

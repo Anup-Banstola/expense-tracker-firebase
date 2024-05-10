@@ -5,7 +5,7 @@ import styles from "./Expenses.module.css";
 function Expenses() {
   return (
     <div className={styles.expenses}>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <MainExpense />
     </div>
   );

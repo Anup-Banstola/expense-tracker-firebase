@@ -79,3 +79,10 @@ strong {
     transform: rotate(360deg);
   }
 }
+
+@media screen and (max-width: 380px) {
+  .transactiondata {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}

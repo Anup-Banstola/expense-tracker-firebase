@@ -55,3 +55,10 @@
 strong {
   font-weight: bold;
 }
+
+@media screen and (max-width: 380px) {
+  .transactiondata {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}

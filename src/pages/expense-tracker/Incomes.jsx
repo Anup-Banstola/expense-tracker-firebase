@@ -5,7 +5,7 @@ import styles from "./Incomes.module.css";
 function Incomes() {
   return (
     <div className={styles.container}>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <MainIncome />
     </div>
   );

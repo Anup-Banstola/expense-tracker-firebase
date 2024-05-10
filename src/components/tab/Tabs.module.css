@@ -1,0 +1,17 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 15px;
+  padding: 5px;
+  background-color: #0a2529;
+  border-radius: 2rem;
+  color: #e8f0f2;
+  list-style: none;
+  cursor: pointer;
+  transition: all 0.7s;
+}
+
+.nav li:hover {
+  color: rgb(38, 182, 151);
+}
