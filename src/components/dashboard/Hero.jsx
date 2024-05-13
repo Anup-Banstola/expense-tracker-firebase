@@ -57,7 +57,7 @@ function Hero() {
     <>
       <main className={styles.hero}>
         <div className={styles.header}>
-          <h2>Dashboard</h2>
+          <h2>Welcome, {name}!</h2>
           <div className={styles.profile}>
             <img
               src={profilePhoto || "assets/icons/profile.svg"}

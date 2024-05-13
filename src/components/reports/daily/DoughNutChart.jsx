@@ -98,180 +98,189 @@ import { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import styles from "./DoughNutChart.module.css";
 import { useGetTransactions } from "../../../hooks/useGetTransactions";
+import useGetCategories from "../../../hooks/useGetCategories";
 
-function DoughNutChart() {
+function formatAmount(amount) {
+  return new Intl.NumberFormat("en-NP", {
+    style: "currency",
+    currency: "NPR",
+  }).format(amount);
+}
+
+function DoughNutChart({ selectedDate }) {
   const { incomes, expenses } = useGetTransactions();
+  const { categories } = useGetCategories();
   const [dailyExpenses, setDailyExpenses] = useState({});
   const [dailyIncomes, setDailyIncomes] = useState({});
-
-  function formatAmount(amount) {
-    return new Intl.NumberFormat("en-NP", {
-      style: "currency",
-      currency: "NPR",
-    }).format(amount);
-  }
+  const formattedSelectedDate = selectedDate.toLocaleDateString();
 
   useEffect(() => {
+    const aggregateTransactionsByDay = (transactions) => {
+      const dailyData = {};
+      transactions.forEach((transaction) => {
+        const date = new Date(transaction.date).toLocaleDateString();
+        if (!dailyData[date]) {
+          dailyData[date] = {};
+        }
+        const category = transaction.categoryName;
+        if (!dailyData[date][category]) {
+          dailyData[date][category] = 0;
+        }
+        dailyData[date][category] += Number(transaction.transactionAmount);
+      });
+      return dailyData;
+    };
+
     setDailyExpenses(aggregateTransactionsByDay(expenses));
     setDailyIncomes(aggregateTransactionsByDay(incomes));
   }, [expenses, incomes]);
 
-  const aggregateTransactionsByDay = (transactions) => {
-    const dailyData = {};
-    transactions.forEach((transaction) => {
-      const date = new Date(transaction.date).toLocaleDateString();
-      if (!dailyData[date]) {
-        dailyData[date] = {};
-      }
-      const category = transaction.categoryName;
-      if (!dailyData[date][category]) {
-        dailyData[date][category] = 0;
-      }
-      dailyData[date][category] += Number(transaction.transactionAmount);
+  const getCategoryColors = () => {
+    const categoryColors = {};
+    categories.forEach((category) => {
+      categoryColors[category.categoryName] = category.categoryColor;
     });
-    return dailyData;
+    return categoryColors;
   };
 
-  const expensesDates = Object.keys(dailyExpenses);
-  const incomesDates = Object.keys(dailyIncomes);
-  const transactionDates = [...new Set([...expensesDates, ...incomesDates])];
-  console.log(transactionDates);
-  const hasTransactions = transactionDates.length > 0;
+  const hasTransactions =
+    Object.keys(dailyExpenses[formattedSelectedDate] || {}).length > 0 ||
+    Object.keys(dailyIncomes[formattedSelectedDate] || {}).length > 0;
+
+  if (!hasTransactions) return null;
 
   return (
     <>
-      {hasTransactions && (
-        <div className={styles.dailyreport}>
-          {transactionDates.map((date, index) => (
-            <div key={index} className={styles.dailychart}>
-              <h3 className={styles.chart}>Expenses - {date}</h3>
+      <div className={styles.dailyreport}>
+        {dailyExpenses[formattedSelectedDate] &&
+          Object.keys(dailyExpenses[formattedSelectedDate]).length > 0 && (
+            <div className={styles.dailychart}>
+              <h3 className={styles.chart}>
+                Expenses - {formattedSelectedDate}
+              </h3>
               <div className={styles.daily}>
-                {dailyExpenses[date] &&
-                Object.keys(dailyExpenses[date]).length > 0 ? (
-                  <Chart
-                    type="donut"
-                    width={450}
-                    height={350}
-                    series={Object.values(dailyExpenses[date])}
-                    options={{
-                      labels: Object.keys(dailyExpenses[date]),
-                      title: {
-                        text: "Daily Expenses Report",
-                      },
-                      subtitle: {
-                        text: `Date: ${date}`,
-                      },
-                      plotOptions: {
-                        pie: {
-                          donut: {
-                            labels: {
+                <Chart
+                  type="donut"
+                  width={450}
+                  height={350}
+                  series={Object.values(dailyExpenses[formattedSelectedDate])}
+                  options={{
+                    labels: Object.keys(dailyExpenses[formattedSelectedDate]),
+                    colors: Object.values(getCategoryColors()),
+                    title: {
+                      text: "Daily Expenses Report",
+                    },
+                    subtitle: {
+                      text: `Date: ${formattedSelectedDate}`,
+                    },
+                    plotOptions: {
+                      pie: {
+                        donut: {
+                          labels: {
+                            show: true,
+                            total: {
                               show: true,
-                              total: {
-                                show: true,
-                                fontSize: 25,
-                                color: "#438024",
-                                formatter: function (w) {
-                                  return formatAmount(
-                                    w.globals.seriesTotals
-                                      .reduce((a, b) => a + b, 0)
-                                      .toFixed(2)
-                                  );
-                                },
+                              fontSize: 25,
+                              color: "#438024",
+                              formatter: function (w) {
+                                return formatAmount(
+                                  w.globals.seriesTotals
+                                    .reduce((a, b) => a + b, 0)
+                                    .toFixed(2)
+                                );
                               },
                             },
                           },
                         },
                       },
-
-                      dataLabels: {
-                        enabled: true,
-                      },
-                      responsive: [
-                        {
-                          breakpoint: 700,
-                          options: {
-                            chart: {
-                              width: "100%",
-                              height: "250",
-                            },
-                            legend: {
-                              position: "bottom",
-                            },
+                    },
+                    dataLabels: {
+                      enabled: true,
+                    },
+                    responsive: [
+                      {
+                        breakpoint: 700,
+                        options: {
+                          chart: {
+                            width: "100%",
+                            height: "250",
                           },
-                        },
-                      ],
-                    }}
-                  />
-                ) : (
-                  <p>No data available for expenses on {date}</p>
-                )}
-              </div>
-              <h3 className={styles.chart}>Incomes - {date}</h3>
-              <div className={styles.daily}>
-                {dailyIncomes[date] &&
-                Object.keys(dailyIncomes[date]).length > 0 ? (
-                  <Chart
-                    type="donut"
-                    width={450}
-                    height={350}
-                    series={Object.values(dailyIncomes[date])}
-                    options={{
-                      labels: Object.keys(dailyIncomes[date]),
-                      title: {
-                        text: "Daily Incomes Report",
-                      },
-                      subtitle: {
-                        text: `Date: ${date}`,
-                      },
-                      plotOptions: {
-                        pie: {
-                          donut: {
-                            labels: {
-                              show: true,
-                              total: {
-                                show: true,
-                                fontSize: 16,
-                                color: "#438024",
-                                formatter: function (w) {
-                                  return formatAmount(
-                                    w.globals.seriesTotals
-                                      .reduce((a, b) => a + b, 0)
-                                      .toFixed(2)
-                                  );
-                                },
-                              },
-                            },
+                          legend: {
+                            position: "bottom",
                           },
                         },
                       },
-
-                      dataLabels: {
-                        enabled: true,
-                      },
-                      responsive: [
-                        {
-                          breakpoint: 700,
-                          options: {
-                            chart: {
-                              width: "100%",
-                              height: "250",
-                            },
-                            legend: {
-                              position: "bottom",
-                            },
-                          },
-                        },
-                      ],
-                    }}
-                  />
-                ) : (
-                  <p>No data available for incomes on {date}</p>
-                )}
+                    ],
+                  }}
+                />
               </div>
             </div>
-          ))}
-        </div>
-      )}
+          )}
+        {dailyIncomes[formattedSelectedDate] &&
+          Object.keys(dailyIncomes[formattedSelectedDate]).length > 0 && (
+            <div className={styles.dailychart}>
+              <h3 className={styles.chart}>
+                Incomes - {formattedSelectedDate}
+              </h3>
+              <div className={styles.daily}>
+                <Chart
+                  type="donut"
+                  width={450}
+                  height={350}
+                  series={Object.values(dailyIncomes[formattedSelectedDate])}
+                  options={{
+                    labels: Object.keys(dailyIncomes[formattedSelectedDate]),
+                    colors: Object.values(getCategoryColors()),
+                    title: {
+                      text: "Daily Incomes Report",
+                    },
+                    subtitle: {
+                      text: `Date: ${formattedSelectedDate}`,
+                    },
+                    plotOptions: {
+                      pie: {
+                        donut: {
+                          labels: {
+                            show: true,
+                            total: {
+                              show: true,
+                              fontSize: 16,
+                              color: "#438024",
+                              formatter: function (w) {
+                                return formatAmount(
+                                  w.globals.seriesTotals
+                                    .reduce((a, b) => a + b, 0)
+                                    .toFixed(2)
+                                );
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    dataLabels: {
+                      enabled: true,
+                    },
+                    responsive: [
+                      {
+                        breakpoint: 700,
+                        options: {
+                          chart: {
+                            width: "100%",
+                            height: "250",
+                          },
+                          legend: {
+                            position: "bottom",
+                          },
+                        },
+                      },
+                    ],
+                  }}
+                />
+              </div>
+            </div>
+          )}
+      </div>
     </>
   );
 }

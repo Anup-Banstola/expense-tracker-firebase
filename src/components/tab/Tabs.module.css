@@ -15,3 +15,10 @@
 .nav li:hover {
   color: rgb(38, 182, 151);
 }
+
+.tabs {
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-color: rgb(243, 145, 142);
+}

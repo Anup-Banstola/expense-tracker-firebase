@@ -38,3 +38,15 @@
 .deleteButton:hover {
   background-color: #d9534f;
 }
+
+.colorIndicator {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.delbtn {
+  cursor: pointer;
+  width: 12px;
+  margin-left: 5px;
+}

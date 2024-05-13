@@ -4,3 +4,34 @@
   overflow-y: scroll;
   background-color: rgb(243, 145, 142);
 }
+
+.dayreport {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.datepicker {
+  margin-right: 15px;
+  border-radius: 20px;
+  border: none;
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+  background-color: rgb(169, 252, 255);
+  font-weight: 600;
+}
+
+.selectday {
+  margin-right: 30px;
+}
+
+@media screen and (max-width: 420px) {
+  .dayreport {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .selectday {
+    margin: 5px auto;
+  }
+}

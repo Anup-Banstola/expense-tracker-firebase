@@ -31,7 +31,7 @@ function App() {
           <Route path="categories" element={<MainCategory />} />
           <Route path="expenses" element={<MainExpense />} />
           <Route path="incomes" element={<MainIncome />} />
-          <Route path="reports" element={<Reports />} />
+          <Route path="reports" element={<Tabs />} />
         </Route>
       </Routes>
     </BrowserRouter>

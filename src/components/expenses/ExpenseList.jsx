@@ -3,6 +3,7 @@ import useDeleteTransaction from "../../hooks/useDeleteTransaction";
 import { useGetTransactions } from "../../hooks/useGetTransactions";
 import EditExpensePopup from "../expenses/EditExpensePopup";
 import styles from "./ExpenseList.module.css";
+
 function formatAmount(amount) {
   return new Intl.NumberFormat("en-NP", {
     style: "currency",
@@ -28,12 +29,13 @@ function ExpenseList({ expenses }) {
     setTransactionToEdit(transaction);
     setShowEditPopup(true);
   };
+
   const closeEditPopup = () => {
     setShowEditPopup(false);
   };
 
   return (
-    <div className={styles.expenseitem}>
+    <div className={styles.container}>
       {loading ? (
         <div className={styles.loaderContainer}>
           <div className={styles.loader}></div>
@@ -44,49 +46,43 @@ function ExpenseList({ expenses }) {
           <p>No expenses recorded yet.</p>
         </div>
       ) : (
-        expenses.map((expense, index) => (
-          <div key={index} className={styles.expenselist}>
-            <div className={styles.transaction}>
-              <div>
-                Amount:{" "}
-                <span className={styles.amount}>
-                  {formatAmount(expense.transactionAmount)}
-                </span>
-              </div>
-              <div className={styles.category}>
-                Category:{" "}
-                <span className={styles.catagory}>{expense.categoryName}</span>
-              </div>
-
-              <div className={styles.description}>
-                Description:
-                <div className={styles.wraptext}>{expense.description}</div>
-              </div>
-            </div>
-            <div className={styles.date}>
-              <div className={styles.edit}>
-                <div className={styles.btns}>
-                  <img
-                    src="assets/icons/edit.svg"
-                    className={styles.editbtn}
-                    onClick={() => handleEditExpense(expense)}
-                    title="Edit"
-                  />
-
-                  <img
-                    src="assets/icons/delete.svg"
-                    className={styles.delbtn}
-                    onClick={() => handleDeleteExpense(expense.id)}
-                    title="Delete"
-                  />
-                </div>
-              </div>
-              <div>
-                Date: <span className={styles.dates}>{expense.date}</span>
-              </div>
-            </div>
-          </div>
-        ))
+        <table className={styles.expenseTable}>
+          <thead>
+            <tr>
+              <th>Amount</th>
+              <th>Category</th>
+              <th>Description</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {expenses.map((expense, index) => (
+              <tr key={index}>
+                <td>{formatAmount(expense.transactionAmount)}</td>
+                <td>{expense.categoryName}</td>
+                <td>{expense.description}</td>
+                <td>{expense.date}</td>
+                <td>
+                  <div className={styles.btns}>
+                    <img
+                      src="assets/icons/edit.svg"
+                      className={styles.editbtn}
+                      onClick={() => handleEditExpense(expense)}
+                      title="Edit"
+                    />
+                    <img
+                      src="assets/icons/delete.svg"
+                      className={styles.delbtn}
+                      onClick={() => handleDeleteExpense(expense.id)}
+                      title="Delete"
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
       {showEditPopup && transactionToEdit && (
         <EditExpensePopup

@@ -4,7 +4,7 @@ import { useAddCategory } from "../../hooks/useAddCategory";
 
 function AddCategoryPopup({ onClose, categories }) {
   const [categoryTitle, setCategoryTitle] = useState("");
-  const [categoryImageName, setCategoryImageName] = useState("");
+  const [categoryColor, setCategoryColor] = useState("");
   const { addCategory } = useAddCategory();
 
   const handleSubmit = async (e) => {
@@ -22,10 +22,10 @@ function AddCategoryPopup({ onClose, categories }) {
     try {
       await addCategory({
         categoryTitle,
-        categoryImageName: categoryImageName.toLowerCase(),
+        categoryColor,
       });
       setCategoryTitle("");
-      setCategoryImageName("");
+      setCategoryColor("");
       onClose();
     } catch (error) {
       console.error("Error adding category:", error);
@@ -52,15 +52,13 @@ function AddCategoryPopup({ onClose, categories }) {
               className={styles.titlefield}
             />
           </div>
-          <div className={styles.image} htmlFor="image">
-            <label>Category Image:</label>
+          <div className={styles.image}>
+            <label htmlFor="image">Category Color:</label>
             <input
-              type="text"
-              placeholder="Image Name"
-              value={categoryImageName.toLowerCase()}
-              onChange={(e) => setCategoryImageName(e.target.value)}
+              type="color"
+              value={categoryColor}
+              onChange={(e) => setCategoryColor(e.target.value)}
               className={styles.imagefield}
-              required
             />
           </div>
 

@@ -5,25 +5,23 @@ function CategoryList({ categories }) {
   const { deleteCategory } = useGetCategories();
 
   const handleDeleteCategory = (categoryId) => deleteCategory(categoryId);
+  console.log(categories);
 
   return (
     <div className={styles.categorylist}>
       {categories.map((category, index) => (
         <div key={index} className={styles.addcategory}>
-          <img
-            src={`../../../assets/categoryicons/${category.categoryImageName}.svg`}
-            onError={(e) => {
-              e.target.src = "../../../assets/categoryicons/others.svg";
-            }}
-            alt={category.categoryTitle}
-          />
+          <div
+            className={styles.colorIndicator}
+            style={{ backgroundColor: category.categoryColor }}
+          ></div>
           <span className={styles.title}>{category.categoryTitle}</span>
-          <button
-            className={styles.deleteButton}
+          <img
+            src="assets/icons/delete.svg"
+            className={styles.delbtn}
             onClick={() => handleDeleteCategory(category.id)}
-          >
-            X
-          </button>
+            title="Delete"
+          />
         </div>
       ))}
     </div>

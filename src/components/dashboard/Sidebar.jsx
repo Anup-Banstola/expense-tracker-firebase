@@ -2,15 +2,32 @@ import { NavLink } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleDoubleLeft,
+  faAngleDoubleRight,
+  faBars,
+  faChartPie,
+  faHome,
+  faListAlt,
+  faMoneyBill,
+} from "@fortawesome/free-solid-svg-icons";
 
 function Sidebar() {
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
+  const handleResize = () => {
+    setIsSmallScreen(window.innerWidth <= 480);
+    if (window.innerWidth <= 480) {
+      setIsCollapsed(true);
+    }
+  };
+
   useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 480);
-    };
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
@@ -21,39 +38,34 @@ function Sidebar() {
   const sidebarLinks = [
     {
       link: "/dashboard",
-      src: "../../assets/icons/dashboard.svg",
+      icon: faHome,
       title: "Dashboard",
-      height: "25px",
     },
     {
       link: "/categories",
-      src: "../../assets/icons/categories.svg",
+      icon: faListAlt,
       title: "Categories",
-      height: "25px",
     },
     {
       link: "/expenses",
-      src: "../../assets/icons/expense.svg",
+      icon: faMoneyBill,
       title: "Expenses",
-      height: "25px",
     },
     {
       link: "/incomes",
-      src: "../../assets/icons/incomes.svg",
+      icon: faMoneyBill,
       title: "Incomes",
-      height: "25px",
     },
     {
       link: "/reports",
-      src: "../../assets/icons/reports.svg",
+      icon: faChartPie,
       title: "Reports",
-      height: "25px",
     },
   ];
 
   return (
     <>
-      <div className={styles.sidebar}>
+      {/* <div className={styles.sidebar}>
         <NavLink to="/dashboard" className={styles.headlink}>
           <div className={styles.logotitle}>
             <img
@@ -93,6 +105,30 @@ function Sidebar() {
             </NavLink>
           ))}
         </div>
+      </div> */}
+      <div className={styles.sidebar}>
+        <NavLink to="/dashboard" className={styles.headlink}>
+          <div className={styles.logoContainer}>
+            <img
+              src="/assets/icons/logo.svg"
+              alt="Logo"
+              className={styles.logo}
+              title="Expense tracker"
+            />
+            {!isSmallScreen && (
+              <h2 className={styles.title}>Expense Tracker</h2>
+            )}
+          </div>
+        </NavLink>
+
+        {sidebarLinks.map((link, index) => (
+          <div className={styles.nav} key={index}>
+            <NavLink to={link.link} className={styles.link} title={link.title}>
+              <FontAwesomeIcon icon={link.icon} className={styles.icon} />
+              <span className={styles.text}>{link.title}</span>
+            </NavLink>
+          </div>
+        ))}
       </div>
     </>
   );

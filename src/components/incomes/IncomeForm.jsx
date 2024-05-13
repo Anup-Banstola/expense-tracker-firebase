@@ -1,7 +1,12 @@
 import { useState } from "react";
 import styles from "./IncomeForm.module.css";
+import useGetCategories from "../../hooks/useGetCategories";
 
 function IncomeForm({ onSubmit, initialData = {}, isEditing = false }) {
+  const { categories } = useGetCategories();
+  console.log(categories);
+  const categoryTitles = categories.map((item) => item.categoryTitle);
+
   const [transactionAmount, setTransactionAmount] = useState(
     initialData.transactionAmount || ""
   );
@@ -26,57 +31,66 @@ function IncomeForm({ onSubmit, initialData = {}, isEditing = false }) {
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       <div className={styles.amount}>
-        <label htmlFor="amount">Income Amount: </label>
+        <label htmlFor="amount" className={styles.label}>
+          Transaction Amount:
+        </label>
         <input
           type="number"
-          placeholder="Income Amount"
+          placeholder="Transaction Amount"
           id="amount"
           value={transactionAmount}
           onChange={(e) => setTransactionAmount(e.target.value)}
-          className={styles.incomefield}
+          className={styles.input}
+          required
         />
       </div>
-      <div className={styles.selectcategory}>
-        <label htmlFor="category">Category</label>
+      <div className={styles.row}>
+        <label htmlFor="category" className={styles.label}>
+          Category
+        </label>
         <select
           id="category"
           value={categoryName}
           onChange={(e) => setCategoryName(e.target.value)}
-          className={styles.inputfield}
+          className={styles.input}
           required
         >
           <option value="">Select a category</option>
-          <option value="salary">Salary</option>
-          <option value="rent">Rent</option>
-          <option value="bankaccount">Bank account</option>
-          <option value="gift">Gift</option>
-          <option value="others">Others</option>
+          {categoryTitles.map((category, index) => (
+            <option key={index} value={category}>
+              {category}
+            </option>
+          ))}
         </select>
       </div>
-      <div className={styles.date}>
-        <label htmlFor="date">Date:</label>
+      <div className={styles.row}>
+        <label htmlFor="date" className={styles.label}>
+          Date:
+        </label>
         <input
           type="date"
           id="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          className={styles.inputfield}
+          className={styles.input}
           required
         />
       </div>
-      <div className={styles.description}>
-        <label htmlFor="description">Add description:</label>
+      <div className={styles.row}>
+        <label htmlFor="description" className={styles.label}>
+          Add description:
+        </label>
         <textarea
           id="description"
           placeholder="Add description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className={styles.descriptionfield}
+          className={styles.textarea}
           required
         />
       </div>
 
-      <button type="submit" className={styles.save}>
+      <button type="submit" className={styles.button}>
         {isEditing ? "Update" : "Add"}
       </button>
     </form>

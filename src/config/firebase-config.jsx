@@ -15,16 +15,17 @@ import { getFirestore } from "firebase/firestore";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBsdazAEfNU6Hukv7CyKmkD8l6NvsUFHjs",
-  authDomain: "expense-tracker-firebase-e6195.firebaseapp.com",
-  projectId: "expense-tracker-firebase-e6195",
-  storageBucket: "expense-tracker-firebase-e6195.appspot.com",
-  messagingSenderId: "216593805064",
-  appId: "1:216593805064:web:72dd79a9cc2e3d879b86bd",
-  measurementId: "G-06B2Z8R0CY",
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
+  measurementId: import.meta.env.VITE_MEASUREMENT_ID,
 };
 signInWithPopup;
 // Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export const auth = getAuth(app);

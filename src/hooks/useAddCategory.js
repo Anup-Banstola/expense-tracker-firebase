@@ -4,14 +4,14 @@ import { useGetUserInfo } from "./useGetUserInfo";
 
 export const useAddCategory = () => {
   const { userID } = useGetUserInfo();
-  const addCategory = async ({ categoryTitle, categoryImageName }) => {
+  const addCategory = async ({ categoryTitle, categoryColor }) => {
     try {
       const categoryCollectionRef = collection(db, "categories");
 
       await addDoc(categoryCollectionRef, {
         userID,
         categoryTitle,
-        categoryImageName,
+        categoryColor,
         createdAt: serverTimestamp(),
       });
     } catch (error) {

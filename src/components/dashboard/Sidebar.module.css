@@ -1,4 +1,4 @@
-.sidebar {
+/* .sidebar {
   background-color: #0a2529;
   color: #fff;
   width: 20vw;
@@ -33,7 +33,7 @@
   margin-left: 30%;
   margin-right: 30%;
   margin-bottom: 20px; */
-  margin: 50px 30%;
+/* margin: 50px 30%;
 }
 
 .nav {
@@ -123,4 +123,104 @@
 
 .logout {
   margin-top: 20px;
+} */
+
+.sidebar {
+  background-color: #1e2a31;
+  color: #ffffff;
+  width: 20vw;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  left: 0;
+  transition: width 0.3s ease;
+}
+
+.headlink {
+  text-decoration: none;
+  color: #fff;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.logo {
+  width: 35px;
+  height: 35px;
+}
+
+.title {
+  font-size: 20px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 20px;
+  gap: 5px;
+}
+
+.link:hover,
+.link:focus {
+  background-color: #33424b;
+}
+
+.icon {
+  margin-right: 5px;
+}
+
+.text {
+  font-size: 16px;
+}
+
+.nav a:global(.active) span {
+  color: darkgoldenrod;
+}
+
+@media screen and (max-width: 700px) {
+  .link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .logoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .title {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .link .text {
+    display: none;
+  }
+  .icon {
+    font-size: 20px;
+  }
+  .logoContainer {
+    margin-bottom: 50px;
+    margin-top: 20px;
+  }
+
+  .nav {
+    margin-top: 10px;
+  }
 }

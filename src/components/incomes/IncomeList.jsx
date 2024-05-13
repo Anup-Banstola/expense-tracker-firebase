@@ -35,7 +35,7 @@ function IncomeList({ incomes }) {
   };
 
   return (
-    <div className={styles.incomeitem}>
+    <div className={styles.container}>
       {loading ? (
         <div className={styles.loaderContainer}>
           <div className={styles.loader}></div>
@@ -44,49 +44,45 @@ function IncomeList({ incomes }) {
       ) : incomes.length === 0 ? (
         <p className={styles.noIncomes}>No incomes recorded yet. </p>
       ) : (
-        incomes.map((income, index) => (
-          <div key={index} className={styles.incomelist}>
-            <div className={styles.income}>
-              <div>
-                Income Amount:{" "}
-                <span className={styles.incamount}>
-                  {formatAmount(income.transactionAmount)}
-                </span>
-              </div>
-              <div>
-                Category:{" "}
-                <span className={styles.catagory}>{income.categoryName}</span>
-              </div>
-              <div className={styles.description}>
-                <span>Description:</span>
-                <div className={styles.wraptext}>{income.description}</div>
-              </div>
-            </div>
-            <div className={styles.date}>
-              <div className={styles.edit}>
-                <div className={styles.btns}>
-                  <img
-                    src="assets/icons/edit.svg"
-                    className={styles.editbtn}
-                    onClick={() => handleEditIncome(income)}
-                    title="Edit"
-                  />
-
-                  <img
-                    src="assets/icons/delete.svg"
-                    className={styles.delbtn}
-                    onClick={() => handleDeleteIncome(income.id)}
-                    title="Delete"
-                  />
-                </div>
-              </div>
-              <div>
-                Date: <span className={styles.dates}>{income.date}</span>
-              </div>
-            </div>
-          </div>
-        ))
+        <table className={styles.incomeTable}>
+          <thead>
+            <tr>
+              <th>Amount</th>
+              <th>Category</th>
+              <th>Description</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {incomes.map((income, index) => (
+              <tr key={index}>
+                <td>{formatAmount(income.transactionAmount)}</td>
+                <td>{income.categoryName}</td>
+                <td>{income.description}</td>
+                <td>{income.date}</td>
+                <td>
+                  <div className={styles.btns}>
+                    <img
+                      src="assets/icons/edit.svg"
+                      className={styles.editbtn}
+                      onClick={() => handleEditIncome(income)}
+                      title="Edit"
+                    />
+                    <img
+                      src="assets/icons/delete.svg"
+                      className={styles.delbtn}
+                      onClick={() => handleDeleteIncome(income.id)}
+                      title="Delete"
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
+
       {showEditPopup && transactionToEdit && (
         <EditIncomePopup
           onClose={closeEditPopup}

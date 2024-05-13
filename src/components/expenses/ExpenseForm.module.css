@@ -1,42 +1,44 @@
-.amount,
-.selectcategory,
-.date,
-.description {
+.form {
+  width: 100%;
+}
+
+.row {
   margin-bottom: 20px;
-  padding-left: 5px;
-}
-
-.inputfield {
-  margin-left: 10px;
-  border: none;
-  background-color: rgb(255, 255, 255);
-  padding: 5px;
-}
-.expensefield {
-  border: none;
-  padding: 10px;
-  width: 90%;
-}
-
-.description {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
 }
 
-.descriptionfield {
-  margin-top: 10px;
-  border: none;
+.label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.input,
+.textarea {
+  flex: 1;
   padding: 10px;
-  width: 90%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-.save {
+.button {
   background-color: #97ffd3;
   border: none;
   color: #000;
-  padding: 10px 20px;
+  padding: 10px;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 50px;
+  margin-top: 20px;
+  width: 100%;
+  font-weight: bold;
+}
+.button:hover {
+  background-color: #6de2bd;
+}
+
+.amount {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
 }

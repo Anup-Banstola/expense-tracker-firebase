@@ -2,31 +2,49 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-left: 10px;
-  margin-top: 10px;
-  width: 100%;
+  padding: 15px;
+  background-color: #fff;
+  margin: 10px;
+  border-radius: 5px;
 }
 .addCategory {
-  background-color: #154680;
-  border-radius: 5px;
+  background: linear-gradient(to right, #ff7e5f, #feb47b);
+  border-radius: 25px;
   padding: 15px 30px;
   border: none;
   color: #fff;
   cursor: pointer;
-  margin-right: 25px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.addCategory:hover {
+  background-color: #cc8708;
+  color: rgb(0, 0, 0);
 }
 
 .container {
   flex: 1;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: rgb(161, 145, 73);
+  background: linear-gradient(
+    to bottom right,
+    #f5b942,
+    #f3d078,
+    #f7e3af,
+    #e8f5b7,
+    #d7f8d6,
+    #a6f6f1,
+    #79d4f5,
+    #70a0f5
+  );
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 @media screen and (max-width: 415px) {
   .categoryheader {
     display: grid;
     grid-template-columns: 1fr;
+    justify-items: center;
   }
 }
 
