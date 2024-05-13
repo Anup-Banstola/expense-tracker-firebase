@@ -1,5 +1,12 @@
 .monthly {
-  background-color: aquamarine;
+  background: linear-gradient(
+    to right,
+    #ffe7e7,
+    #fff3e7,
+    #f5ffe7,
+    #e7fff8,
+    #e7f0ff
+  );
   margin: 15px;
   padding: 10px;
   border-radius: 5px;

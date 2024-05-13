@@ -235,68 +235,58 @@ function MonthlyDoughNutChart({ selectedMonth }) {
               <h3 className={styles.chart}>
                 Expenses - {formattedSelectedMonth}
               </h3>
-              <div className={styles.monthly}>
-                <Chart
-                  type="donut"
-                  width={450}
-                  height={350}
-                  series={Object.values(
-                    monthlyExpenses[formattedSelectedMonth]
-                  )}
-                  options={{
-                    labels: Object.keys(
-                      monthlyExpenses[formattedSelectedMonth]
-                    ),
-                    colors: Object.values(getCategoryColors()),
-                    title: {
-                      text: "Monthly Expenses Report",
-                    },
-                    subtitle: {
-                      text: `Month: ${formattedSelectedMonth}`,
-                    },
-                    plotOptions: {
-                      pie: {
-                        donut: {
-                          labels: {
-                            show: true,
-                            total: {
-                              show: true,
 
-                              fontSize: 16,
-                              // color: "#432454",
-                              formatter: function (w) {
-                                return formatAmount(
-                                  w.globals.seriesTotals
-                                    .reduce((a, b) => a + b, 0)
-                                    .toFixed(2)
-                                );
-                              },
+              <Chart
+                type="donut"
+                width={450}
+                height={350}
+                series={Object.values(monthlyExpenses[formattedSelectedMonth])}
+                options={{
+                  labels: Object.keys(monthlyExpenses[formattedSelectedMonth]),
+                  colors: Object.values(getCategoryColors()),
+
+                  plotOptions: {
+                    pie: {
+                      donut: {
+                        labels: {
+                          show: true,
+                          total: {
+                            show: true,
+
+                            fontSize: 16,
+                            // color: "#432454",
+                            formatter: function (w) {
+                              return formatAmount(
+                                w.globals.seriesTotals
+                                  .reduce((a, b) => a + b, 0)
+                                  .toFixed(2)
+                              );
                             },
                           },
                         },
                       },
                     },
-                    dataLabels: {
-                      enabled: true,
-                    },
+                  },
+                  dataLabels: {
+                    enabled: true,
+                  },
 
-                    responsive: [
-                      {
-                        breakpoint: 700,
-                        options: {
-                          chart: {
-                            width: "100%",
-                            height: "250",
-                          },
-                          legend: {
-                            position: "bottom",
-                          },
+                  responsive: [
+                    {
+                      breakpoint: 700,
+                      options: {
+                        chart: {
+                          width: "100%",
+                          height: "250",
+                        },
+                        legend: {
+                          position: "bottom",
                         },
                       },
-                    ],
-                  }}
-                />
-              </div>
+                    },
+                  ],
+                }}
+              />
             </div>
           )}
         {monthlyIncomes[formattedSelectedMonth] &&
@@ -305,63 +295,57 @@ function MonthlyDoughNutChart({ selectedMonth }) {
               <h3 className={styles.chart}>
                 Incomes - {formattedSelectedMonth}
               </h3>
-              <div className={styles.monthly}>
-                <Chart
-                  type="donut"
-                  width={450}
-                  height={350}
-                  series={Object.values(monthlyIncomes[formattedSelectedMonth])}
-                  options={{
-                    labels: Object.keys(monthlyIncomes[formattedSelectedMonth]),
-                    colors: Object.values(getCategoryColors()),
-                    title: {
-                      text: "Monthly Incomes Report",
-                    },
-                    subtitle: {
-                      text: `Month: ${formattedSelectedMonth}`,
-                    },
-                    plotOptions: {
-                      pie: {
-                        donut: {
-                          labels: {
+
+              <Chart
+                type="donut"
+                width={450}
+                height={350}
+                series={Object.values(monthlyIncomes[formattedSelectedMonth])}
+                options={{
+                  labels: Object.keys(monthlyIncomes[formattedSelectedMonth]),
+                  colors: Object.values(getCategoryColors()),
+
+                  plotOptions: {
+                    pie: {
+                      donut: {
+                        labels: {
+                          show: true,
+                          total: {
                             show: true,
-                            total: {
-                              show: true,
-                              fontSize: 16,
-                              color: "#438024",
-                              formatter: function (w) {
-                                return formatAmount(
-                                  w.globals.seriesTotals
-                                    .reduce((a, b) => a + b, 0)
-                                    .toFixed(2)
-                                );
-                              },
+                            fontSize: 16,
+                            color: "#438024",
+                            formatter: function (w) {
+                              return formatAmount(
+                                w.globals.seriesTotals
+                                  .reduce((a, b) => a + b, 0)
+                                  .toFixed(2)
+                              );
                             },
                           },
                         },
                       },
                     },
-                    dataLabels: {
-                      enabled: true,
-                    },
+                  },
+                  dataLabels: {
+                    enabled: true,
+                  },
 
-                    responsive: [
-                      {
-                        breakpoint: 700,
-                        options: {
-                          chart: {
-                            width: "100%",
-                            height: "250",
-                          },
-                          legend: {
-                            position: "bottom",
-                          },
+                  responsive: [
+                    {
+                      breakpoint: 700,
+                      options: {
+                        chart: {
+                          width: "100%",
+                          height: "250",
+                        },
+                        legend: {
+                          position: "bottom",
                         },
                       },
-                    ],
-                  }}
-                />
-              </div>
+                    },
+                  ],
+                }}
+              />
             </div>
           )}
       </div>

@@ -1,29 +1,10 @@
-.monthly {
-  background-color: rgb(147, 218, 218);
-  padding: 10px;
-  margin: 15px;
-
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .chart {
   margin-bottom: -25px;
   padding: 15px;
 }
 
-.monthlyreport {
-  background-color: rgb(131, 103, 69);
-  border-radius: 5px;
-  padding: 10px;
-  margin: 15px;
-}
-
 .monthlychart {
-  background-color: rgb(173, 152, 55);
-
+  background: linear-gradient(to right, #ffcccc, #ccffff, #ffffcc);
   padding-bottom: 10px;
   border-radius: 5px;
   margin: 25px 15px;

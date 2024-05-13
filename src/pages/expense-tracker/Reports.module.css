@@ -1,6 +1,17 @@
 .reports {
-  flex: 1;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: rgb(243, 145, 142);
+  flex: 1;
+  background: linear-gradient(
+    to bottom right,
+    #f5b942,
+    #f3d078,
+    #f7e3af,
+    #e8f5b7,
+    #d7f8d6,
+    #a6f6f1,
+    #79d4f5,
+    #70a0f5
+  );
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

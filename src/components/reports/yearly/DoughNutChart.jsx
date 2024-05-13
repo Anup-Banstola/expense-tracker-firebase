@@ -164,124 +164,114 @@ function DoughNutChart({ selectedYear }) {
               <h3 className={styles.chart}>
                 Expenses - {formattedSelectedYear}
               </h3>
-              <div className={styles.daily}>
-                <Chart
-                  type="donut"
-                  width={450}
-                  height={350}
-                  series={Object.values(yearlyExpenses[formattedSelectedYear])}
-                  options={{
-                    labels: Object.keys(yearlyExpenses[formattedSelectedYear]),
-                    colors: Object.values(getCategoryColors()),
-                    title: {
-                      text: "Yearly Expenses Report",
-                    },
-                    subtitle: {
-                      text: `Year: ${formattedSelectedYear}`,
-                    },
-                    plotOptions: {
-                      pie: {
-                        donut: {
-                          labels: {
+
+              <Chart
+                type="donut"
+                width={450}
+                height={350}
+                series={Object.values(yearlyExpenses[formattedSelectedYear])}
+                options={{
+                  labels: Object.keys(yearlyExpenses[formattedSelectedYear]),
+                  colors: Object.values(getCategoryColors()),
+
+                  plotOptions: {
+                    pie: {
+                      donut: {
+                        labels: {
+                          show: true,
+                          total: {
                             show: true,
-                            total: {
-                              show: true,
-                              fontSize: 16,
-                              color: "#438024",
-                              formatter: function (w) {
-                                return formatAmount(
-                                  w.globals.seriesTotals
-                                    .reduce((a, b) => a + b, 0)
-                                    .toFixed(2)
-                                );
-                              },
+                            fontSize: 16,
+                            color: "#438024",
+                            formatter: function (w) {
+                              return formatAmount(
+                                w.globals.seriesTotals
+                                  .reduce((a, b) => a + b, 0)
+                                  .toFixed(2)
+                              );
                             },
                           },
                         },
                       },
                     },
-                    dataLabels: {
-                      enabled: true,
-                    },
-                    responsive: [
-                      {
-                        breakpoint: 700,
-                        options: {
-                          chart: {
-                            width: "100%",
-                            height: "250",
-                          },
-                          legend: {
-                            position: "bottom",
-                          },
+                  },
+                  dataLabels: {
+                    enabled: true,
+                  },
+                  responsive: [
+                    {
+                      breakpoint: 700,
+                      options: {
+                        chart: {
+                          width: "100%",
+                          height: "250",
+                        },
+                        legend: {
+                          position: "bottom",
                         },
                       },
-                    ],
-                  }}
-                />
-              </div>
+                    },
+                  ],
+                }}
+              />
             </div>
           )}
         {yearlyIncomes[formattedSelectedYear] &&
           Object.keys(yearlyIncomes[formattedSelectedYear]).length > 0 && (
-            <div className={styles.daily}>
-              <h3 className={styles.chart}>Incomes - {year}</h3>
-              <div>
-                <Chart
-                  type="donut"
-                  width={450}
-                  height={350}
-                  series={Object.values(yearlyIncomes[formattedSelectedYear])}
-                  options={{
-                    labels: Object.keys(yearlyIncomes[formattedSelectedYear]),
-                    colors: Object.values(getCategoryColors()),
-                    title: {
-                      text: "Yearly Incomes Report",
-                    },
-                    subtitle: {
-                      text: `Year: ${formattedSelectedYear}`,
-                    },
-                    plotOptions: {
-                      pie: {
-                        donut: {
-                          labels: {
+            <div className={styles.yearlychart}>
+              <h3 className={styles.chart}>
+                Incomes - {formattedSelectedYear}
+              </h3>
+
+              <Chart
+                type="donut"
+                width={450}
+                height={350}
+                series={Object.values(yearlyIncomes[formattedSelectedYear])}
+                options={{
+                  labels: Object.keys(yearlyIncomes[formattedSelectedYear]),
+                  colors: Object.values(getCategoryColors()),
+
+                  plotOptions: {
+                    pie: {
+                      donut: {
+                        labels: {
+                          show: true,
+                          total: {
                             show: true,
-                            total: {
-                              show: true,
-                              fontSize: 16,
-                              color: "#438024",
-                              formatter: function (w) {
-                                return formatAmount(
-                                  w.globals.seriesTotals
-                                    .reduce((a, b) => a + b, 0)
-                                    .toFixed(2)
-                                );
-                              },
+                            fontSize: 16,
+                            color: "#438024",
+                            formatter: function (w) {
+                              return formatAmount(
+                                w.globals.seriesTotals
+                                  .reduce((a, b) => a + b, 0)
+                                  .toFixed(2)
+                              );
                             },
                           },
                         },
                       },
                     },
-                    dataLabels: {
-                      enabled: true,
-                    },
-                    responsive: [
-                      {
-                        breakpoint: 700,
-                        options: {
-                          chart: {
-                            width: "100%",
-                            height: "250",
-                          },
-                          legend: {
-                            position: "bottom",
-                          },
+                  },
+                  dataLabels: {
+                    enabled: true,
+                  },
+                  responsive: [
+                    {
+                      breakpoint: 700,
+                      options: {
+                        chart: {
+                          width: "100%",
+                          height: "250",
+                        },
+                        legend: {
+                          position: "bottom",
                         },
                       },
-                    ],
-                  }}
-                />
-              </div>
+                    },
+                  ],
+                }}
+              />
             </div>
           )}
       </div>

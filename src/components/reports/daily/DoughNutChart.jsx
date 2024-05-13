@@ -158,62 +158,56 @@ function DoughNutChart({ selectedDate }) {
               <h3 className={styles.chart}>
                 Expenses - {formattedSelectedDate}
               </h3>
-              <div className={styles.daily}>
-                <Chart
-                  type="donut"
-                  width={450}
-                  height={350}
-                  series={Object.values(dailyExpenses[formattedSelectedDate])}
-                  options={{
-                    labels: Object.keys(dailyExpenses[formattedSelectedDate]),
-                    colors: Object.values(getCategoryColors()),
-                    title: {
-                      text: "Daily Expenses Report",
-                    },
-                    subtitle: {
-                      text: `Date: ${formattedSelectedDate}`,
-                    },
-                    plotOptions: {
-                      pie: {
-                        donut: {
-                          labels: {
+
+              <Chart
+                type="donut"
+                width={450}
+                height={350}
+                series={Object.values(dailyExpenses[formattedSelectedDate])}
+                options={{
+                  labels: Object.keys(dailyExpenses[formattedSelectedDate]),
+                  colors: Object.values(getCategoryColors()),
+
+                  plotOptions: {
+                    pie: {
+                      donut: {
+                        labels: {
+                          show: true,
+                          total: {
                             show: true,
-                            total: {
-                              show: true,
-                              fontSize: 25,
-                              color: "#438024",
-                              formatter: function (w) {
-                                return formatAmount(
-                                  w.globals.seriesTotals
-                                    .reduce((a, b) => a + b, 0)
-                                    .toFixed(2)
-                                );
-                              },
+                            fontSize: 25,
+                            color: "#438024",
+                            formatter: function (w) {
+                              return formatAmount(
+                                w.globals.seriesTotals
+                                  .reduce((a, b) => a + b, 0)
+                                  .toFixed(2)
+                              );
                             },
                           },
                         },
                       },
                     },
-                    dataLabels: {
-                      enabled: true,
-                    },
-                    responsive: [
-                      {
-                        breakpoint: 700,
-                        options: {
-                          chart: {
-                            width: "100%",
-                            height: "250",
-                          },
-                          legend: {
-                            position: "bottom",
-                          },
+                  },
+                  dataLabels: {
+                    enabled: true,
+                  },
+                  responsive: [
+                    {
+                      breakpoint: 700,
+                      options: {
+                        chart: {
+                          width: "100%",
+                          height: "250",
+                        },
+                        legend: {
+                          position: "bottom",
                         },
                       },
-                    ],
-                  }}
-                />
-              </div>
+                    },
+                  ],
+                }}
+              />
             </div>
           )}
         {dailyIncomes[formattedSelectedDate] &&
@@ -222,62 +216,56 @@ function DoughNutChart({ selectedDate }) {
               <h3 className={styles.chart}>
                 Incomes - {formattedSelectedDate}
               </h3>
-              <div className={styles.daily}>
-                <Chart
-                  type="donut"
-                  width={450}
-                  height={350}
-                  series={Object.values(dailyIncomes[formattedSelectedDate])}
-                  options={{
-                    labels: Object.keys(dailyIncomes[formattedSelectedDate]),
-                    colors: Object.values(getCategoryColors()),
-                    title: {
-                      text: "Daily Incomes Report",
-                    },
-                    subtitle: {
-                      text: `Date: ${formattedSelectedDate}`,
-                    },
-                    plotOptions: {
-                      pie: {
-                        donut: {
-                          labels: {
+
+              <Chart
+                type="donut"
+                width={450}
+                height={350}
+                series={Object.values(dailyIncomes[formattedSelectedDate])}
+                options={{
+                  labels: Object.keys(dailyIncomes[formattedSelectedDate]),
+                  colors: Object.values(getCategoryColors()),
+
+                  plotOptions: {
+                    pie: {
+                      donut: {
+                        labels: {
+                          show: true,
+                          total: {
                             show: true,
-                            total: {
-                              show: true,
-                              fontSize: 16,
-                              color: "#438024",
-                              formatter: function (w) {
-                                return formatAmount(
-                                  w.globals.seriesTotals
-                                    .reduce((a, b) => a + b, 0)
-                                    .toFixed(2)
-                                );
-                              },
+                            fontSize: 16,
+                            color: "#438024",
+                            formatter: function (w) {
+                              return formatAmount(
+                                w.globals.seriesTotals
+                                  .reduce((a, b) => a + b, 0)
+                                  .toFixed(2)
+                              );
                             },
                           },
                         },
                       },
                     },
-                    dataLabels: {
-                      enabled: true,
-                    },
-                    responsive: [
-                      {
-                        breakpoint: 700,
-                        options: {
-                          chart: {
-                            width: "100%",
-                            height: "250",
-                          },
-                          legend: {
-                            position: "bottom",
-                          },
+                  },
+                  dataLabels: {
+                    enabled: true,
+                  },
+                  responsive: [
+                    {
+                      breakpoint: 700,
+                      options: {
+                        chart: {
+                          width: "100%",
+                          height: "250",
+                        },
+                        legend: {
+                          position: "bottom",
                         },
                       },
-                    ],
-                  }}
-                />
-              </div>
+                    },
+                  ],
+                }}
+              />
             </div>
           )}
       </div>
