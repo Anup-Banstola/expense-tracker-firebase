@@ -22,7 +22,7 @@ const app = initializeApp({
   messagingSenderId: process.env.VITE_MESSAGING_SENDER_ID,
   appId: process.env.VITE_APP_ID,
   measurementId: process.env.VITE_MEASUREMENT_ID,
-};);
+});
 const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 export const provider = new GoogleAuthProvider();
