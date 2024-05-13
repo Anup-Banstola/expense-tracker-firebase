@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 
 function YearlyReport() {
-  const [selectedYear, setSelectedYear] = useState();
+  const [selectedYear, setSelectedYear] = useState(new Date());
 
   const handleYearChange = (year) => {
     setSelectedYear(year);

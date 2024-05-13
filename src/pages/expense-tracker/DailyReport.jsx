@@ -7,7 +7,7 @@ import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function DailyReport() {
-  const [selectedDate, setSelectedDate] = useState();
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleDateChange = (date) => {
     setSelectedDate(date);

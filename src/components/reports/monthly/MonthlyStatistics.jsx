@@ -12,41 +12,11 @@ function formatAmount(amount) {
 
 function MonthlyStatistics({ selectedMonth }) {
   const { incomes, expenses, loading } = useGetTransactions();
-  const [monthlyExpenses, setMonthlyExpenses] = useState({});
-  const [monthlyIncomes, setMonthlyIncomes] = useState({});
 
-  const [highestTransaction, setHighestTransaction] = useState(null);
-  const [remarks, setRemarks] = useState("");
+  const [recentIncomes, setRecentIncomes] = useState([]);
+  const [recentExpenses, setRecentExpenses] = useState([]);
 
   useEffect(() => {
-    const expensesByMonth = expenses.reduce((acc, expense) => {
-      const date = new Date(expense.date);
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-      const year = date.getFullYear();
-      const key = `${month}/${year}`;
-      const amount = parseFloat(expense.transactionAmount);
-      if (month === String(selectedMonth.getMonth() + 1).padStart(2, "0")) {
-        acc[key] = acc[key] ? acc[key] + amount : amount;
-      }
-
-      return acc;
-    }, {});
-
-    const incomesByMonth = incomes.reduce((acc, income) => {
-      const date = new Date(income.date);
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-      const year = date.getFullYear();
-      const key = `${month}/${year}`;
-      const amount = parseFloat(income.transactionAmount);
-      if (month === String(selectedMonth.getMonth() + 1).padStart(2, "0")) {
-        acc[key] = acc[key] ? acc[key] + amount : amount;
-      }
-
-      return acc;
-    }, {});
-    setMonthlyExpenses(expensesByMonth);
-    setMonthlyIncomes(incomesByMonth);
-
     const transactionsForSelectedMonth = [...expenses, ...incomes].filter(
       (transaction) => {
         const date = new Date(transaction.date);
@@ -63,32 +33,30 @@ function MonthlyStatistics({ selectedMonth }) {
     );
 
     if (transactionsForSelectedMonth.length > 0) {
-      const highest = transactionsForSelectedMonth.reduce(
-        (max, transaction) => {
-          const amount = parseFloat(transaction.transactionAmount);
-          return amount > parseFloat(max.transactionAmount) ? transaction : max;
-        },
-        transactionsForSelectedMonth[0]
+      const incomeTransactions = transactionsForSelectedMonth.filter(
+        (transaction) => transaction.type === "income"
       );
-      setHighestTransaction(highest);
-    } else {
-      setHighestTransaction(null);
-    }
+      const expenseTransactions = transactionsForSelectedMonth.filter(
+        (transaction) => transaction.type === "expense"
+      );
 
-    if (transactionsForSelectedMonth.length === 0) {
-      setRemarks("No transactions recorded for this month.");
-    } else if (Object.keys(monthlyIncomes).length === 0) {
-      setRemarks("No income recorded for this month.");
-    } else if (Object.keys(monthlyExpenses).length === 0) {
-      setRemarks("No expenses recorded for this month.");
-    } else if (highestTransaction) {
-      setRemarks(
-        `Highest transaction amount recorded in ${
-          highestTransaction.date
-        } ==> ${formatAmount(highestTransaction.transactionAmount)}`
+      incomeTransactions.sort(
+        (a, b) => b.transactionAmount - a.transactionAmount
       );
+      expenseTransactions.sort(
+        (a, b) => b.transactionAmount - a.transactionAmount
+      );
+
+      const recentIncomeTransactions = incomeTransactions.slice(0, 5);
+      const recentExpenseTransactions = expenseTransactions.slice(0, 5);
+
+      setRecentIncomes(recentIncomeTransactions);
+      setRecentExpenses(recentExpenseTransactions);
+    } else {
+      setRecentIncomes([]);
+      setRecentExpenses([]);
     }
-  }, [expenses, incomes, remarks, selectedMonth]);
+  }, [expenses, incomes, selectedMonth]);
 
   return (
     <div className={styles.monthly}>
@@ -96,73 +64,56 @@ function MonthlyStatistics({ selectedMonth }) {
         <Loader />
       ) : (
         <>
-          <h3>Monthly Transactions:</h3>
-          {Object.keys(monthlyExpenses).length > 0 && (
-            <>
-              <h3>Expenses</h3>
-              <div>
-                {Object.entries(monthlyExpenses).map(([month, total]) => (
-                  <div key={month} className={styles.transactiondata}>
-                    <span>
-                      Date:<span className={styles.date}>{month}</span>
-                    </span>
-                    <span>
-                      Total Expenses:
-                      <span className={styles.expenses}>
-                        {formatAmount(total)}
+          <h3 className={styles.heading}>Monthly Transactions</h3>
+          <div className={styles.recentTransactions}>
+            <div className={styles.transactionSection}>
+              <h4 className={styles.sectionHeading}>Recent Incomes</h4>
+              {recentIncomes.length > 0 ? (
+                <div className={styles.transactions}>
+                  {recentIncomes.map((transaction, index) => (
+                    <div key={index} className={styles.transaction}>
+                      <span className={styles.transactionAmount}>
+                        {formatAmount(transaction.transactionAmount)}
                       </span>
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
-          {Object.keys(monthlyIncomes).length > 0 && (
-            <div>
-              <h3>Incomes</h3>
-              {Object.entries(monthlyIncomes).map(([month, total]) => (
-                <div key={month} className={styles.transactiondata}>
-                  <span>
-                    Date: <span className={styles.date}>{month}</span>
-                  </span>
-                  <span>
-                    Total Incomes:
-                    <span className={styles.incomes}>
-                      {formatAmount(total)}
-                    </span>
-                  </span>
+                      <span className={styles.transactionCategory}>
+                        {transaction.categoryName}
+                      </span>
+                      <span className={styles.transactionDate}>
+                        {transaction.date}
+                      </span>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              ) : (
+                <div>
+                  No income transactions have been recorded for this month.
+                </div>
+              )}
             </div>
-          )}
-
-          {highestTransaction && (
-            <div>
-              <h3>Highest Transaction</h3>
-
-              <div className={styles.transaction}>
-                <div>
-                  Amount:
-                  <span className={styles.tranamount}>
-                    {formatAmount(highestTransaction.transactionAmount)}
-                  </span>
+            <div className={styles.transactionSection}>
+              <h4 className={styles.sectionHeading}>Recent Expenses</h4>
+              {recentExpenses.length > 0 ? (
+                <div className={styles.transactions}>
+                  {recentExpenses.map((transaction, index) => (
+                    <div key={index} className={styles.transaction}>
+                      <span className={styles.transactionAmount}>
+                        {formatAmount(transaction.transactionAmount)}
+                      </span>
+                      <span className={styles.transactionCategory}>
+                        {transaction.categoryName}
+                      </span>
+                      <span className={styles.transactionDate}>
+                        {transaction.date}
+                      </span>
+                    </div>
+                  ))}
                 </div>
+              ) : (
                 <div>
-                  Category:
-                  <span className={styles.category}>
-                    {highestTransaction.categoryName}
-                  </span>
+                  No expense transactions have been recorded for this month.
                 </div>
-                <div>
-                  Date:
-                  <span className={styles.date}>{highestTransaction.date}</span>
-                </div>
-              </div>
+              )}
             </div>
-          )}
-          <div>
-            <h3>Remarks</h3>
-            <div className={styles.remarks}>{remarks}</div>
           </div>
         </>
       )}

@@ -55,12 +55,14 @@ function MonthlyDoughNutChart({ selectedMonth }) {
   }, [expenses, incomes]);
 
   const getCategoryColors = () => {
-    const categoryColors = {};
+    const categoryColors = [];
     categories.forEach((category) => {
-      categoryColors[category.categoryName] = category.categoryColor;
+      categoryColors.push(category.categoryColor);
     });
     return categoryColors;
   };
+
+  console.log(getCategoryColors());
 
   const hasTransactions =
     Object.keys(monthlyExpenses[formattedSelectedMonth] || {}).length > 0 ||

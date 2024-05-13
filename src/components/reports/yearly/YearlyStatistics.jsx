@@ -12,39 +12,11 @@ function formatAmount(amount) {
 
 function YearlyStatistics({ selectedYear }) {
   const { expenses, incomes, loading } = useGetTransactions();
-  const [yearlyExpenses, setYearlyExpenses] = useState({});
-  const [yearlyIncomes, setYearlyIncomes] = useState({});
 
-  const [highestTransaction, setHighestTransaction] = useState(null);
-  const [remarks, setRemarks] = useState("");
+  const [recentIncomes, setRecentIncomes] = useState([]);
+  const [recentExpenses, setRecentExpenses] = useState([]);
 
   useEffect(() => {
-    const expensesByYear = expenses.reduce((acc, expense) => {
-      const date = new Date(expense.date);
-      const year = date.getFullYear();
-      const amount = parseFloat(expense.transactionAmount);
-      console.log(year);
-      console.log(selectedYear.getFullYear());
-      if (year === selectedYear.getFullYear()) {
-        acc[year] = acc[year] ? acc[year] + amount : amount;
-      }
-
-      return acc;
-    }, {});
-    setYearlyExpenses(expensesByYear);
-
-    const incomesByYear = incomes.reduce((acc, income) => {
-      const date = new Date(income.date);
-      const year = date.getFullYear();
-      const amount = parseFloat(income.transactionAmount);
-      if (year === selectedYear.getFullYear()) {
-        acc[year] = acc[year] ? acc[year] + amount : amount;
-      }
-
-      return acc;
-    }, {});
-    setYearlyIncomes(incomesByYear);
-
     const transactionsForSelectedYear = [...expenses, ...incomes].filter(
       (transaction) => {
         const date = new Date(transaction.date);
@@ -54,32 +26,32 @@ function YearlyStatistics({ selectedYear }) {
     );
 
     if (transactionsForSelectedYear.length > 0) {
-      const highest = transactionsForSelectedYear.reduce((max, transaction) => {
-        const amount = parseFloat(transaction.transactionAmount);
-        return amount > parseFloat(max.transactionAmount) ? transaction : max;
-      }, transactionsForSelectedYear[0]);
-      setHighestTransaction(highest);
-    } else {
-      setHighestTransaction(null);
-    }
-
-    if (
-      transactionsForSelectedYear.length === 0 &&
-      transactionsForSelectedYear.length === 0
-    ) {
-      setRemarks("No transactions recorded yet.");
-    } else if (Object.keys(yearlyIncomes).length === 0) {
-      setRemarks("No income recorded for this year.");
-    } else if (Object.keys(yearlyExpenses).length === 0) {
-      setRemarks("No expenses recorded for this year.");
-    } else if (highestTransaction) {
-      setRemarks(
-        `Highest transaction amount recorded in ${
-          highestTransaction.date
-        }  <==>  ${formatAmount(highestTransaction.transactionAmount)}`
+      const incomeTransactions = transactionsForSelectedYear.filter(
+        (transaction) => transaction.type === "income"
       );
+      const expenseTransactions = transactionsForSelectedYear.filter(
+        (transaction) => transaction.type === "expense"
+      );
+
+      incomeTransactions.sort(
+        (a, b) => b.transactionAmount - a.transactionAmount
+      );
+      expenseTransactions.sort(
+        (a, b) => b.transactionAmount - a.transactionAmount
+      );
+
+      const recentIncomeTransactions = incomeTransactions.slice(0, 5);
+      const recentExpenseTransactions = expenseTransactions.slice(0, 5);
+
+      setRecentIncomes(recentIncomeTransactions);
+      setRecentExpenses(recentExpenseTransactions);
+    } else {
+      setRecentIncomes([]);
+      setRecentExpenses([]);
     }
-  }, [incomes, expenses, remarks, selectedYear]);
+  }, [incomes, expenses, selectedYear]);
+
+  console.log(recentIncomes);
 
   return (
     <div className={styles.yearly}>
@@ -87,78 +59,56 @@ function YearlyStatistics({ selectedYear }) {
         <Loader />
       ) : (
         <>
-          <h3>Yearly Transactions:</h3>
-          <>
-            {Object.keys(yearlyExpenses).length > 0 && (
-              <div>
-                <h3>Expenses</h3>
-                {Object.entries(yearlyExpenses).map(([year, total]) => (
-                  <div className={styles.transactiondata} key={year}>
-                    <span>
-                      Year:<span className={styles.date}>{year}</span>
-                    </span>
-                    <span>
-                      Total Expenses:
-                      <span className={styles.expenses}>
-                        {formatAmount(total)}
+          <h3 className={styles.heading}>Yearly Transactions</h3>
+          <div className={styles.recentTransactions}>
+            <div className={styles.transactionSection}>
+              <h4 className={styles.sectionHeading}>Recent Incomes</h4>
+              {recentIncomes.length > 0 ? (
+                <div className={styles.transactions}>
+                  {recentIncomes.map((transaction, index) => (
+                    <div key={index} className={styles.transaction}>
+                      <span className={styles.transactionAmount}>
+                        {formatAmount(transaction.transactionAmount)}
                       </span>
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
-            {Object.keys(yearlyIncomes).length > 0 && (
-              <div>
-                <h3>Incomes</h3>
-                {Object.entries(yearlyIncomes).map(([date, total]) => (
-                  <div key={date} className={styles.transactiondata}>
-                    <span>
-                      Year: <span className={styles.date}>{date}</span>
-                    </span>
-                    <span>
-                      Total Incomes:{" "}
-                      <span className={styles.incomes}>
-                        {formatAmount(total)}
+                      <span className={styles.transactionCategory}>
+                        {transaction.categoryName}
                       </span>
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            <div>
-              {highestTransaction && (
-                <>
-                  {" "}
-                  <h3>Highest Transaction</h3>
-                  <div className={styles.transaction}>
-                    <div>
-                      Amount:
-                      <span className={styles.tranamount}>
-                        {formatAmount(highestTransaction.transactionAmount)}
+                      <span className={styles.transactionDate}>
+                        {transaction.date}
                       </span>
                     </div>
-                    <div>
-                      Category:
-                      <span className={styles.category}>
-                        {highestTransaction.categoryName}
-                      </span>
-                    </div>
-                    <div>
-                      Date:
-                      <span className={styles.date}>
-                        {highestTransaction.date}
-                      </span>
-                    </div>
-                  </div>
-                </>
+                  ))}
+                </div>
+              ) : (
+                <div>
+                  No income transactions have been recorded for this year.
+                </div>
               )}
             </div>
-          </>
-
-          <div>
-            <h3>Remarks</h3>
-            <div className={styles.remarks}>{remarks}</div>
+            <div className={styles.transactionSection}>
+              <h4 className={styles.sectionHeading}>Recent Expenses</h4>
+              {recentExpenses.length > 0 ? (
+                <div className={styles.transactions}>
+                  {recentExpenses.map((transaction, index) => (
+                    <div key={index} className={styles.transaction}>
+                      <span className={styles.transactionAmount}>
+                        {formatAmount(transaction.transactionAmount)}
+                      </span>
+                      <span className={styles.transactionCategory}>
+                        {transaction.categoryName}
+                      </span>
+                      <span className={styles.transactionDate}>
+                        {transaction.date}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div>
+                  No expense transactions have been recorded for this year.
+                </div>
+              )}
+            </div>
           </div>
         </>
       )}

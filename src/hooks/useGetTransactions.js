@@ -43,7 +43,9 @@ export const useGetTransactions = () => {
             const incomeDocs = snapshot.docs.map((doc) => ({
               ...doc.data(),
               id: doc.id,
+              type: "income",
             }));
+
             setIncomes(incomeDocs);
             setLoading(false);
           },
@@ -59,7 +61,9 @@ export const useGetTransactions = () => {
             const expenseDocs = snapshot.docs.map((doc) => ({
               ...doc.data(),
               id: doc.id,
+              type: "expense",
             }));
+
             setExpenses(expenseDocs);
             setLoading(false);
           },

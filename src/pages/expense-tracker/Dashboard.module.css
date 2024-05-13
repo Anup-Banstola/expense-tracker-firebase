@@ -51,17 +51,18 @@
   transform: scale(1.1);
 }
 
-.close {
-  background-color: #ff5722;
-  margin: 10px auto;
+.closebtn {
+  background-color: #e9d8d3;
+
   border: none;
-  padding: 10 20px;
-  border-radius: 5px;
+  padding: 5px 10px;
+
+  border-radius: 40px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 .close:hover {
-  background-color: #ff7f50;
+  background-color: #c4412a;
 }
 
 .dash {
@@ -72,7 +73,7 @@
 .signout {
   background-color: #00adb5;
   color: #fff;
-  padding: 10px 20px;
+  padding: 5px 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;

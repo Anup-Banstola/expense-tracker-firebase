@@ -12,159 +12,99 @@ function formatAmount(amount) {
 
 function DailyStatistics({ selectedDate }) {
   const { incomes, expenses, loading } = useGetTransactions();
-  const [dailyExpenses, setDailyExpenses] = useState({});
-  const [dailyIncomes, setDailyIncomes] = useState({});
-  const [highestTransaction, setHighestTransaction] = useState(null);
-  const [remarks, setRemarks] = useState("");
-
+  const [recentIncomes, setRecentIncomes] = useState([]);
+  const [recentExpenses, setRecentExpenses] = useState([]);
   useEffect(() => {
-    const filterTransactionsByDate = (transactions, date) => {
-      if (!date) return [];
-
-      const selectedDateString = date.toLocaleDateString("en-US");
-
-      return transactions.filter((transaction) => {
+    const transactionsForSelectedDate = [...expenses, ...incomes].filter(
+      (transaction) => {
         const transactionDate = new Date(transaction.date).toLocaleDateString(
           "en-US"
         );
-        return transactionDate === selectedDateString;
-      });
-    };
+        return transactionDate === selectedDate.toLocaleDateString("en-US");
+      }
+    );
+    if (transactionsForSelectedDate.length > 0) {
+      const incomeTransactions = transactionsForSelectedDate.filter(
+        (transaction) => transaction.type === "income"
+      );
+      const expenseTransactions = transactionsForSelectedDate.filter(
+        (transaction) => transaction.type === "expense"
+      );
 
-    const filteredIncomes = filterTransactionsByDate(incomes, selectedDate);
-    const filteredExpenses = filterTransactionsByDate(expenses, selectedDate);
+      incomeTransactions.sort(
+        (a, b) => b.transactionAmount - a.transactionAmount
+      );
+      expenseTransactions.sort(
+        (a, b) => b.transactionAmount - a.transactionAmount
+      );
 
-    const expensesByDay = filteredExpenses.reduce((acc, expense) => {
-      const date = expense.date;
-      const amount = parseFloat(expense.transactionAmount);
-      acc[date] = acc[date] ? acc[date] + amount : amount;
-      return acc;
-    }, {});
+      const recentIncomeTransactions = incomeTransactions.slice(0, 5);
+      const recentExpenseTransactions = expenseTransactions.slice(0, 5);
 
-    const incomesByDay = filteredIncomes.reduce((acc, income) => {
-      const date = income.date;
-      const amount = parseFloat(income.transactionAmount);
-      acc[date] = acc[date] ? acc[date] + amount : amount;
-      return acc;
-    }, {});
-
-    setDailyExpenses(expensesByDay);
-    setDailyIncomes(incomesByDay);
-
-    const allTransactions = [...filteredExpenses, ...filteredIncomes];
-    if (allTransactions.length > 0) {
-      const highest = allTransactions.reduce((max, transaction) => {
-        const amount = parseFloat(transaction.transactionAmount);
-        return amount > parseFloat(max.transactionAmount) ? transaction : max;
-      }, allTransactions[0]);
-      setHighestTransaction(highest);
+      setRecentIncomes(recentIncomeTransactions);
+      setRecentExpenses(recentExpenseTransactions);
     } else {
-      setHighestTransaction(null);
+      setRecentIncomes([]);
+      setRecentExpenses([]);
     }
-
-    if (filteredIncomes.length === 0 && filteredExpenses.length === 0) {
-      setRemarks("No transactions recorded yet.");
-    } else if (Object.keys(dailyIncomes).length === 0) {
-      setRemarks("No income recorded for today.");
-    } else if (Object.keys(dailyExpenses).length === 0) {
-      setRemarks("No expenses recorded for today.");
-    } else if (highestTransaction) {
-      const formattedAmount = formatAmount(
-        highestTransaction.transactionAmount
-      );
-      setRemarks(
-        `Highest transaction amount recorded on ${selectedDate.toDateString()} is ${formattedAmount}`
-      );
-    }
-  }, [incomes, expenses, remarks, selectedDate]);
+  }, [incomes, expenses, selectedDate]);
 
   return (
-    selectedDate && (
-      <div className={styles.dailyreport}>
-        {loading ? (
-          <Loader />
-        ) : (
-          <>
-            <h3>Daily Transactions:</h3>
-            {Object.keys(dailyExpenses).length > 0 && (
-              <>
-                <h3>Expenses</h3>
-                <div>
-                  {Object.entries(dailyExpenses).map(([date, total]) => (
-                    <div className={styles.transactiondata} key={date}>
-                      <span>
-                        Date:<span className={styles.date}>{date}</span>
+    <div className={styles.daily}>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <h3 className={styles.heading}>Daily Transactions</h3>
+          <div className={styles.recentTransactions}>
+            <div className={styles.transactionSection}>
+              <h4 className={styles.sectionHeading}>Recent Incomes</h4>
+              {recentIncomes.length > 0 ? (
+                <div className={styles.transactions}>
+                  {recentIncomes.map((transaction, index) => (
+                    <div key={index} className={styles.transaction}>
+                      <span className={styles.transactionAmount}>
+                        {formatAmount(transaction.transactionAmount)}
                       </span>
-                      <span>
-                        Total Expenses:
-                        <span className={styles.expenses}>
-                          {formatAmount(total)}
-                        </span>
+                      <span className={styles.transactionCategory}>
+                        {transaction.categoryName}
                       </span>
-                    </div>
-                  ))}
-                </div>
-              </>
-            )}
-
-            {Object.keys(dailyIncomes).length > 0 && (
-              <>
-                <div>
-                  <h3>Incomes</h3>
-                  {Object.entries(dailyIncomes).map(([date, total]) => (
-                    <div key={date} className={styles.transactiondata}>
-                      <span>
-                        Date: <span className={styles.date}>{date}</span>
-                      </span>
-                      <span>
-                        Total Incomes:{" "}
-                        <span className={styles.incomes}>
-                          {formatAmount(total)}
-                        </span>
+                      <span className={styles.transactionDate}>
+                        {transaction.date}
                       </span>
                     </div>
                   ))}
                 </div>
-              </>
-            )}
-
-            {highestTransaction && (
-              <>
-                <div>
-                  <h3>Highest Transaction</h3>
-
-                  <div className={styles.transaction}>
-                    <div>
-                      Amount:
-                      <span className={styles.tranamount}>
-                        {formatAmount(highestTransaction.transactionAmount)}
-                      </span>
-                    </div>
-                    <div>
-                      Category:
-                      <span className={styles.category}>
-                        {highestTransaction.categoryName}
-                      </span>
-                    </div>
-                    <div>
-                      Date:
-                      <span className={styles.date}>
-                        {highestTransaction.date}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-
-            <div>
-              <h3>Remarks</h3>
-              <div className={styles.remarks}>{remarks}</div>
+              ) : (
+                <div>No income transactions recorded for today.</div>
+              )}
             </div>
-          </>
-        )}
-      </div>
-    )
+            <div className={styles.transactionSection}>
+              <h4 className={styles.sectionHeading}>Recent Expenses</h4>
+              {recentExpenses.length > 0 ? (
+                <div className={styles.transactions}>
+                  {recentExpenses.map((transaction, index) => (
+                    <div key={index} className={styles.transaction}>
+                      <span className={styles.transactionAmount}>
+                        {formatAmount(transaction.transactionAmount)}
+                      </span>
+                      <span className={styles.transactionCategory}>
+                        {transaction.categoryName}
+                      </span>
+                      <span className={styles.transactionDate}>
+                        {transaction.date}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div>No expense transactions recorded for today.</div>
+              )}
+            </div>
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 

@@ -6,7 +6,7 @@ import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function MonthlyReport() {
-  const [selectedMonth, setSelectedMonth] = useState();
+  const [selectedMonth, setSelectedMonth] = useState(new Date());
   const handleMonthChange = (date) => {
     setSelectedMonth(date);
   };

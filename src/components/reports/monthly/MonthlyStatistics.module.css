@@ -1,4 +1,7 @@
 .monthly {
+  padding: 20px;
+  border-radius: 8px;
+  margin: 15px;
   background: linear-gradient(
     to right,
     #ffe7e7,
@@ -7,67 +10,60 @@
     #e7fff8,
     #e7f0ff
   );
-  margin: 15px;
-  padding: 10px;
-  border-radius: 5px;
 }
 
-.expenses {
-  font-weight: 600;
-  color: rgb(212, 18, 18);
-  margin-left: 5px;
-}
-.incomes {
-  font-weight: 600;
-  color: rgb(10, 95, 28);
-  margin-left: 5px;
+.heading {
+  font-size: 22px;
+  margin-bottom: 16px;
 }
 
-.date {
-  font-weight: 600;
-}
-
-.transactiondata {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding: 10px 5px;
-  background-color: rgb(224, 166, 79);
-  margin: 10px;
-  border-radius: 5px;
-  align-items: center;
-}
-.transaction {
+.recentTransactions {
   display: flex;
-  flex-direction: column;
-  background-color: rgb(224, 166, 79);
-  padding: 10px;
-  border-radius: 5px;
-  gap: 10px;
-  align-items: center;
-}
-.tranamount,
-.date {
-  font-weight: 600;
-  padding-left: 5px;
-}
-.category {
-  text-transform: capitalize;
-  font-weight: 600;
-  padding-left: 5px;
+  gap: 20px;
+  justify-content: space-between;
 }
 
-.remarks {
-  background-color: rgb(224, 166, 79);
-  padding: 10px;
-  border-radius: 5px;
+.transactionSection {
+  flex: 1;
+  gap: 40px;
 }
-strong {
+
+.sectionHeading {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.transactions {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
+}
+
+.transaction {
+  background-color: #ffffff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.transactionDate,
+.transactionAmount,
+.transactionCategory {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.transactionAmount {
   font-weight: bold;
 }
 
-@media screen and (max-width: 380px) {
-  .transactiondata {
-    display: grid;
-    grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  .recentTransactions {
+    flex-direction: column;
+  }
+
+  .transactionSection {
+    margin-right: 0;
+    margin-bottom: 20px;
   }
 }

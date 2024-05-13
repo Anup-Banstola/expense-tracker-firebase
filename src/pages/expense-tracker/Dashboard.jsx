@@ -78,9 +78,12 @@ function Dashboard() {
             <p>UserID: {userID}</p>
             <p>Name: {name}</p>
             <p>Email: {email}</p>
-            <button onClick={handleCloseModal} className={styles.close}>
+            <span
+              onClick={handleCloseModal}
+              className={`${styles.closebtn} ${styles.close}`}
+            >
               Close
-            </button>
+            </span>
           </Modal>
         )}
         <div className={styles.amounts}>
