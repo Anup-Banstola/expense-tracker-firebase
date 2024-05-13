@@ -25,7 +25,7 @@ const firebaseConfig = {
 };
 signInWithPopup;
 // Initialize Firebase
-
+console.log(import.meta.env.VITE_PROJECT_ID);
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export const auth = getAuth(app);
