@@ -1,7 +1,7 @@
 import { auth, provider } from "../../config/firebase-config";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import styles from "./index.module.css";
+import styles from "./Auth.module.css";
 import { useEffect, useState } from "react";
 import Loader from "../../components/reports/daily/Loader";
 

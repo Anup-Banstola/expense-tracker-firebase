@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./MainExpense.module.css";
-import AddExpensePopup from "./AddExpensePopup";
-import ExpenseList from "./ExpenseList";
+import AddExpensePopup from "../../components/expenses/AddExpensePopup";
+import ExpenseList from "../../components/expenses/ExpenseList";
 import { useGetTransactions } from "../../hooks/useGetTransactions";
 
 function formatAmount(amount) {

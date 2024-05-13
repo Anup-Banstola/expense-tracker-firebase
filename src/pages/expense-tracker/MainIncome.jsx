@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./MainIncome.module.css";
-import AddIncomePopup from "./AddIncomePopup";
-import IncomeList from "./IncomeList";
+import AddIncomePopup from "../../components/incomes/AddIncomePopup";
+import IncomeList from "../../components/incomes/IncomeList";
 import { useGetTransactions } from "../../hooks/useGetTransactions";
 
 function MainIncome() {

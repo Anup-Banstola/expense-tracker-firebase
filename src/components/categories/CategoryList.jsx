@@ -11,10 +11,13 @@ function CategoryList({ categories }) {
     <div className={styles.categorylist}>
       {categories.map((category, index) => (
         <div key={index} className={styles.addcategory}>
-          <div
-            className={styles.colorIndicator}
-            style={{ backgroundColor: category.categoryColor }}
-          ></div>
+          {category.categoryColor && (
+            <div
+              className={styles.colorIndicator}
+              style={{ backgroundColor: category.categoryColor }}
+            ></div>
+          )}
+
           <span className={styles.title}>{category.categoryTitle}</span>
           <img
             src="assets/icons/delete.svg"

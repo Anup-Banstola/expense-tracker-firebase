@@ -1,3 +1,48 @@
-.container {
+.monthlyreport {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  flex: 1;
+  background: linear-gradient(
+    to bottom right,
+    #f5b942,
+    #f3d078,
+    #f7e3af,
+    #e8f5b7,
+    #d7f8d6,
+    #a6f6f1,
+    #79d4f5,
+    #70a0f5
+  );
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.datepicker {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.monthpicker {
+  margin-right: 10px;
+  background-color: rgb(169, 252, 255);
+  border: none;
+  padding: 5px;
+  text-align: center;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.selectmonth {
+  margin-right: 30px;
+}
+
+@media screen and (max-width: 420px) {
+  .datepicker {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .selectmonth {
+    margin: 5px auto;
+  }
 }

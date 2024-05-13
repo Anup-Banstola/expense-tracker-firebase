@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
-
-import styles from "./Hero.module.css";
-import History from "./History.jsx";
+import styles from "./Dashboard.module.css";
+import History from "../../components/dashboard/History.jsx";
 import { useGetTransactions } from "../../hooks/useGetTransactions.js";
 import { signOut } from "firebase/auth";
 import { auth } from "../../config/firebase-config.js";
 import { useNavigate } from "react-router-dom";
 import { useGetUserInfo } from "../../hooks/useGetUserInfo.js";
-import Modal from "./Modal.jsx";
+import Modal from "../../components/dashboard/Modal.jsx";
 
-function Hero() {
+function Dashboard() {
   const { incomes, expenses } = useGetTransactions();
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [totalIncomes, setTotalIncomes] = useState(0);
@@ -109,4 +108,4 @@ function Hero() {
   );
 }
 
-export default Hero;
+export default Dashboard;

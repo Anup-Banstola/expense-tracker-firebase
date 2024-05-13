@@ -1,10 +1,10 @@
 import { useState } from "react";
 import styles from "./Tabs.module.css";
-import TabNavItem from "./TabNavItem";
-import TabContent from "./TabContent";
-import DailyReport from "../reports/daily/DailyReport";
-import MonthlyReport from "../reports/monthly/MonthlyReport";
-import YearlyReport from "../reports/yearly/YearlyReport";
+import TabNavItem from "../../components/tab/TabNavItem";
+import TabContent from "../../components/tab/TabContent";
+import DailyReport from "./DailyReport";
+import MonthlyReport from "./MonthlyReport";
+import YearlyReport from "./YearlyReport";
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState("daily");

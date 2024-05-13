@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./MainCategory.module.css";
-import AddCategoryPopup from "./AddCategoryPopup";
-import CategoryList from "./CategoryList";
+import AddCategoryPopup from "../../components/categories/AddCategoryPopup";
+import CategoryList from "../../components/categories/CategoryList";
 import useGetCategories from "../../hooks/useGetCategories";
 
 function MainCategory() {

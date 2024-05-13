@@ -1,8 +1,9 @@
 .addcategory {
   display: flex;
   align-items: center;
+  justify-content: center;
   margin: 25px 15px;
-  background-color: bisque;
+  background: linear-gradient(to right, #ffcccc, #ccffff, #ffffcc);
   padding: 10px;
   width: fit-content;
   border-radius: 5px;
@@ -34,6 +35,7 @@
   width: 15px;
   height: 15px;
   border-radius: 50%;
+  display: ;
 }
 
 .delbtn {

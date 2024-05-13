@@ -1,25 +1,14 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import "./App.css";
-// import AppLayout from "./pages/expense-tracker/AppLayout";
-// import Categories from "./pages/expense-tracker/Categories";
-// import Expenses from "./pages/expense-tracker/Expenses";
-// import Incomes from "./pages/expense-tracker/Incomes";
-// import DailyReport from "./pages/expense-tracker/DailyReport";
-// import MonthlyReport from "./pages/expense-tracker/MonthlyReport";
-// import YearlyReport from "./pages/expense-tracker/YearlyReport";
-import Reports from "./pages/expense-tracker/Reports";
-import { Auth } from "./pages/auth/index";
+
+import { Auth } from "./pages/auth/Auth";
 import RootLayout from "./pages/RootLayout";
-import Hero from "./components/dashboard/Hero";
-import MainCategory from "./components/categories/MainCategory";
-import MainExpense from "./components/expenses/MainExpense";
-import MainIncome from "./components/incomes/MainIncome";
-import MainReport from "./components/reports/daily/DailyReport";
-import MonthlyReport from "./components/reports/monthly/MonthlyReport";
-import YearlyReport from "./components/reports/yearly/YearlyReport";
-import Tabs from "./components/tab/Tabs";
-import DailyReport from "./components/reports/daily/DailyReport";
+import MainCategory from "./pages/expense-tracker/MainCategory";
+import MainExpense from "./pages/expense-tracker/MainExpense";
+import MainIncome from "./pages/expense-tracker/MainIncome";
+import Tabs from "./pages/expense-tracker/Tabs";
+import Dashboard from "./pages/expense-tracker/Dashboard";
 
 function App() {
   return (
@@ -27,7 +16,7 @@ function App() {
       <Routes>
         <Route path="/" exact element={<Auth />} />
         <Route element={<RootLayout />}>
-          <Route path="dashboard" element={<Hero />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="categories" element={<MainCategory />} />
           <Route path="expenses" element={<MainExpense />} />
           <Route path="incomes" element={<MainIncome />} />
