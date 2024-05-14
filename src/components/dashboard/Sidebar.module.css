@@ -1,130 +1,3 @@
-/* .sidebar {
-  background-color: #0a2529;
-  color: #fff;
-  width: 20vw;
-  height: 100vh;
-  position: sticky;
-  top: 0;
-  left: 0;
-}
-
-.logotitle {
-  display: flex;
-  align-items: center;
-  height: 15vh;
-}
-
-.title {
-  font-size: 25px;
-  font-weight: bold;
-}
-
-.mng {
-  font-size: 18px;
-  font-weight: 600;
-  margin-top: 50px;
-  text-align: center;
-}
-
-.icon {
-  color: #fff;
-  font-size: 30px;
-  /* margin-top: 50px;
-  margin-left: 30%;
-  margin-right: 30%;
-  margin-bottom: 20px; */
-/* margin: 50px 30%;
-}
-
-.nav {
-  height: 55vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  list-style: none;
-  padding-left: 15px;
-}
-
-.navel {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.text {
-  font-size: 20px;
-  font-weight: 500;
-  padding-left: 10px;
-  color: #fff;
-}
-
-.headlink {
-  text-decoration: none;
-  color: #fff;
-}
-
-.nav a:link {
-  text-decoration: none;
-  color: #fff;
-}
-
-.nav a:global(.active) span {
-  color: darkgoldenrod;
-}
-@media screen and (max-width: 900px) {
-  .sidebar span {
-    display: none;
-  }
-
-  .nav {
-    align-items: center;
-    margin-left: -12px;
-  }
-
-  .mng {
-    align-items: center;
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .logotitle h2 {
-    display: none;
-  }
-  .logotitle img {
-    margin-left: 30%;
-  }
-}
-
-@media screen and (max-width: 270px) {
-  .icon {
-    margin-left: 20%;
-  }
-  .logotitle {
-    margin-left: -20px;
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .icon {
-    margin-left: 20%;
-  }
-  .logotitle {
-    margin-left: -15px;
-  }
-}
-@media screen and (max-width: 330px) {
-  .icon {
-    margin-left: 20%;
-  }
-  .logotitle {
-    margin-left: -15px;
-  }
-}
-
-.logout {
-  margin-top: 20px;
-} */
-
 .sidebar {
   background-color: #1e2a31;
   color: #ffffff;
@@ -223,4 +96,19 @@
   .nav {
     margin-top: 10px;
   }
+}
+
+.signout {
+  margin-top: 20px;
+  cursor: pointer;
+  align-self: center;
+  padding: 6px 14px;
+  background: linear-gradient(to right, #ffcccc, #ccffff, #ffffcc);
+  border: none;
+  border-radius: 40px;
+  margin: 30px 10px;
+}
+
+.signout:hover {
+  font-size: larger;
 }

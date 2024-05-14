@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./ExpenseForm.module.css";
 import useGetCategories from "../../hooks/useGetCategories";
-useState;
+import useDebounce from "../../hooks/useDebounce";
 
 function ExpenseForm({ onSubmit, initialData = {}, isEditing = false }) {
   const { categories } = useGetCategories();
@@ -18,14 +18,19 @@ function ExpenseForm({ onSubmit, initialData = {}, isEditing = false }) {
   const [date, setDate] = useState(initialData.date || "");
   const [description, setDescription] = useState(initialData.description || "");
 
+  const debouncedTransactionAmount = useDebounce(transactionAmount, 500);
+  const debouncedCategoryName = useDebounce(categoryName, 500);
+  const debouncedDate = useDebounce(date, 500);
+  const debouncedDescription = useDebounce(description, 500);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const transactionData = {
       type: "expense",
-      transactionAmount: parseFloat(transactionAmount),
-      categoryName,
-      date,
-      description,
+      transactionAmount: parseFloat(debouncedTransactionAmount),
+      debouncedCategoryName,
+      debouncedDate,
+      debouncedDescription,
     };
     await onSubmit(transactionData);
   };

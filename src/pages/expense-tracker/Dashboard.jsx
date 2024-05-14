@@ -35,15 +35,15 @@ function Dashboard() {
     }).format(amount);
   }
 
-  const signUserOut = async () => {
-    try {
-      await signOut(auth);
-      localStorage.clear();
-      navigate("/");
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  // const signUserOut = async () => {
+  //   try {
+  //     await signOut(auth);
+  //     localStorage.clear();
+  //     navigate("/");
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   const handleProfileClick = () => {
     setIsModalOpen(!isModalOpen);
@@ -65,9 +65,9 @@ function Dashboard() {
               onClick={handleProfileClick}
             />
 
-            <button className={styles.signout} onClick={signUserOut}>
+            {/* <button className={styles.signout} onClick={signUserOut}>
               Sign Out
-            </button>
+            </button> */}
           </div>
         </div>
 
