@@ -7,7 +7,6 @@
   top: 0;
   left: 0;
   transition: width 0.3s ease;
-  position: relative;
 }
 
 .headlink {
@@ -122,14 +121,7 @@
   bottom: 45px;
   left: 20px;
   color: #fff;
-
+  align-self: center;
   font-size: 20px;
   cursor: pointer;
-  text-align: center;
-}
-
-.signOutContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
