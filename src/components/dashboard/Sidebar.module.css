@@ -7,6 +7,7 @@
   top: 0;
   left: 0;
   transition: width 0.3s ease;
+  position: relative;
 }
 
 .headlink {
@@ -103,12 +104,32 @@
   cursor: pointer;
   align-self: center;
   padding: 6px 14px;
-  background: linear-gradient(to right, #ffcccc, #ccffff, #ffffcc);
+  background-color: rgba(240, 255, 255, 0.781);
   border: none;
   border-radius: 40px;
   margin: 30px 10px;
+  position: absolute;
+  bottom: 15px;
+  color: #000;
 }
 
 .signout:hover {
-  font-size: larger;
+  font-size: 14px;
+}
+
+.logoutbtn {
+  position: absolute;
+  bottom: 45px;
+  left: 20px;
+  color: #fff;
+
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.signOutContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

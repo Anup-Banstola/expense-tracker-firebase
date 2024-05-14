@@ -7,6 +7,7 @@ import {
   faHome,
   faListAlt,
   faMoneyBill,
+  faSignOut,
 } from "@fortawesome/free-solid-svg-icons";
 import { signOut } from "firebase/auth";
 import { auth } from "../../config/firebase-config";
@@ -16,7 +17,7 @@ function Sidebar() {
   const { navigate } = useNavigate();
 
   const handleResize = () => {
-    setIsSmallScreen(window.innerWidth <= 480);
+    setIsSmallScreen(window.innerWidth <= 500);
   };
 
   useEffect(() => {
@@ -90,9 +91,21 @@ function Sidebar() {
             </NavLink>
           </div>
         ))}
-        <button className={styles.signout} onClick={signUserOut}>
-          Sign Out
-        </button>
+
+        <div className={styles.signoutContainer}>
+          {!isSmallScreen ? (
+            <span className={styles.signout} onClick={signUserOut}>
+              Sign Out
+            </span>
+          ) : (
+            <FontAwesomeIcon
+              icon={faSignOut}
+              className={styles.logoutbtn}
+              title="Sign Out"
+              onClick={signUserOut}
+            />
+          )}
+        </div>
       </div>
     </>
   );
