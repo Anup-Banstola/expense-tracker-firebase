@@ -12,6 +12,7 @@ import Dashboard from "./pages/expense-tracker/Dashboard";
 import { useEffect, useState } from "react";
 import { auth } from "./config/firebase-config";
 import Loader from "./components/reports/daily/Loader";
+import PageNotFound from "./pages/expense-tracker/PageNotFound";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -41,6 +42,7 @@ function App() {
               <Route path="expenses" element={<MainExpense />} />
               <Route path="incomes" element={<MainIncome />} />
               <Route path="reports" element={<Tabs />} />
+              <Route path="*" element={<PageNotFound />} />
             </>
           ) : (
             <Route path="*" element={<Navigate to="/" />} />

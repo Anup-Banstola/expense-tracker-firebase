@@ -1,0 +1,7 @@
+.notFound {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  flex: 1;
+  background-color: rgb(253, 253, 253);
+  padding: 10px;
+}
