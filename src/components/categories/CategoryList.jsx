@@ -11,12 +11,10 @@ function CategoryList({ categories }) {
     <div className={styles.categorylist}>
       {categories.map((category, index) => (
         <div key={index} className={styles.addcategory}>
-          {category.categoryColor && (
-            <div
-              className={styles.colorIndicator}
-              style={{ backgroundColor: category.categoryColor }}
-            ></div>
-          )}
+          <div
+            className={styles.colorIndicator}
+            style={{ backgroundColor: category.categoryColor }}
+          ></div>
 
           <span className={styles.title}>{category.categoryTitle}</span>
           <img

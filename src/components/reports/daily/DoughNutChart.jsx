@@ -39,13 +39,26 @@ function DoughNutChart({ selectedDate }) {
     setDailyIncomes(aggregateTransactionsByDay(incomes));
   }, [expenses, incomes]);
 
+  function getRandomColor() {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
   const getCategoryColors = () => {
     const categoryColors = {};
     categories.forEach((category) => {
-      categoryColors[category.categoryName] = category.categoryColor;
+      if (!categoryColors[category.categoryTitle]) {
+        categoryColors[category.categoryTitle] =
+          category.categoryColor || getRandomColor();
+      }
     });
     return categoryColors;
   };
+  const categoryColors = getCategoryColors();
 
   const hasTransactions =
     Object.keys(dailyExpenses[formattedSelectedDate] || {}).length > 0 ||
@@ -70,7 +83,9 @@ function DoughNutChart({ selectedDate }) {
                 series={Object.values(dailyExpenses[formattedSelectedDate])}
                 options={{
                   labels: Object.keys(dailyExpenses[formattedSelectedDate]),
-                  colors: Object.values(getCategoryColors()),
+                  colors: Object.keys(dailyExpenses[formattedSelectedDate]).map(
+                    (category) => categoryColors[category]
+                  ),
 
                   plotOptions: {
                     pie: {
@@ -128,7 +143,9 @@ function DoughNutChart({ selectedDate }) {
                 series={Object.values(dailyIncomes[formattedSelectedDate])}
                 options={{
                   labels: Object.keys(dailyIncomes[formattedSelectedDate]),
-                  colors: Object.values(getCategoryColors()),
+                  colors: Object.keys(dailyIncomes[formattedSelectedDate]).map(
+                    (category) => categoryColors[category]
+                  ),
 
                   plotOptions: {
                     pie: {

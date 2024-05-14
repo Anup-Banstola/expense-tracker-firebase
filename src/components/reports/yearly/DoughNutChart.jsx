@@ -40,13 +40,26 @@ function DoughNutChart({ selectedYear }) {
     setYearlyIncomes(aggregateTransactionsByYear(incomes));
   }, [incomes, expenses]);
 
+  function getRandomColor() {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
   const getCategoryColors = () => {
     const categoryColors = {};
     categories.forEach((category) => {
-      categoryColors[category.categoryName] = category.categoryColor;
+      if (!categoryColors[category.categoryTitle]) {
+        categoryColors[category.categoryTitle] =
+          category.categoryColor || getRandomColor();
+      }
     });
     return categoryColors;
   };
+  const categoryColors = getCategoryColors();
 
   const hasTransactions =
     Object.keys(yearlyExpenses[formattedSelectedYear] || {}).length > 0 ||
@@ -71,7 +84,9 @@ function DoughNutChart({ selectedYear }) {
                 series={Object.values(yearlyExpenses[formattedSelectedYear])}
                 options={{
                   labels: Object.keys(yearlyExpenses[formattedSelectedYear]),
-                  colors: Object.values(getCategoryColors()),
+                  colors: Object.keys(
+                    yearlyExpenses[formattedSelectedYear]
+                  ).map((category) => categoryColors[category]),
 
                   plotOptions: {
                     pie: {
@@ -129,7 +144,9 @@ function DoughNutChart({ selectedYear }) {
                 series={Object.values(yearlyIncomes[formattedSelectedYear])}
                 options={{
                   labels: Object.keys(yearlyIncomes[formattedSelectedYear]),
-                  colors: Object.values(getCategoryColors()),
+                  colors: Object.keys(yearlyIncomes[formattedSelectedYear]).map(
+                    (category) => categoryColors[category]
+                  ),
 
                   plotOptions: {
                     pie: {

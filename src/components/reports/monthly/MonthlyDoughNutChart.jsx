@@ -54,13 +54,26 @@ function MonthlyDoughNutChart({ selectedMonth }) {
     console.log(monthlyTransactions);
   }, [expenses, incomes]);
 
+  function getRandomColor() {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
   const getCategoryColors = () => {
-    const categoryColors = [];
+    const categoryColors = {};
     categories.forEach((category) => {
-      categoryColors.push(category.categoryColor);
+      if (!categoryColors[category.categoryTitle]) {
+        categoryColors[category.categoryTitle] =
+          category.categoryColor || getRandomColor();
+      }
     });
     return categoryColors;
   };
+  const categoryColors = getCategoryColors();
 
   console.log(getCategoryColors());
 
@@ -87,7 +100,9 @@ function MonthlyDoughNutChart({ selectedMonth }) {
                 series={Object.values(monthlyExpenses[formattedSelectedMonth])}
                 options={{
                   labels: Object.keys(monthlyExpenses[formattedSelectedMonth]),
-                  colors: Object.values(getCategoryColors()),
+                  colors: Object.keys(
+                    monthlyExpenses[formattedSelectedMonth]
+                  ).map((category) => categoryColors[category]),
 
                   plotOptions: {
                     pie: {
@@ -147,7 +162,9 @@ function MonthlyDoughNutChart({ selectedMonth }) {
                 series={Object.values(monthlyIncomes[formattedSelectedMonth])}
                 options={{
                   labels: Object.keys(monthlyIncomes[formattedSelectedMonth]),
-                  colors: Object.values(getCategoryColors()),
+                  colors: Object.keys(
+                    monthlyIncomes[formattedSelectedMonth]
+                  ).map((category) => categoryColors[category]),
 
                   plotOptions: {
                     pie: {
