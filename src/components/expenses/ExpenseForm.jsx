@@ -27,6 +27,7 @@ function ExpenseForm({
 
   const [description, setDescription] = useState(initialData.description || "");
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const MAX_TRANSACTION_AMOUNT = 9999999999; // Set your maximum limit here
 
@@ -66,6 +67,10 @@ function ExpenseForm({
       onClose();
       return;
     }
+
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
     const transactionData = {
       type: "expense",
       transactionAmount: parseFloat(transactionAmount),
@@ -74,6 +79,8 @@ function ExpenseForm({
       description,
     };
     await onSubmit(transactionData);
+
+    setIsSubmitting(false);
   };
 
   const handleDateChange = (date) => {
@@ -153,8 +160,8 @@ function ExpenseForm({
         />
       </div>
 
-      <button type="submit" className={styles.button}>
-        {isEditing ? "Update" : "Add"}
+      <button type="submit" className={styles.button} disabled={isSubmitting}>
+        {isSubmitting ? "Adding..." : isEditing ? "Update" : "Add"}
       </button>
     </form>
   );

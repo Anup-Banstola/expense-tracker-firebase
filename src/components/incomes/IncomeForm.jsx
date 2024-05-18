@@ -25,6 +25,7 @@ function IncomeForm({
   const [date, setDate] = useState(initialData.date || "");
   const [description, setDescription] = useState(initialData.description || "");
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const MAX_TRANSACTION_AMOUNT = 9999999999; // Set your maximum limit here
 
@@ -63,6 +64,11 @@ function IncomeForm({
       onClose();
       return;
     }
+
+    // Disable the form submission to prevent multiple submissions
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
     const transactionData = {
       type: "income",
       transactionAmount: parseFloat(transactionAmount),
@@ -71,6 +77,9 @@ function IncomeForm({
       description,
     };
     await onSubmit(transactionData);
+
+    // Re-enable the form submission after the submission is complete
+    setIsSubmitting(false);
   };
 
   const handleDateChange = (date) => {
@@ -144,8 +153,8 @@ function IncomeForm({
         />
       </div>
 
-      <button type="submit" className={styles.button}>
-        {isEditing ? "Update" : "Add"}
+      <button type="submit" className={styles.button} disabled={isSubmitting}>
+        {isSubmitting ? "Adding..." : isEditing ? "Update" : "Add"}
       </button>
     </form>
   );
