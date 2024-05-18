@@ -91,19 +91,7 @@ function DoughNutChart({ selectedDate }) {
                     pie: {
                       donut: {
                         labels: {
-                          show: true,
-                          total: {
-                            show: true,
-                            fontSize: 25,
-                            color: "#438024",
-                            formatter: function (w) {
-                              return formatAmount(
-                                w.globals.seriesTotals
-                                  .reduce((a, b) => a + b, 0)
-                                  .toFixed(2)
-                              );
-                            },
-                          },
+                          show: false,
                         },
                       },
                     },
@@ -113,11 +101,11 @@ function DoughNutChart({ selectedDate }) {
                   },
                   responsive: [
                     {
-                      breakpoint: 700,
+                      breakpoint: 600,
                       options: {
                         chart: {
                           width: "100%",
-                          height: "250",
+                          height: "450",
                         },
                         legend: {
                           position: "bottom",
@@ -125,6 +113,14 @@ function DoughNutChart({ selectedDate }) {
                       },
                     },
                   ],
+                  tooltip: {
+                    enabled: true,
+                    y: {
+                      formatter: function (val) {
+                        return formatAmount(val.toFixed(2));
+                      },
+                    },
+                  },
                 }}
               />
             </div>
@@ -151,19 +147,7 @@ function DoughNutChart({ selectedDate }) {
                     pie: {
                       donut: {
                         labels: {
-                          show: true,
-                          total: {
-                            show: true,
-                            fontSize: 16,
-                            color: "#438024",
-                            formatter: function (w) {
-                              return formatAmount(
-                                w.globals.seriesTotals
-                                  .reduce((a, b) => a + b, 0)
-                                  .toFixed(2)
-                              );
-                            },
-                          },
+                          show: false,
                         },
                       },
                     },
@@ -173,11 +157,11 @@ function DoughNutChart({ selectedDate }) {
                   },
                   responsive: [
                     {
-                      breakpoint: 700,
+                      breakpoint: 600,
                       options: {
                         chart: {
                           width: "100%",
-                          height: "250",
+                          height: "450",
                         },
                         legend: {
                           position: "bottom",
@@ -185,6 +169,14 @@ function DoughNutChart({ selectedDate }) {
                       },
                     },
                   ],
+                  tooltip: {
+                    enabled: true,
+                    y: {
+                      formatter: function (val) {
+                        return formatAmount(val.toFixed(2));
+                      },
+                    },
+                  },
                 }}
               />
             </div>

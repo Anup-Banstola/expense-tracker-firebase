@@ -17,7 +17,7 @@ function AddIncomePopup({ onClose }) {
         <span className={styles.close} onClick={onClose}>
           &times;
         </span>
-        <IncomeForm onSubmit={handleSubmit} />
+        <IncomeForm onSubmit={handleSubmit} onClose={onClose} />
       </div>
     </>
   );

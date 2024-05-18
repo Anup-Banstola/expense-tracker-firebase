@@ -20,12 +20,17 @@
   border-collapse: collapse;
 }
 
+.incomeTable td {
+  align-self: start;
+}
+
 .incomeTable th,
 .incomeTable td {
   padding: 8px;
   border-bottom: 1px solid #ddd;
   text-align: left;
   white-space: nowrap;
+  vertical-align: top;
 }
 
 .incomeTable th {
@@ -81,4 +86,10 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.incomeTable .description {
+  max-width: 250px;
+  word-wrap: break-word;
+  white-space: normal;
 }

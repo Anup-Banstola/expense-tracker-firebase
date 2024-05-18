@@ -1,9 +1,16 @@
 import { useState } from "react";
 import styles from "./ExpenseForm.module.css";
 import useGetCategories from "../../hooks/useGetCategories";
-import useDebounce from "../../hooks/useDebounce";
+import ReactDatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
 
-function ExpenseForm({ onSubmit, initialData = {}, isEditing = false }) {
+function ExpenseForm({
+  onSubmit,
+  initialData = {},
+  isEditing = false,
+  onClose = { onClose },
+}) {
   const { categories } = useGetCategories();
 
   const categoryTitles = categories.map((item) => item.categoryTitle);
@@ -15,26 +22,68 @@ function ExpenseForm({ onSubmit, initialData = {}, isEditing = false }) {
   const [categoryName, setCategoryName] = useState(
     initialData.categoryName || ""
   );
-  const [date, setDate] = useState(initialData.date || "");
-  const [description, setDescription] = useState(initialData.description || "");
 
-  const debouncedTransactionAmount = useDebounce(transactionAmount, 500);
-  const debouncedCategoryName = useDebounce(categoryName, 500);
-  const debouncedDate = useDebounce(date, 500);
-  const debouncedDescription = useDebounce(description, 500);
+  const [date, setDate] = useState(initialData.date || "");
+
+  const [description, setDescription] = useState(initialData.description || "");
+  const [errors, setErrors] = useState({});
+
+  const MAX_TRANSACTION_AMOUNT = 9999999999; // Set your maximum limit here
+
+  const handleTransactionAmountChange = (e) => {
+    let value = e.target.value;
+
+    // Handle backspace separately to allow clearing the input
+    if (e.nativeEvent.inputType === "deleteContentBackward") {
+      setTransactionAmount(value);
+      return;
+    }
+
+    // Check if the value is a valid number (integer or floating point)
+    const parsedValue = parseFloat(value);
+    const isValidNumber = !isNaN(parsedValue);
+
+    if (isValidNumber) {
+      // Adjust the value to the maximum limit if it exceeds
+      if (parsedValue > MAX_TRANSACTION_AMOUNT) {
+        alert("You excedded the maximum limit");
+      } else {
+        setTransactionAmount(value);
+      }
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        transactionAmount: `Transaction amount must be a valid number less than or equal to ${Number.MAX_SAFE_INTEGER}.`,
+      }));
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (parseFloat(transactionAmount) === 0) {
+      alert("You entered a zero");
+      onClose();
+      return;
+    }
     const transactionData = {
       type: "expense",
-      transactionAmount: parseFloat(debouncedTransactionAmount),
-      debouncedCategoryName,
-      debouncedDate,
-      debouncedDescription,
+      transactionAmount: parseFloat(transactionAmount),
+      categoryName,
+      date: date ? moment(date).format("YYYY-MM-DD") : "",
+      description,
     };
     await onSubmit(transactionData);
   };
 
+  const handleDateChange = (date) => {
+    if (date) {
+      setDate(date);
+    } else {
+      console.error("Invalid date:", date);
+    }
+  };
+  console.log(date);
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       <div className={styles.amount}>
@@ -43,11 +92,11 @@ function ExpenseForm({ onSubmit, initialData = {}, isEditing = false }) {
         </label>
 
         <input
-          type="number"
+          type="BigInt"
           placeholder="Transaction Amount"
           id="amount"
           value={transactionAmount}
-          onChange={(e) => setTransactionAmount(e.target.value)}
+          onChange={handleTransactionAmountChange}
           className={styles.input}
           required
         />
@@ -78,12 +127,12 @@ function ExpenseForm({ onSubmit, initialData = {}, isEditing = false }) {
         <label htmlFor="date" className={styles.label}>
           Date:
         </label>
-        <input
-          type="date"
-          id="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          className={styles.input}
+
+        <ReactDatePicker
+          selected={date}
+          onChange={handleDateChange}
+          placeholderText="Select a date"
+          className={styles.datepicker}
           required
         />
       </div>
@@ -95,10 +144,11 @@ function ExpenseForm({ onSubmit, initialData = {}, isEditing = false }) {
         <textarea
           type="text"
           id="description"
-          placeholder="Add description"
+          placeholder="Add description upto 100 characters"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           className={styles.textarea}
+          maxLength={100}
           required
         />
       </div>

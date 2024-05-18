@@ -17,7 +17,7 @@ function Sidebar() {
   const { navigate } = useNavigate();
 
   const handleResize = () => {
-    setIsSmallScreen(window.innerWidth <= 500);
+    setIsSmallScreen(window.innerWidth <= 550);
   };
 
   useEffect(() => {

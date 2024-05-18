@@ -14,12 +14,27 @@
   margin-bottom: 5px;
 }
 
-.input,
-.textarea {
+.input {
   flex: 1;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+}
+
+.datepicker {
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+  box-sizing: border-box;
 }
 
 .button {
@@ -35,6 +50,20 @@
 }
 .button:hover {
   background-color: #6de2bd;
+}
+
+.cancelButton {
+  background-color: #f44336; /* Red */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 .amount {

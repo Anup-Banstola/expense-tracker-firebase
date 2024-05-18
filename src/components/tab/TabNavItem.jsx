@@ -18,16 +18,3 @@ const TabNavItem = ({ id, title, activeTab, handleTabChange }) => {
 };
 
 export default TabNavItem;
-
-// TabNavItem.js
-// import React from "react";
-
-// const TabNavItem = ({ title, onClick, isActive }) => {
-//   return (
-//     <div onClick={onClick} className={isActive ? "active" : ""}>
-//       {title}
-//     </div>
-//   );
-// };
-
-// export default TabNavItem;

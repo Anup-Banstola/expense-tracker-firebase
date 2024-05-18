@@ -15,6 +15,8 @@ function MonthlyStatistics({ selectedMonth }) {
 
   const [recentIncomes, setRecentIncomes] = useState([]);
   const [recentExpenses, setRecentExpenses] = useState([]);
+  const [totalIncomes, setTotalIncomes] = useState(0);
+  const [totalExpenses, setTotalExpenses] = useState(0);
 
   useEffect(() => {
     const transactionsForSelectedMonth = [...expenses, ...incomes].filter(
@@ -39,6 +41,18 @@ function MonthlyStatistics({ selectedMonth }) {
       const expenseTransactions = transactionsForSelectedMonth.filter(
         (transaction) => transaction.type === "expense"
       );
+
+      const totalIncomeAmount = incomeTransactions.reduce(
+        (acc, transaction) => acc + transaction.transactionAmount,
+        0
+      );
+      const totalExpenseAmount = expenseTransactions.reduce(
+        (acc, transaction) => acc + transaction.transactionAmount,
+        0
+      );
+
+      setTotalIncomes(totalIncomeAmount);
+      setTotalExpenses(totalExpenseAmount);
 
       incomeTransactions.sort(
         (a, b) => b.transactionAmount - a.transactionAmount
@@ -67,7 +81,11 @@ function MonthlyStatistics({ selectedMonth }) {
           <h3 className={styles.heading}>Monthly Transactions</h3>
           <div className={styles.recentTransactions}>
             <div className={styles.transactionSection}>
+              <div className={styles.totalAmount}>
+                Total Incomes: {formatAmount(totalIncomes)}
+              </div>
               <h4 className={styles.sectionHeading}>Recent Incomes</h4>
+
               {recentIncomes.length > 0 ? (
                 <div className={styles.transactions}>
                   {recentIncomes.map((transaction, index) => (
@@ -91,7 +109,11 @@ function MonthlyStatistics({ selectedMonth }) {
               )}
             </div>
             <div className={styles.transactionSection}>
+              <div className={styles.totalAmount}>
+                Total Expenses: {formatAmount(totalExpenses)}
+              </div>
               <h4 className={styles.sectionHeading}>Recent Expenses</h4>
+
               {recentExpenses.length > 0 ? (
                 <div className={styles.transactions}>
                   {recentExpenses.map((transaction, index) => (

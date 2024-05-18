@@ -17,7 +17,11 @@ function AddExpensePopup({ onClose }) {
         <span className={styles.close} onClick={onClose}>
           &times;
         </span>
-        <ExpenseForm onSubmit={handleSubmit} className={styles.expenseform} />
+        <ExpenseForm
+          onSubmit={handleSubmit}
+          onClose={onClose}
+          className={styles.expenseform}
+        />
       </div>
     </>
   );

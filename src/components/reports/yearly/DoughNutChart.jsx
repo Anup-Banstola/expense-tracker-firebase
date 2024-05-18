@@ -4,6 +4,13 @@ import styles from "./DoughNutChart.module.css";
 import { useGetTransactions } from "../../../hooks/useGetTransactions";
 import useGetCategories from "../../../hooks/useGetCategories";
 
+function formatAmount(amount) {
+  return new Intl.NumberFormat("en-NP", {
+    style: "currency",
+    currency: "NPR",
+  }).format(amount);
+}
+
 function DoughNutChart({ selectedYear }) {
   const { incomes, expenses } = useGetTransactions();
   const { categories } = useGetCategories();
@@ -11,13 +18,6 @@ function DoughNutChart({ selectedYear }) {
   const [yearlyIncomes, setYearlyIncomes] = useState({});
 
   const formattedSelectedYear = selectedYear.getFullYear();
-
-  function formatAmount(amount) {
-    return new Intl.NumberFormat("en-NP", {
-      style: "currency",
-      currency: "NPR",
-    }).format(amount);
-  }
 
   useEffect(() => {
     const aggregateTransactionsByYear = (transactions) => {
@@ -92,19 +92,7 @@ function DoughNutChart({ selectedYear }) {
                     pie: {
                       donut: {
                         labels: {
-                          show: true,
-                          total: {
-                            show: true,
-                            fontSize: 16,
-                            color: "#438024",
-                            formatter: function (w) {
-                              return formatAmount(
-                                w.globals.seriesTotals
-                                  .reduce((a, b) => a + b, 0)
-                                  .toFixed(2)
-                              );
-                            },
-                          },
+                          show: false,
                         },
                       },
                     },
@@ -114,11 +102,11 @@ function DoughNutChart({ selectedYear }) {
                   },
                   responsive: [
                     {
-                      breakpoint: 700,
+                      breakpoint: 600,
                       options: {
                         chart: {
                           width: "100%",
-                          height: "250",
+                          height: "450",
                         },
                         legend: {
                           position: "bottom",
@@ -126,6 +114,14 @@ function DoughNutChart({ selectedYear }) {
                       },
                     },
                   ],
+                  tooltip: {
+                    enabled: true,
+                    y: {
+                      formatter: function (val) {
+                        return formatAmount(val.toFixed(2));
+                      },
+                    },
+                  },
                 }}
               />
             </div>
@@ -152,19 +148,7 @@ function DoughNutChart({ selectedYear }) {
                     pie: {
                       donut: {
                         labels: {
-                          show: true,
-                          total: {
-                            show: true,
-                            fontSize: 16,
-                            color: "#438024",
-                            formatter: function (w) {
-                              return formatAmount(
-                                w.globals.seriesTotals
-                                  .reduce((a, b) => a + b, 0)
-                                  .toFixed(2)
-                              );
-                            },
-                          },
+                          show: false,
                         },
                       },
                     },
@@ -174,11 +158,11 @@ function DoughNutChart({ selectedYear }) {
                   },
                   responsive: [
                     {
-                      breakpoint: 700,
+                      breakpoint: 600,
                       options: {
                         chart: {
                           width: "100%",
-                          height: "250",
+                          height: "450",
                         },
                         legend: {
                           position: "bottom",
@@ -186,6 +170,14 @@ function DoughNutChart({ selectedYear }) {
                       },
                     },
                   ],
+                  tooltip: {
+                    enabled: true,
+                    y: {
+                      formatter: function (val) {
+                        return formatAmount(val.toFixed(2));
+                      },
+                    },
+                  },
                 }}
               />
             </div>

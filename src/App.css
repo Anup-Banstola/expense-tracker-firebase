@@ -3,5 +3,5 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins";
-  font-size: clamp(0.6rem, 1.5vw, 1.2rem);
+  font-size: clamp(0.9rem, 1.5vw, 1.2rem);
 }

@@ -28,6 +28,11 @@
   white-space: nowrap;
 }
 
+.feedback {
+  color: green;
+  margin-bottom: 10px;
+}
+
 .expenseTable th {
   background-color: #f2f2f2;
 }
@@ -81,4 +86,10 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.expenseTable .description {
+  max-width: 250px;
+  word-wrap: break-word;
+  white-space: normal;
 }

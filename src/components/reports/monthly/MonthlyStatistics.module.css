@@ -17,6 +17,15 @@
   margin-bottom: 16px;
 }
 
+.totalAmount {
+  padding: 15px;
+  font-weight: 500;
+  background-color: #2caf7d;
+  margin: 10px 0px;
+  box-sizing: border-box;
+  border-radius: 5px 5px 0 0;
+}
+
 .recentTransactions {
   display: flex;
   gap: 20px;

@@ -15,6 +15,8 @@ function MonthlyDoughNutChart({ selectedMonth }) {
   const { incomes, expenses } = useGetTransactions();
   const [monthlyExpenses, setMonthlyExpenses] = useState({});
   const [monthlyIncomes, setMonthlyIncomes] = useState({});
+  const [totalExpenses, setTotalExpenses] = useState(0);
+  const [totalIncomes, setTotalIncomes] = useState(0);
 
   const { categories } = useGetCategories();
 
@@ -43,16 +45,22 @@ function MonthlyDoughNutChart({ selectedMonth }) {
       return monthlyData;
     };
 
-    setMonthlyExpenses(aggregateTransactionsByMonth(expenses));
-    setMonthlyIncomes(aggregateTransactionsByMonth(incomes));
-    console.log(monthlyExpenses);
-    const monthlyTransactions = [
-      monthlyExpenses[formattedSelectedMonth],
-      monthlyIncomes[formattedSelectedMonth],
-    ];
+    const expensesData = aggregateTransactionsByMonth(expenses);
+    const incomesData = aggregateTransactionsByMonth(incomes);
 
-    console.log(monthlyTransactions);
-  }, [expenses, incomes]);
+    setMonthlyExpenses(expensesData);
+    setMonthlyIncomes(incomesData);
+
+    const totalExpenses = Object.values(
+      expensesData[formattedSelectedMonth] || {}
+    ).reduce((a, b) => a + b, 0);
+    const totalIncomes = Object.values(
+      incomesData[formattedSelectedMonth] || {}
+    ).reduce((a, b) => a + b, 0);
+
+    setTotalExpenses(totalExpenses);
+    setTotalIncomes(totalIncomes);
+  }, [expenses, incomes, formattedSelectedMonth]);
 
   function getRandomColor() {
     const letters = "0123456789ABCDEF";
@@ -73,9 +81,8 @@ function MonthlyDoughNutChart({ selectedMonth }) {
     });
     return categoryColors;
   };
-  const categoryColors = getCategoryColors();
 
-  console.log(getCategoryColors());
+  const categoryColors = getCategoryColors();
 
   const hasTransactions =
     Object.keys(monthlyExpenses[formattedSelectedMonth] || {}).length > 0 ||
@@ -108,20 +115,7 @@ function MonthlyDoughNutChart({ selectedMonth }) {
                     pie: {
                       donut: {
                         labels: {
-                          show: true,
-                          total: {
-                            show: true,
-
-                            fontSize: 16,
-                            // color: "#432454",
-                            formatter: function (w) {
-                              return formatAmount(
-                                w.globals.seriesTotals
-                                  .reduce((a, b) => a + b, 0)
-                                  .toFixed(2)
-                              );
-                            },
-                          },
+                          show: false,
                         },
                       },
                     },
@@ -129,14 +123,13 @@ function MonthlyDoughNutChart({ selectedMonth }) {
                   dataLabels: {
                     enabled: true,
                   },
-
                   responsive: [
                     {
-                      breakpoint: 700,
+                      breakpoint: 600,
                       options: {
                         chart: {
                           width: "100%",
-                          height: "250",
+                          height: "450",
                         },
                         legend: {
                           position: "bottom",
@@ -144,6 +137,14 @@ function MonthlyDoughNutChart({ selectedMonth }) {
                       },
                     },
                   ],
+                  tooltip: {
+                    enabled: true,
+                    y: {
+                      formatter: function (val) {
+                        return formatAmount(val.toFixed(2));
+                      },
+                    },
+                  },
                 }}
               />
             </div>
@@ -170,19 +171,7 @@ function MonthlyDoughNutChart({ selectedMonth }) {
                     pie: {
                       donut: {
                         labels: {
-                          show: true,
-                          total: {
-                            show: true,
-                            fontSize: 16,
-                            color: "#438024",
-                            formatter: function (w) {
-                              return formatAmount(
-                                w.globals.seriesTotals
-                                  .reduce((a, b) => a + b, 0)
-                                  .toFixed(2)
-                              );
-                            },
-                          },
+                          show: false,
                         },
                       },
                     },
@@ -193,11 +182,11 @@ function MonthlyDoughNutChart({ selectedMonth }) {
 
                   responsive: [
                     {
-                      breakpoint: 700,
+                      breakpoint: 600,
                       options: {
                         chart: {
                           width: "100%",
-                          height: "250",
+                          height: "450",
                         },
                         legend: {
                           position: "bottom",
@@ -205,11 +194,20 @@ function MonthlyDoughNutChart({ selectedMonth }) {
                       },
                     },
                   ],
+                  tooltip: {
+                    enabled: true,
+                    y: {
+                      formatter: function (val) {
+                        return formatAmount(val.toFixed(2));
+                      },
+                    },
+                  },
                 }}
               />
             </div>
           )}
       </div>
+      ;
     </>
   );
 }

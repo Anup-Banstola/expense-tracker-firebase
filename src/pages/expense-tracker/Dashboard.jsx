@@ -15,7 +15,7 @@ function Dashboard() {
   const navigate = useNavigate();
   const { name, profilePhoto, email, userID } = useGetUserInfo();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   useEffect(() => {
     const totalExpensesAmount = expenses.reduce((acc, expense) => {
       return acc + parseFloat(expense.transactionAmount);

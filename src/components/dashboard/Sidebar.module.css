@@ -81,7 +81,7 @@
   }
 }
 
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 550px) {
   .link .text {
     display: none;
   }
@@ -113,7 +113,7 @@
 }
 
 .signout:hover {
-  font-size: 14px;
+  background-color: rgb(196, 52, 52);
 }
 
 .logoutbtn {

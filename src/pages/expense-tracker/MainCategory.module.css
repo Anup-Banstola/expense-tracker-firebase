@@ -8,13 +8,13 @@
   border-radius: 5px;
 }
 .addCategory {
-  background: linear-gradient(to right, #ff7e5f, #feb47b);
+  background-color: #1a6191;
   border-radius: 25px;
   padding: 10px 20px;
   border: none;
   color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .addCategory:hover {
