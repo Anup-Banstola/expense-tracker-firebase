@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./ExpenseForm.module.css";
 import useGetCategories from "../../hooks/useGetCategories";
-import ReactDatePicker from "react-datepicker";
+// import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 
@@ -47,7 +47,7 @@ function ExpenseForm({
     if (isValidNumber) {
       // Adjust the value to the maximum limit if it exceeds
       if (parsedValue > MAX_TRANSACTION_AMOUNT) {
-        alert("You excedded the maximum limit");
+        alert("You exceeded the maximum limit");
       } else {
         setTransactionAmount(value);
       }
@@ -75,7 +75,8 @@ function ExpenseForm({
       type: "expense",
       transactionAmount: parseFloat(transactionAmount),
       categoryName,
-      date: date ? moment(date).format("YYYY-MM-DD") : "",
+
+      date,
       description,
     };
     await onSubmit(transactionData);
@@ -135,12 +136,19 @@ function ExpenseForm({
           Date:
         </label>
 
-        <ReactDatePicker
+        {/* <ReactDatePicker
           selected={date}
           onChange={handleDateChange}
           placeholderText="Select a date"
           className={styles.datepicker}
           required
+        /> */}
+
+        <input
+          type="date"
+          id="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
         />
       </div>
 
