@@ -45,7 +45,7 @@ function AddCategoryPopup({ onClose, categories }) {
 
             <input
               type="text"
-              placeholder="Category Title"
+              placeholder="Category Name"
               id="title"
               value={categoryTitle}
               onChange={(e) => setCategoryTitle(e.target.value)}
