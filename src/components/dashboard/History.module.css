@@ -82,6 +82,7 @@
 .category {
   text-transform: capitalize;
   flex: 1;
+ 
 }
 
 .transactionList {
@@ -90,5 +91,6 @@
 }
 
 .amount {
-  font-weight: 600;
+  font-weight: 500;
+ 
 }

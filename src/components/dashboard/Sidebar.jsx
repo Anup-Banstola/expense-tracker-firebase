@@ -14,7 +14,7 @@ import { auth } from "../../config/firebase-config";
 
 function Sidebar() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const { navigate } = useNavigate();
+  const navigate = useNavigate();
 
   const handleResize = () => {
     setIsSmallScreen(window.innerWidth <= 550);

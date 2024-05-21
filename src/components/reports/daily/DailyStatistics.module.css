@@ -34,9 +34,9 @@
 }
 
 .transactions {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .transaction {
@@ -65,5 +65,12 @@
   .transactionSection {
     margin-right: 0;
     margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 380px) {
+  .daily {
+    background: none;
+    padding: 0;
   }
 }

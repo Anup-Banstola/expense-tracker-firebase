@@ -50,6 +50,7 @@ function AddCategoryPopup({ onClose, categories }) {
               value={categoryTitle}
               onChange={(e) => setCategoryTitle(e.target.value)}
               className={styles.titlefield}
+              maxLength={25}
             />
           </div>
           <div className={styles.image}>

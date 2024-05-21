@@ -149,6 +149,7 @@ function IncomeForm({
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           className={styles.textarea}
+          maxLength={100}
           required
         />
       </div>

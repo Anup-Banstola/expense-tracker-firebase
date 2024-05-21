@@ -43,9 +43,9 @@
 }
 
 .transactions {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .transaction {
@@ -53,6 +53,7 @@
   padding: 16px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  max-width: 100%;
 }
 
 .transactionDate,
@@ -74,5 +75,12 @@
   .transactionSection {
     margin-right: 0;
     margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 380px) {
+  .monthly {
+    background: none;
+    padding: 0;
   }
 }

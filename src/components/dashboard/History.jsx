@@ -40,12 +40,12 @@ function History() {
                         : styles.income
                     }`}
                   >
-                    <span className={styles.category}>
+                    <div className={styles.category}>
                       {transaction.categoryName}
-                    </span>
-                    <span className={styles.amount}>{`${formatAmount(
-                      transaction.transactionAmount
-                    )}`}</span>
+                    </div>
+                    <div className={styles.amount}>
+                      {formatAmount(transaction.transactionAmount)}
+                    </div>
                   </div>
                 ))}
             </div>

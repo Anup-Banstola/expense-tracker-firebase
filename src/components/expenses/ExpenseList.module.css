@@ -22,7 +22,7 @@
 
 .expenseTable th,
 .expenseTable td {
-  padding: 8px;
+  padding: 10px;
   border-bottom: 1px solid #ddd;
   text-align: left;
   white-space: nowrap;
