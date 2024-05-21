@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./ExpenseForm.module.css";
 import useGetCategories from "../../hooks/useGetCategories";
-// import ReactDatePicker from "react-datepicker";
+import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 
@@ -76,7 +76,7 @@ function ExpenseForm({
       transactionAmount: parseFloat(transactionAmount),
       categoryName,
 
-      date,
+      date: date ? moment(date).format("YYYY-MM-DD") : "",
       description,
     };
     await onSubmit(transactionData);
@@ -136,19 +136,12 @@ function ExpenseForm({
           Date:
         </label>
 
-        {/* <ReactDatePicker
+        <ReactDatePicker
           selected={date}
           onChange={handleDateChange}
           placeholderText="Select a date"
           className={styles.datepicker}
           required
-        /> */}
-
-        <input
-          type="date"
-          id="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
         />
       </div>
 

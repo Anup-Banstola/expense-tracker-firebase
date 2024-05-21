@@ -21,6 +21,7 @@ function EditExpensePopup({ onClose, transaction }) {
           onSubmit={handleSubmit}
           initialData={transaction}
           isEditing={true}
+          onClose={onClose}
         />
       </div>
     </>
