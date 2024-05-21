@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(86, 218, 211);
+  background-color: rgb(6, 7, 48);
 }
 
 .signin {
@@ -7,7 +7,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  color: #fff;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -38,4 +38,8 @@ body {
 
 .google {
   width: 60px;
+}
+
+.signIn {
+  color: black;
 }
