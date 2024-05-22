@@ -2,14 +2,8 @@
   flex: 1;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-image: linear-gradient(
-    to bottom right,
-    #f5c4b7,
-    #f5d0b7,
-    #f5dfb7,
-    #f5edb7,
-    #edf5b7
-  );
+  background: linear-gradient(to right, #ffcccc, #ccffff, #ffffcc);
+
   padding: 20px;
   animation: fade-in 0.4s ease;
 }
