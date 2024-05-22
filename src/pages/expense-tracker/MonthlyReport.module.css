@@ -1,6 +1,6 @@
 .monthlyreport {
   overflow-x: hidden;
-  overflow-y: scroll;
+
   flex: 1;
   background: linear-gradient(
     to bottom right,

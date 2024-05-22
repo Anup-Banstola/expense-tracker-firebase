@@ -14,7 +14,7 @@ function MonthlyReport() {
   return (
     <div className={styles.monthlyreport}>
       <div className={styles.datepicker}>
-        <h2 style={{ padding: "10px" }}>Monthly Report</h2>
+        <h2 style={{ padding: "20px" }}>Monthly Report</h2>
         <div className={styles.selectmonth}>
           <ReactDatePicker
             selected={selectedMonth}

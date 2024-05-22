@@ -15,7 +15,7 @@ function DailyReport() {
   return (
     <div className={styles.dailyreport}>
       <div className={styles.dayreport}>
-        <h2 style={{ padding: "10px" }}>Daily Report</h2>
+        <h2 style={{ padding: "20px" }}>Daily Report</h2>
         <div className={styles.selectday}>
           <ReactDatePicker
             selected={selectedDate}

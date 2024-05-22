@@ -14,7 +14,7 @@ function YearlyReport() {
   return (
     <div className={styles.yearlyreport}>
       <div className={styles.yearreport}>
-        <h2 style={{ padding: "10px" }}>Yearly Report</h2>
+        <h2 style={{ padding: "20px" }}>Yearly Report</h2>
         <div className={styles.year}>
           <ReactDatePicker
             selected={selectedYear}
