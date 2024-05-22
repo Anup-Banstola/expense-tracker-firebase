@@ -2,11 +2,12 @@
   background-color: #1e2a31;
   color: #ffffff;
   width: 20vw;
-  height: 100vh;
+  max-height: 100vh;
   position: sticky;
   top: 0;
   left: 0;
   transition: width 0.3s ease;
+  overflow: auto;
 }
 
 .headlink {
@@ -125,9 +126,6 @@
 }
 
 .logoutbtn {
-  position: absolute;
-  bottom: 45px;
-  left: 20px;
   color: #fff;
   align-self: center;
   font-size: 20px;

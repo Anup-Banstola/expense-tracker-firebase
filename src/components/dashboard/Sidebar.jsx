@@ -71,7 +71,6 @@ function Sidebar() {
       <div className={styles.sidebar}>
         <div className={styles.sidesignout}>
           <div>
-            {" "}
             <NavLink to="/dashboard" className={styles.headlink}>
               <div className={styles.logoContainer}>
                 <img
