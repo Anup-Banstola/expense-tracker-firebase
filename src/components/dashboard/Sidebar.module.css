@@ -8,6 +8,12 @@
   left: 0;
   transition: width 0.3s ease;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .headlink {
@@ -33,7 +39,6 @@
 .nav {
   display: flex;
   flex-direction: column;
-
   justify-content: center;
 }
 
@@ -133,4 +138,5 @@
 }
 .signoutContainer {
   margin: 20px auto;
+  padding-bottom: 20px;
 }
