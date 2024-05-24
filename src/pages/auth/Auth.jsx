@@ -40,10 +40,10 @@ export const Auth = () => {
 
   return (
     <div className={styles.signin}>
-      <p className={styles.sign}>Sign In With Google to Continue</p>
+      <p className={styles.sign}>Sign in with Google to continue</p>
       <div onClick={signInWithGoogle} className={styles.btn}>
-        <span className={styles.signIn}> Sign In With Google</span>
-        <span>
+        <span className={styles.signIn}> Sign in with Google</span>
+        <span className={styles.googleimg}>
           <img src="googleimg.png" height={30} />
         </span>
       </div>

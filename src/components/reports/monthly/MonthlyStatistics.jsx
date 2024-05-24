@@ -81,9 +81,9 @@ function MonthlyStatistics({ selectedMonth }) {
           <h3 className={styles.heading}>Monthly Transactions</h3>
           <div className={styles.recentTransactions}>
             <div className={styles.transactionSection}>
-              <div className={styles.totalAmount}>
+              {/* <div className={styles.totalAmount}>
                 Total Incomes: {formatAmount(totalIncomes)}
-              </div>
+              </div> */}
               <h4 className={styles.sectionHeading}>Recent Incomes</h4>
 
               {recentIncomes.length > 0 ? (
@@ -109,9 +109,9 @@ function MonthlyStatistics({ selectedMonth }) {
               )}
             </div>
             <div className={styles.transactionSection}>
-              <div className={styles.totalAmount}>
+              {/* <div className={styles.totalAmount}>
                 Total Expenses: {formatAmount(totalExpenses)}
-              </div>
+              </div> */}
               <h4 className={styles.sectionHeading}>Recent Expenses</h4>
 
               {recentExpenses.length > 0 ? (

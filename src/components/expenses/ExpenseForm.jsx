@@ -64,7 +64,6 @@ function ExpenseForm({
 
     if (parseFloat(transactionAmount) === 0) {
       alert("You entered a zero");
-      onClose();
       return;
     }
 

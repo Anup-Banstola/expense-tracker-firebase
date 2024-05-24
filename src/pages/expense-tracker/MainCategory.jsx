@@ -17,7 +17,7 @@ function MainCategory() {
         <header className={styles.categoryheader}>
           <h2>Categories</h2>
           <button onClick={togglePopup} className={styles.addCategory}>
-            Add new category
+            Add New Category
           </button>
         </header>
         <main>

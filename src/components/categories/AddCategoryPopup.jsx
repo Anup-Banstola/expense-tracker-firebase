@@ -5,10 +5,16 @@ import { useAddCategory } from "../../hooks/useAddCategory";
 function AddCategoryPopup({ onClose, categories }) {
   const [categoryTitle, setCategoryTitle] = useState("");
   const [categoryColor, setCategoryColor] = useState("");
+  const [colorError, setColorError] = useState(false);
   const { addCategory } = useAddCategory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!categoryColor) {
+      setColorError(true);
+      return;
+    }
 
     const isExistingCategory = categories.some(
       (category) => category.categoryTitle === categoryTitle
@@ -26,10 +32,16 @@ function AddCategoryPopup({ onClose, categories }) {
       });
       setCategoryTitle("");
       setCategoryColor("");
+      setColorError(false);
       onClose();
     } catch (error) {
       console.error("Error adding category:", error);
     }
+  };
+
+  const handleColorChange = (e) => {
+    setCategoryColor(e.target.value);
+    setColorError(false);
   };
 
   return (
@@ -50,7 +62,8 @@ function AddCategoryPopup({ onClose, categories }) {
               value={categoryTitle}
               onChange={(e) => setCategoryTitle(e.target.value)}
               className={styles.titlefield}
-              maxLength={25}
+              required
+              maxLength={50}
             />
           </div>
           <div className={styles.image}>
@@ -58,13 +71,17 @@ function AddCategoryPopup({ onClose, categories }) {
             <input
               type="color"
               value={categoryColor}
-              onChange={(e) => setCategoryColor(e.target.value)}
+              onChange={handleColorChange}
               className={styles.imagefield}
+              required
             />
+            {colorError && (
+              <p className={styles.error}>Please select a color.</p>
+            )}
           </div>
 
           <button type="submit" className={styles.addcategory}>
-            + Add Category
+            Add Category
           </button>
         </form>
       </div>

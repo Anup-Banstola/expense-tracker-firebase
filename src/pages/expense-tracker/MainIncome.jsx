@@ -17,7 +17,7 @@ function MainIncome() {
           <h2>Incomes</h2>
 
           <button className={styles.addincome} onClick={togglePopup}>
-            Add new income
+            Add New Income
           </button>
         </header>
         <main className={styles.main}>

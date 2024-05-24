@@ -103,8 +103,6 @@ function Dashboard() {
           </div>
         </div>
 
-        <p className={styles.overview}>Overview</p>
-
         <History />
       </main>
     </>

@@ -13,8 +13,12 @@
 .container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  align-items: center;
+  align-items: baseline;
 }
+
+/* .container {
+  display: flex;
+} */
 
 @media screen and (max-width: 430px) {
   .history,
@@ -82,7 +86,6 @@
 .category {
   text-transform: capitalize;
   flex: 1;
- 
 }
 
 .transactionList {
@@ -92,5 +95,4 @@
 
 .amount {
   font-weight: 500;
- 
 }

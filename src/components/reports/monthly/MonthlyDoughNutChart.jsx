@@ -123,6 +123,9 @@ function MonthlyDoughNutChart({ selectedMonth }) {
                   dataLabels: {
                     enabled: true,
                   },
+                  legend: {
+                    position: "bottom",
+                  },
                   responsive: [
                     {
                       breakpoint: 600,
@@ -174,10 +177,16 @@ function MonthlyDoughNutChart({ selectedMonth }) {
                           show: false,
                         },
                       },
+                      legend: {
+                        position: "bottom",
+                      },
                     },
                   },
                   dataLabels: {
                     enabled: true,
+                  },
+                  legend: {
+                    position: "bottom",
                   },
 
                   responsive: [

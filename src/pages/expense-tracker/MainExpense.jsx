@@ -40,7 +40,7 @@ function MainExpense() {
           <h2>Expenses</h2>
 
           <button onClick={togglePopup} className={styles.addexpense}>
-            Add new expense
+            Add New Expense
           </button>
         </header>
         <main className={styles.main}>

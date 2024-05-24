@@ -100,6 +100,9 @@ function DoughNutChart({ selectedYear }) {
                   dataLabels: {
                     enabled: true,
                   },
+                  legend: {
+                    position: "bottom",
+                  },
                   responsive: [
                     {
                       breakpoint: 600,
@@ -155,6 +158,9 @@ function DoughNutChart({ selectedYear }) {
                   },
                   dataLabels: {
                     enabled: true,
+                  },
+                  legend: {
+                    position: "bottom",
                   },
                   responsive: [
                     {

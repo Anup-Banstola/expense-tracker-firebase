@@ -26,7 +26,7 @@ function History() {
         <Chart />
         {transactionHistory.length > 0 && (
           <div className={styles.recentHistory}>
-            <h3>Recent History</h3>
+            <h3>Recent Transactions</h3>
             <div className={styles.transactionList}>
               {transactionHistory
                 .slice(0, 3)

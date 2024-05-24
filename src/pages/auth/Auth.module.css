@@ -29,6 +29,11 @@ body {
   margin-top: 10px;
   cursor: pointer;
 }
+
+.googleimg {
+  margin-top: 4px;
+}
+
 .sign {
   font-size: 22px;
   padding: 10px;

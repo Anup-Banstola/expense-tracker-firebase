@@ -13,6 +13,7 @@ import {
 } from "chart.js";
 import { useState, useEffect } from "react";
 import { useGetTransactions } from "../../hooks/useGetTransactions";
+import { color } from "chart.js/helpers";
 
 ChartJs.register(
   CategoryScale,
@@ -114,22 +115,26 @@ function Chart() {
       {
         label: "Expenses",
         data: expensesData,
-        borderColor: "rgba(254,37,37)",
-        backgroundColor: "rgba(254,37,37,0.2)",
-
+        borderColor: "#9b0a00",
+        backgroundColor: "#9b0a00",
         cubicInterpolationMode: "monotone",
+        pointStyle: "circle",
       },
       {
         label: "Incomes",
         data: incomesData,
-        borderColor: "rgba(20, 128, 76)",
-        backgroundColor: "rgba(20, 128, 76,0.2)",
+        borderColor: "rgba(20,128,76",
+        backgroundColor: "rgba(20, 128, 76)",
+
         cubicInterpolationMode: "monotone",
+        pointStyle: "circle",
       },
     ],
   };
+
   return (
     <div className={styles.chartContainer}>
+      <h2 className={styles.overview}>Overview</h2>
       <Line data={data} className={styles.chart} />
     </div>
   );
