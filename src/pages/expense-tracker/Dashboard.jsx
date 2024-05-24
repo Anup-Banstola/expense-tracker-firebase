@@ -64,10 +64,6 @@ function Dashboard() {
               className={styles.photo}
               onClick={handleProfileClick}
             />
-
-            {/* <button className={styles.signout} onClick={signUserOut}>
-              Sign Out
-            </button> */}
           </div>
         </div>
 

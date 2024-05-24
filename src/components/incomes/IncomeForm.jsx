@@ -97,7 +97,7 @@ function IncomeForm({
         </label>
 
         <input
-          type="BigInt"
+          type="Number"
           placeholder="Transaction Amount"
           id="amount"
           value={transactionAmount}

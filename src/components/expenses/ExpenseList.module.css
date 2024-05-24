@@ -88,7 +88,8 @@
   }
 }
 
-.expenseTable .description {
+.expenseTable .description,
+.expenseTable .cataName {
   max-width: 250px;
   word-wrap: break-word;
   white-space: normal;

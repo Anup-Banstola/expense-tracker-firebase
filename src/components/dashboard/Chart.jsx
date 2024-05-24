@@ -13,7 +13,7 @@ import {
 } from "chart.js";
 import { useState, useEffect } from "react";
 import { useGetTransactions } from "../../hooks/useGetTransactions";
-import { color } from "chart.js/helpers";
+import { toPadding } from "chart.js/helpers";
 
 ChartJs.register(
   CategoryScale,
@@ -116,26 +116,40 @@ function Chart() {
         label: "Expenses",
         data: expensesData,
         borderColor: "#9b0a00",
-        backgroundColor: "#9b0a00",
         cubicInterpolationMode: "monotone",
-        pointStyle: "circle",
       },
       {
         label: "Incomes",
         data: incomesData,
-        borderColor: "rgba(20,128,76",
-        backgroundColor: "rgba(20, 128, 76)",
-
+        borderColor: "#02401c",
         cubicInterpolationMode: "monotone",
-        pointStyle: "circle",
       },
     ],
+  };
+
+  const options = {
+    plugins: {
+      legend: {
+        labels: {
+          usePointStyle: true,
+          generateLabels: (chart) => {
+            const labels = chart.data.datasets.map((dataset, i) => {
+              return {
+                text: dataset.label,
+                fillStyle: dataset.borderColor,
+              };
+            });
+            return labels;
+          },
+        },
+      },
+    },
   };
 
   return (
     <div className={styles.chartContainer}>
       <h2 className={styles.overview}>Overview</h2>
-      <Line data={data} className={styles.chart} />
+      <Line data={data} options={options} className={styles.chart} />
     </div>
   );
 }

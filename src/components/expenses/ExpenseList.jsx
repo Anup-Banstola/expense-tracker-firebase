@@ -81,7 +81,7 @@ function ExpenseList({ expenses }) {
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{formatAmount(expense.transactionAmount)}</td>
-                  <td>{expense.categoryName}</td>
+                  <td className={styles.cataName}>{expense.categoryName}</td>
                   <td className={styles.description}>{expense.description}</td>
                   <td>{expense.date}</td>
                   <td>

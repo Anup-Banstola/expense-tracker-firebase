@@ -30,7 +30,7 @@ function History() {
             <div className={styles.transactionList}>
               {transactionHistory
                 .slice(0, 3)
-                .reverse()
+
                 .map((transaction, index) => (
                   <div
                     key={index}
