@@ -46,10 +46,6 @@ function MainExpense() {
         <main className={styles.main}>
           {showPopup && <AddExpensePopup onClose={togglePopup} />}
           <ExpenseList expenses={expenses} />
-
-          <div className={styles.balance}>
-            Current Balance:{formatAmount(accountBalance)}
-          </div>
         </main>
       </div>
     </>

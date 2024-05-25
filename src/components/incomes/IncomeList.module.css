@@ -1,14 +1,7 @@
 .container {
   overflow-x: auto;
   max-width: 100%;
-  background: linear-gradient(
-    to right,
-    #ffe7e7,
-    #fff3e7,
-    #f5ffe7,
-    #e7fff8,
-    #e7f0ff
-  );
+  background-color: aliceblue;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
