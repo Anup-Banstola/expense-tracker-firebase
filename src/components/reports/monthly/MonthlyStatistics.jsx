@@ -12,7 +12,6 @@ function formatAmount(amount) {
 
 function MonthlyStatistics({ selectedMonth }) {
   const { incomes, expenses, loading } = useGetTransactions();
-
   const [recentIncomes, setRecentIncomes] = useState([]);
   const [recentExpenses, setRecentExpenses] = useState([]);
   const [totalIncomes, setTotalIncomes] = useState(0);
@@ -34,13 +33,18 @@ function MonthlyStatistics({ selectedMonth }) {
       }
     );
 
+    console.log(transactionsForSelectedMonth);
+
     if (transactionsForSelectedMonth.length > 0) {
       const incomeTransactions = transactionsForSelectedMonth.filter(
         (transaction) => transaction.type === "income"
       );
+      console.log(incomeTransactions);
+
       const expenseTransactions = transactionsForSelectedMonth.filter(
         (transaction) => transaction.type === "expense"
       );
+      console.log(expenseTransactions);
 
       const totalIncomeAmount = incomeTransactions.reduce(
         (acc, transaction) => acc + transaction.transactionAmount,
@@ -67,10 +71,14 @@ function MonthlyStatistics({ selectedMonth }) {
       setRecentIncomes(recentIncomeTransactions);
       setRecentExpenses(recentExpenseTransactions);
     } else {
+      setTotalIncomes(0);
+      setTotalExpenses(0);
       setRecentIncomes([]);
       setRecentExpenses([]);
     }
   }, [expenses, incomes, selectedMonth]);
+
+  console.log(totalExpenses);
 
   return (
     <div className={styles.monthly}>
@@ -81,9 +89,9 @@ function MonthlyStatistics({ selectedMonth }) {
           <h3 className={styles.heading}>Monthly Transactions</h3>
           <div className={styles.recentTransactions}>
             <div className={styles.transactionSection}>
-              {/* <div className={styles.totalAmount}>
+              <div className={styles.totalAmount}>
                 Total Incomes: {formatAmount(totalIncomes)}
-              </div> */}
+              </div>
               <h4 className={styles.sectionHeading}>Recent Incomes</h4>
 
               {recentIncomes.length > 0 ? (
@@ -109,9 +117,9 @@ function MonthlyStatistics({ selectedMonth }) {
               )}
             </div>
             <div className={styles.transactionSection}>
-              {/* <div className={styles.totalAmount}>
+              <div className={styles.totalAmount}>
                 Total Expenses: {formatAmount(totalExpenses)}
-              </div> */}
+              </div>
               <h4 className={styles.sectionHeading}>Recent Expenses</h4>
 
               {recentExpenses.length > 0 ? (

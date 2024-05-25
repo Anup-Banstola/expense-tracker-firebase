@@ -19,8 +19,8 @@
 
 .totalAmount {
   padding: 15px;
-  font-weight: 500;
-  background-color: #2caf7d;
+  font-weight: 600;
+  text-align: center;
   margin: 10px 0px;
   box-sizing: border-box;
   border-radius: 5px 5px 0 0;
@@ -36,10 +36,14 @@
 .transactionSection {
   flex: 1;
   gap: 40px;
+  background-color: rgb(62, 206, 201);
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .sectionHeading {
   font-size: 20px;
+  margin-top: -5px;
   margin-bottom: 12px;
 }
 

@@ -17,8 +17,17 @@
   margin-bottom: 16px;
 }
 
+.totalAmount {
+  padding: 15px;
+  font-weight: 600;
+  text-align: center;
+  margin: 10px 0px;
+  box-sizing: border-box;
+}
+
 .recentTransactions {
   display: flex;
+  flex-direction: column;
   gap: 20px;
   justify-content: space-between;
 }
@@ -26,10 +35,14 @@
 .transactionSection {
   flex: 1;
   gap: 40px;
+  background-color: rgb(62, 206, 201);
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .sectionHeading {
   font-size: 20px;
+  margin-top: -5px;
   margin-bottom: 12px;
 }
 
@@ -44,6 +57,7 @@
   padding: 16px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  max-width: 100%;
 }
 
 .transactionDate,
@@ -51,6 +65,7 @@
 .transactionCategory {
   display: block;
   margin-bottom: 8px;
+  word-wrap: break-word;
 }
 
 .transactionAmount {
@@ -58,13 +73,14 @@
 }
 
 @media (max-width: 768px) {
-  .recentTransactions {
-    flex-direction: column;
-  }
-
   .transactionSection {
     margin-right: 0;
     margin-bottom: 20px;
+  }
+
+  .transactionCategory {
+    display: block;
+    word-wrap: break-word;
   }
 }
 

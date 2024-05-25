@@ -6,6 +6,7 @@ function AddCategoryPopup({ onClose, categories }) {
   const [categoryTitle, setCategoryTitle] = useState("");
   const [categoryColor, setCategoryColor] = useState("");
   const [colorError, setColorError] = useState(false);
+
   const { addCategory } = useAddCategory();
 
   const handleSubmit = async (e) => {
@@ -33,6 +34,7 @@ function AddCategoryPopup({ onClose, categories }) {
       setCategoryTitle("");
       setCategoryColor("");
       setColorError(false);
+
       onClose();
     } catch (error) {
       console.error("Error adding category:", error);
@@ -42,6 +44,14 @@ function AddCategoryPopup({ onClose, categories }) {
   const handleColorChange = (e) => {
     setCategoryColor(e.target.value);
     setColorError(false);
+  };
+
+  const handleCategoryChange = (e) => {
+    if (e.target.value.length <= 50) {
+      setCategoryTitle(e.target.value);
+    } else {
+      alert("Maximum length of 50 characters exceeded.");
+    }
   };
 
   return (
@@ -60,10 +70,9 @@ function AddCategoryPopup({ onClose, categories }) {
               placeholder="Category Name"
               id="title"
               value={categoryTitle}
-              onChange={(e) => setCategoryTitle(e.target.value)}
+              onChange={handleCategoryChange}
               className={styles.titlefield}
               required
-              maxLength={50}
             />
           </div>
           <div className={styles.image}>
@@ -75,9 +84,10 @@ function AddCategoryPopup({ onClose, categories }) {
               className={styles.imagefield}
               required
             />
-            {colorError && (
-              <p className={styles.error}>Please select a color.</p>
-            )}
+            {
+              colorError && alert("Please select a color.")
+              // <p className={styles.error}>Please select a color.</p>
+            }
           </div>
 
           <button type="submit" className={styles.addcategory}>

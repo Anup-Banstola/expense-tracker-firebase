@@ -14,6 +14,9 @@ function DailyStatistics({ selectedDate }) {
   const { incomes, expenses, loading } = useGetTransactions();
   const [recentIncomes, setRecentIncomes] = useState([]);
   const [recentExpenses, setRecentExpenses] = useState([]);
+  const [totalIncomes, setTotalIncomes] = useState(0);
+  const [totalExpenses, setTotalExpenses] = useState(0);
+
   useEffect(() => {
     const transactionsForSelectedDate = [...expenses, ...incomes].filter(
       (transaction) => {
@@ -31,6 +34,18 @@ function DailyStatistics({ selectedDate }) {
         (transaction) => transaction.type === "expense"
       );
 
+      const totalIncomeAmount = incomeTransactions.reduce(
+        (acc, transaction) => acc + transaction.transactionAmount,
+        0
+      );
+      const totalExpenseAmount = expenseTransactions.reduce(
+        (acc, transaction) => acc + transaction.transactionAmount,
+        0
+      );
+
+      setTotalIncomes(totalIncomeAmount);
+      setTotalExpenses(totalExpenseAmount);
+
       incomeTransactions.sort(
         (a, b) => b.transactionAmount - a.transactionAmount
       );
@@ -44,6 +59,8 @@ function DailyStatistics({ selectedDate }) {
       setRecentIncomes(recentIncomeTransactions);
       setRecentExpenses(recentExpenseTransactions);
     } else {
+      setTotalIncomes(0);
+      setTotalExpenses(0);
       setRecentIncomes([]);
       setRecentExpenses([]);
     }
@@ -58,6 +75,9 @@ function DailyStatistics({ selectedDate }) {
           <h3 className={styles.heading}>Daily Transactions</h3>
           <div className={styles.recentTransactions}>
             <div className={styles.transactionSection}>
+              <div className={styles.totalAmount}>
+                Total Incomes: {formatAmount(totalIncomes)}
+              </div>
               <h4 className={styles.sectionHeading}>Recent Incomes</h4>
               {recentIncomes.length > 0 ? (
                 <div className={styles.transactions}>
@@ -80,6 +100,9 @@ function DailyStatistics({ selectedDate }) {
               )}
             </div>
             <div className={styles.transactionSection}>
+              <div className={styles.totalAmount}>
+                Total Expenses: {formatAmount(totalExpenses)}
+              </div>
               <h4 className={styles.sectionHeading}>Recent Expenses</h4>
               {recentExpenses.length > 0 ? (
                 <div className={styles.transactions}>

@@ -7,6 +7,7 @@ import { auth } from "../../config/firebase-config.js";
 import { useNavigate } from "react-router-dom";
 import { useGetUserInfo } from "../../hooks/useGetUserInfo.js";
 import Modal from "../../components/dashboard/Modal.jsx";
+import Chart from "../../components/dashboard/Chart.jsx";
 
 function Dashboard() {
   const { incomes, expenses } = useGetTransactions();
@@ -98,7 +99,7 @@ function Dashboard() {
             <p className={styles.exp}>{formatAmount(totalExpenses)}</p>
           </div>
         </div>
-
+        <Chart />
         <History />
       </main>
     </>
