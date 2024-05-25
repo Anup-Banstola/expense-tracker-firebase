@@ -20,12 +20,5 @@
   flex: 1;
   overflow-x: hidden;
   overflow-y: scroll;
-  background: linear-gradient(
-    to right,
-    #ffe7e7,
-    #fff3e7,
-    #f5ffe7,
-    #e7fff8,
-    #e7f0ff
-  );
+  background-color: aliceblue;
 }

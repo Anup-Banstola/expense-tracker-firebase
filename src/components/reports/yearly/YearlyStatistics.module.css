@@ -1,15 +1,7 @@
 .yearly {
-  padding: 20px;
+  padding: 10px;
   border-radius: 8px;
   margin: 15px;
-  background: linear-gradient(
-    to right,
-    #ffe7e7,
-    #fff3e7,
-    #f5ffe7,
-    #e7fff8,
-    #e7f0ff
-  );
 }
 
 .heading {
