@@ -84,10 +84,9 @@ function AddCategoryPopup({ onClose, categories }) {
               className={styles.imagefield}
               required
             />
-            {
-              colorError && alert("Please select a color.")
-              // <p className={styles.error}>Please select a color.</p>
-            }
+            {colorError && (
+              <p className={styles.error}>Please select a color.</p>
+            )}
           </div>
 
           <button type="submit" className={styles.addcategory}>
